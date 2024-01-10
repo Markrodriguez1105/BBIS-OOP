@@ -80,9 +80,9 @@
                               <TableView fx:id="ResidentInfoTableview" prefHeight="525.0" prefWidth="820.0">
                                 <columns>
                                   <TableColumn fx:id="tableColumnName" prefWidth="212.0000365972519" text="Name" />
+                                    <TableColumn fx:id="tableColumnAge" prefWidth="77.5999755859375" text="Age" />
                                   <TableColumn fx:id="tableColumnGender" prefWidth="77.5999755859375" text="Gender" />
-                                    <TableColumn fx:id="tableColumnGender2" prefWidth="77.5999755859375" text="Age" />
-                                    <TableColumn fx:id="tableColumnGender21" prefWidth="120.79998779296875" text="Birhtdate" />
+                                    <TableColumn fx:id="tableColumnBirthdate" prefWidth="120.79998779296875" text="Birhtdate" />
                                     <TableColumn fx:id="tableColumnContactNo" prefWidth="155.99990844726562" text="Contact No" />
                                 </columns>
                                  <HBox.margin>

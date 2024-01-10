@@ -1,5 +1,7 @@
 package residentRecord.FXML;
 
+import java.util.Date;
+
 public class Resident {
     private int FamilyNo;
     private String fName;
@@ -8,7 +10,7 @@ public class Resident {
     private String Gender;
     private int age;
     private int contactNo;
-    private String birthdate; //   mm/dd/yyyy
+    private Date birthdate; //   mm/dd/yyyy
     private String Religion;  //catholic, protestant, Inglesia ni Kristo, Aglipay, Islam, Other(Specify)
     private String civilStatus; //Single, Legally Married, widowed, divorce/separated, common law?/live in
     private String educAttainment; // I. out of school(elem lvl, elem grad, h/s lvl, h/s lvl, col lvl, col grad, post grad, voc)
@@ -19,12 +21,13 @@ public class Resident {
     private boolean practicefamilyPlanning;  //if yes, write specifically
     private boolean withDisability; //if yes, write the disability
 
-    public Resident(String fName, String mName, String lName, String Gender, int age) {
+    public Resident(String fName, String mName, String lName, String Gender, int age, Date birthdate) {
         this.fName = fName;
         this.mName = mName;
         this.lName = lName;
         this.Gender = Gender;
         this.age = age;
+        this.birthdate =birthdate;
     }
     
     
@@ -50,7 +53,7 @@ public class Resident {
     public int getContactNo() {
         return contactNo;
     }
-    public String getBirthdate() {
+    public Date getBirthdate() {
         return birthdate;
     }
     public String getReligion() {
@@ -77,8 +80,8 @@ public class Resident {
     public boolean isWithDisability() {
         return withDisability;
     }
-    public String getfullname(){
-        return lName + ", "+ fName+" "+mName;
+    public  String getFullName(){
+        return lName.toUpperCase() + ", " + fName.toUpperCase() + " " +  mName.toUpperCase();
     }
     
 }

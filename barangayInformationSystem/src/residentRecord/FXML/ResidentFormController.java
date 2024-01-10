@@ -19,6 +19,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import oracle.jdbc.driver.OracleSQLException;
+import residentrecord.Connect;
 
 public class ResidentFormController implements Initializable {
 
@@ -44,8 +46,6 @@ public class ResidentFormController implements Initializable {
     private ResultSet result;
     private Alert alert;
 
-    
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         genderList();
@@ -57,13 +57,11 @@ public class ResidentFormController implements Initializable {
 
     @FXML
     private void addResident(ActionEvent event) {
-        
-        
-        connect = Connect.connectDB(); // error sya since dae ko nilaag si connect class ko
-        
-        
+
+        connect = Connect.connectDB();
+
         try {
-             if (fNameForm.getText().isEmpty()
+            if (fNameForm.getText().isEmpty()
                     || mNameForm.getText().isEmpty()
                     || LnameForm.getText().isEmpty()
                     || AgeForm.getText().isEmpty()
@@ -71,42 +69,47 @@ public class ResidentFormController implements Initializable {
                     || genderForm.getSelectionModel() == null) {
 
                 errorMessage("Please fill all the black fields");
-             }else {
-                
-                String checkData = "SELECT fname, mname, lname FROM resident_informations WHERE fname = "
-                        + fNameForm.getText() + " AND mname = "+ mNameForm.getText() + " AND lname = "+ LnameForm.getText();
+            } else {
+                System.out.println("Connected to the database");
 
+                String checkData = "SELECT fname, mname, lname FROM resident_informations WHERE fname = ? AND mname = ? AND lname = ?";
                 prepare = connect.prepareStatement(checkData);
+                prepare.setString(1, fNameForm.getText());
+                prepare.setString(2, mNameForm.getText());
+                prepare.setString(3, LnameForm.getText());
                 result = prepare.executeQuery();
 
                 if (result.next()) {
 
-                    successMessage(LnameForm.getText() +", "+ fNameForm.getText()+" "+mNameForm.getText() +" is already taken.");
+                    successMessage(LnameForm.getText() + ", " + fNameForm.getText() + " " + mNameForm.getText() + " is already taken.");
 
                 } else {
-                    String insertData = "INSERT INTO resident_informations (fname, mname, lname, gender, age, birhtdate)"
-                            + "VALUES (?,?,?,?,?,?)";
+                    String insertData = "INSERT INTO resident_informations (fname, mname, lname, gender, age, birthdate) VALUES (?, ?, ?, ?, ?, ?)";
+                prepare = connect.prepareStatement(insertData);
 
-                    prepare = connect.prepareStatement(insertData);
+                prepare.setString(1, fNameForm.getText());
+                prepare.setString(2, mNameForm.getText());
+                prepare.setString(3, LnameForm.getText());
+                prepare.setString(4, (String) genderForm.getSelectionModel().getSelectedItem());
+                prepare.setInt(5, Integer.parseInt(AgeForm.getText()));
+                prepare.setDate(6, java.sql.Date.valueOf(birthdateForm.getValue()));
 
-                    prepare.setString(1, fNameForm.getText());
-                    prepare.setString(2, mNameForm.getText());
-                    prepare.setString(3, LnameForm.getText());
-                    prepare.setString(4, (String) genderForm.getSelectionModel().getSelectedItem());
-                    prepare.setInt(5, Integer.parseInt(AgeForm.getText()));
-                    prepare.setDate(6, java.sql.Date.valueOf(birthdateForm.getValue()));
-
-                    prepare.executeUpdate();
-                    residentRecord.updateTableView();
+                prepare.executeUpdate();
+                residentRecord.updateTableView();
+                    System.out.println("succesfully inserted the data");
 
                 }
-             }
-             
-             
-        } catch (Exception e) {
-        }
+            }
+
+       } catch (OracleSQLException e) {
+        e.printStackTrace();
+    } catch (NumberFormatException e) {
+        errorMessage("Please enter a valid age");
+    } catch (Exception e) {
+        e.printStackTrace();
     }
-    
+    }
+
     //setting the items of combo boxes 
     //  items for gender
     private final String[] gender = {"Male", "Female"};
@@ -119,7 +122,7 @@ public class ResidentFormController implements Initializable {
         ObservableList listData = FXCollections.observableList(gList);
         genderForm.setItems(listData);
     }
-    
+
 //    dialogue for a unsucessful action
     private void errorMessage(String message) {
         alert = new Alert(Alert.AlertType.ERROR);
@@ -129,6 +132,7 @@ public class ResidentFormController implements Initializable {
         alert.showAndWait();
     }
 //    dialogue for a successful action
+
     private void successMessage(String message) {
         alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Message");
