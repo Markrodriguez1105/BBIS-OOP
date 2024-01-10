@@ -1,0 +1,18 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jan 11, 2024, 2:35:49 AM
+    Author     : Hello Mark
+*/
+.button{
+    -fx-background-color: none;
+    -fx-alignment: center-left;
+    -fx-background-radius: 10px 0 0 10px;
+}
+
+.button:hover{
+    -fx-background-color: #1e88e5;
+    -fx-cursor: hand;
+}
