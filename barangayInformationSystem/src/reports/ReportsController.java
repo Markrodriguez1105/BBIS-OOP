@@ -10,6 +10,8 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import main.main;
 
 /**
@@ -22,9 +24,24 @@ public class ReportsController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    @FXML
+    private Label CategoryLabel;
+    
+    @FXML
+    private ChoiceBox<String> CategoryChoiceBox;
+    
+    private String[] Category = {null,"Barangay Indigency","Barangay Clearance","Agricultural Permit","Business Permit","Blotter","Infrastructural Report","Utility Report"};
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        CategoryChoiceBox.getItems().addAll(Category);
+        CategoryChoiceBox.setOnAction(this::getCategory);
+    }
+    
+    public void getCategory(ActionEvent event){
+        String TheCategory = CategoryChoiceBox.getValue();
+        CategoryLabel.setText(TheCategory);
     }
     
     //Left-Nav Controller for buttons
