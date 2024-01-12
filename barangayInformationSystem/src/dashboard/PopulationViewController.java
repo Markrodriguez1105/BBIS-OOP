@@ -10,11 +10,9 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
 import main.main;
 
 /**
@@ -22,7 +20,7 @@ import main.main;
  *
  * @author Hello Mark
  */
-public class DashboardController implements Initializable {
+public class PopulationViewController implements Initializable {
 
     @FXML
     private Label population;
@@ -35,8 +33,9 @@ public class DashboardController implements Initializable {
     @FXML
     private Label voters;
     @FXML
-    private TableView<transaction> transactionList;
-
+    private BarChart<?, ?> sexGraph;
+    @FXML
+    private PieChart categoryGraph;
 
     /**
      * Initializes the controller class.
@@ -44,7 +43,7 @@ public class DashboardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }
+    }    
     
     //Left-Nav Controller for buttons
     @FXML
@@ -138,5 +137,4 @@ public class DashboardController implements Initializable {
         main main = new main();
         main.changeScene("/dashboard/voterView.fxml", "Voters View");
     }
-    
 }
