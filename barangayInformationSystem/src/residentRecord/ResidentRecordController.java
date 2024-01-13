@@ -10,7 +10,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import main.main;
+import main.Main;
 
 /**
  * FXML Controller class
@@ -30,61 +30,61 @@ public class ResidentRecordController implements Initializable {
     //Left-Nav Controller for buttons
     @FXML
     private void dashboardClick(ActionEvent event) throws IOException {
-        main main = new main();
+        Main main = new Main();
         main.changeScene("/dashboard/dashboard.fxml", "Dashboard");
     }
 
     @FXML
     private void barangayInfoClick(ActionEvent event) throws IOException {
-        main main = new main();
+        Main main = new Main();
         main.changeScene("/barangayInformation/barangayInformation.fxml", "Barangay Information");
     }
 
     @FXML
     private void barangayOfficialClick(ActionEvent event) throws IOException {
-        main main = new main();
+        Main main = new Main();
         main.changeScene("/barangayOfficial/barangayOfficial.fxml", "Barangay Official");
     }
 
     @FXML
     private void residentRecordClick(ActionEvent event) throws IOException {
-        main main = new main();
+        Main main = new Main();
         main.changeScene("/residentRecord/residentRecord.fxml", "Resident Record");
     }
 
     @FXML
     private void businessRecordClick(ActionEvent event) throws IOException {
-        main main = new main();
+        Main main = new Main();
         main.changeScene("/businessRecord/businessRecord.fxml", "Business Record");
     }
 
     @FXML
     private void householdRecordClick(ActionEvent event) throws IOException {
-        main main = new main();
+        Main main = new Main();
         main.changeScene("/householdRecord/householdRecord.fxml", "Household Record");
     }
 
     @FXML
     private void requestedDocsClick(ActionEvent event) throws IOException {
-        main main = new main();
+        Main main = new Main();
         main.changeScene("/requestedDocuments/requestedDocuments.fxml", "Requested Documents");
     }
 
     @FXML
     private void treasuryClick(ActionEvent event) throws IOException {
-        main main = new main();
+        Main main = new Main();
         main.changeScene("/treasury/treasury.fxml", "Treasury");
     }
 
     @FXML
     private void reportsClick(ActionEvent event) throws IOException {
-        main main = new main();
+        Main main = new Main();
         main.changeScene("/reports/reports.fxml", "Reports");
     }
 
     @FXML
     private void logOutClick(ActionEvent event) throws IOException {
-        main main = new main();
+        Main main = new Main();
         main.changeScene("/LogIn/LogIn.fxml", "Log In");
     }
 }

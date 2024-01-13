@@ -37,7 +37,7 @@ public class LogInController implements Initializable {
 
     @FXML
     private void userLogIn(ActionEvent event) throws IOException, SQLException {
-        main main = new main();
+        Main main = new Main();
         main.changeScene("/dashboard/dashboard.fxml", "Dashboard");
 //        main.changeScene("bbis.dashboard/dashboard.fxml");
 //        Database database = new Database();
