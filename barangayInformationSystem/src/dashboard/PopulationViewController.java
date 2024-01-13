@@ -16,6 +16,9 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import main.main;
 
 /**
@@ -40,6 +43,8 @@ public class PopulationViewController implements Initializable {
     @FXML
     private BarChart<String, Number> genderPopulationGraph;
 
+    Database database = new Database();
+
     /**
      * Initializes the controller class.
      */
@@ -52,22 +57,31 @@ public class PopulationViewController implements Initializable {
         businesses.setText("125");
         pendingCases.setText("14");
         voters.setText("1,246");
-        
-        //Population Graph
-        XYChart.Series<String, Number> populationGraph1 = new XYChart.Series<>();
-        populationGraph1.getData().add(new XYChart.Data<>("Male", 25));
-        populationGraph1.getData().add(new XYChart.Data<>("Female", 43));
-        genderPopulationGraph.getData().addAll(populationGraph1);
 
-        ObservableList<PieChart.Data> populationGraph2 = FXCollections.observableArrayList(
-                new PieChart.Data("Child", 20),
-                new PieChart.Data("Teen", 43),
-                new PieChart.Data("Adult", 53),
-                new PieChart.Data("Senior", 50));
-        categoryPopulationGraph.getData().addAll(populationGraph2);
-        
+        genderPopulationGraph.setBarGap(0);
+
+        //Population Graph
+        ResultSet barResult = database.executeQuery("SELECT `gender`, COUNT(`gender`) FROM `resident` GROUP BY `gender`;");
+        try {
+            genderPopulationGraph.getData().add(insertBarGraphDate(barResult));
+        } catch (SQLException ex) {
+            Logger.getLogger(PopulationViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //Piechart
+        ResultSet pieResult = database.executeQuery("SELECT CASE WHEN `age`<= 13 THEN 'Child' WHEN `age`> 13 AND `age` <= 18 THEN 'Teen' WHEN `age`> 18 AND `age` <= 60 THEN 'Adult' ELSE 'Senior' END AS `category`, COUNT(*) AS `count` FROM `resident` GROUP BY `category`;");
+        try {
+            ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
+            while (pieResult.next()) {
+                data.add(new PieChart.Data(pieResult.getString(1), pieResult.getInt(2)));
+            }
+            categoryPopulationGraph.setData(data);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
     }
-    
+
     //Left-Nav Controller for buttons
     @FXML
     private void dashboardClick(ActionEvent event) throws IOException {
@@ -128,9 +142,8 @@ public class PopulationViewController implements Initializable {
         main main = new main();
         main.changeScene("/LogIn/LogIn.fxml", "Log In");
     }
-    
-    //Graph start here
 
+    //Graph start here
     @FXML
     private void populationClick(ActionEvent event) throws IOException {
         main main = new main();
@@ -159,5 +172,14 @@ public class PopulationViewController implements Initializable {
     private void votersClick(ActionEvent event) throws IOException {
         main main = new main();
         main.changeScene("/dashboard/voterView.fxml", "Voters View");
+    }
+
+    public XYChart.Series<String, Number> insertBarGraphDate(ResultSet result) throws SQLException {
+        XYChart.Series<String, Number> data = new XYChart.Series<>();
+        while (result.next()) {
+            data.setName(result.getString(1));
+            data.getData().add(new XYChart.Data<>(result.getString(1), result.getInt(2)));
+        }
+        return data;
     }
 }
