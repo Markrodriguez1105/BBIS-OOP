@@ -57,7 +57,6 @@ public class HouseholdRecordController implements Initializable {
     private TableColumn<HouseholdRecords, Integer> colPurok;
     @FXML
     private TableColumn<HouseholdRecords, Double> colEMI;
-    @FXML
     private TextField tfSearch;
     @FXML
     private Button btnClear;
@@ -65,6 +64,8 @@ public class HouseholdRecordController implements Initializable {
     private Button btnDelete;
     @FXML
     private Button btnUpdate;
+    @FXML
+    private TextField tfSearchField;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -264,39 +265,6 @@ public class HouseholdRecordController implements Initializable {
         tfMonthlyIncome.clear();
     }
 
-    //nav bar buttons
-    @FXML
-    private void dashboardClick(MouseEvent event) {
-    }
-
-    @FXML
-    private void barangayOfficialClick(MouseEvent event) {
-    }
-
-    @FXML
-    private void businessRecordClick(MouseEvent event) {
-    }
-
-    @FXML
-    private void householdRecordClick(MouseEvent event) {
-    }
-
-    @FXML
-    private void requestedDocsClick(MouseEvent event) {
-    }
-
-    @FXML
-    private void treasuryClick(MouseEvent event) {
-    }
-
-    @FXML
-    private void reportsClick(MouseEvent event) {
-    }
-
-    @FXML
-    private void logOutClick(MouseEvent event) {
-    }
-
     @FXML
     private void handleSearch(ActionEvent event) {
         String searchTerm = tfSearch.getText();
@@ -334,5 +302,9 @@ public class HouseholdRecordController implements Initializable {
 
     private void displayErrorMessage(String string) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @FXML
+    private void handleSearch(MouseEvent event) {
     }
 }
