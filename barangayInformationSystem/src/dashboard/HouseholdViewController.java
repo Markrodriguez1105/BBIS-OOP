@@ -16,10 +16,6 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
 import main.main;
 
 /**
@@ -27,7 +23,7 @@ import main.main;
  *
  * @author Hello Mark
  */
-public class DashboardController implements Initializable {
+public class HouseholdViewController implements Initializable {
 
     @FXML
     private Label population;
@@ -40,7 +36,9 @@ public class DashboardController implements Initializable {
     @FXML
     private Label voters;
     @FXML
-    private TableView<transaction> transactionList;
+    private BarChart<String, Number> zoneHouseholdGraph;
+    @FXML
+    private BarChart<String, Number> incomeHouseholdGraph;
 
 
     /**
@@ -55,6 +53,24 @@ public class DashboardController implements Initializable {
         businesses.setText("125");
         pendingCases.setText("14");
         voters.setText("1,246");
+        
+        //Household Graph
+        XYChart.Series<String, Number> householdGraph1 = new XYChart.Series<>();
+        householdGraph1.getData().add(new XYChart.Data<>("Zone 1", 45));
+        householdGraph1.getData().add(new XYChart.Data<>("Zone 2", 40));
+        householdGraph1.getData().add(new XYChart.Data<>("Zone 3", 35));
+        householdGraph1.getData().add(new XYChart.Data<>("Zone 4", 75));
+        householdGraph1.getData().add(new XYChart.Data<>("Zone 5", 15));
+        householdGraph1.getData().add(new XYChart.Data<>("Zone 6", 75));
+        householdGraph1.getData().add(new XYChart.Data<>("Zone 7", 36));
+        zoneHouseholdGraph.getData().addAll(householdGraph1);
+        
+        XYChart.Series<String, Number> householdGraph2 = new XYChart.Series<>();
+        householdGraph2.getData().add(new XYChart.Data<>("0-₱10,000", 32));
+        householdGraph2.getData().add(new XYChart.Data<>("₱10,001-₱30,000", 40));
+        householdGraph2.getData().add(new XYChart.Data<>("₱30,001-₱50,000", 35));
+        householdGraph2.getData().add(new XYChart.Data<>("₱50,001-more", 75));
+        incomeHouseholdGraph.getData().addAll(householdGraph2);
         
     }
     
