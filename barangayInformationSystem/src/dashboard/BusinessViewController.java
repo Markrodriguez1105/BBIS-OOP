@@ -16,10 +16,6 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
 import main.main;
 
 /**
@@ -27,7 +23,7 @@ import main.main;
  *
  * @author Hello Mark
  */
-public class DashboardController implements Initializable {
+public class BusinessViewController implements Initializable {
 
     @FXML
     private Label population;
@@ -40,7 +36,9 @@ public class DashboardController implements Initializable {
     @FXML
     private Label voters;
     @FXML
-    private TableView<transaction> transactionList;
+    private BarChart<String, Number> zoneBusinessesGraph;
+    @FXML
+    private BarChart<String, Number> statusBusinessesGraph;
 
 
     /**
@@ -48,13 +46,28 @@ public class DashboardController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        //Dashboard summary
+        // TODO        //Dashboard summary
         population.setText("2,719");
         household.setText("794");
         businesses.setText("125");
         pendingCases.setText("14");
         voters.setText("1,246");
+        
+        //Businesses Graph
+        XYChart.Series<String, Number> businessGraph1 = new XYChart.Series<>();
+        businessGraph1.getData().add(new XYChart.Data<>("Zone 1", 21));
+        businessGraph1.getData().add(new XYChart.Data<>("Zone 2", 5));
+        businessGraph1.getData().add(new XYChart.Data<>("Zone 3", 15));
+        businessGraph1.getData().add(new XYChart.Data<>("Zone 4", 6));
+        businessGraph1.getData().add(new XYChart.Data<>("Zone 5", 8));
+        businessGraph1.getData().add(new XYChart.Data<>("Zone 6", 11));
+        businessGraph1.getData().add(new XYChart.Data<>("Zone 7", 31));
+        zoneBusinessesGraph.getData().addAll(businessGraph1);
+        
+        XYChart.Series<String, Number> businessGraph2 = new XYChart.Series<>();
+        businessGraph2.getData().add(new XYChart.Data<>("Active", 59));
+        businessGraph2.getData().add(new XYChart.Data<>("Inactive", 16));
+        statusBusinessesGraph.getData().addAll(businessGraph2);
         
     }
     
@@ -150,5 +163,4 @@ public class DashboardController implements Initializable {
         main main = new main();
         main.changeScene("/dashboard/voterView.fxml", "Voters View");
     }
-    
 }

@@ -16,10 +16,6 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
 import main.main;
 
 /**
@@ -27,7 +23,7 @@ import main.main;
  *
  * @author Hello Mark
  */
-public class DashboardController implements Initializable {
+public class PendingCasesViewController implements Initializable {
 
     @FXML
     private Label population;
@@ -40,7 +36,9 @@ public class DashboardController implements Initializable {
     @FXML
     private Label voters;
     @FXML
-    private TableView<transaction> transactionList;
+    private BarChart<String, Number> reportCasesGraph;
+    @FXML
+    private BarChart<String, Number> statusCasesGraph;
 
 
     /**
@@ -55,6 +53,18 @@ public class DashboardController implements Initializable {
         businesses.setText("125");
         pendingCases.setText("14");
         voters.setText("1,246");
+        
+        //Pending Cases
+        XYChart.Series<String, Number> pendingCases1 = new XYChart.Series<>();
+        pendingCases1.getData().add(new XYChart.Data<>("Blotter", 12));
+        pendingCases1.getData().add(new XYChart.Data<>("Infrastructural Report", 5));
+        pendingCases1.getData().add(new XYChart.Data<>("Utility Report", 15));
+        reportCasesGraph.getData().addAll(pendingCases1);
+        
+        XYChart.Series<String, Number> pendingCases2 = new XYChart.Series<>();
+        pendingCases2.getData().add(new XYChart.Data<>("Solve", 12));
+        pendingCases2.getData().add(new XYChart.Data<>("Pending", 5));
+        statusCasesGraph.getData().addAll(pendingCases2);
         
     }
     
@@ -150,5 +160,4 @@ public class DashboardController implements Initializable {
         main main = new main();
         main.changeScene("/dashboard/voterView.fxml", "Voters View");
     }
-    
 }

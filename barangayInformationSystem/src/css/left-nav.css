@@ -6,6 +6,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     Created on : Jan 11, 2024, 2:35:49 AM
     Author     : Hello Mark
 */
+
+/*For left-nav bar buttons*/
 .button{
     -fx-background-color: none;
     -fx-alignment: center-left;
@@ -16,3 +18,21 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-background-color: #1e88e5;
     -fx-cursor: hand;
 }
+/*End Here*/
+
+/*For dashboard*/
+#dashboard-box{
+    -fx-background-color: #3a53a5;
+    -fx-background-radius: 10px;
+    -fx-alignment: center;
+}
+
+#dashboard-box:hover{
+    -fx-background-color: #1e88e5;
+}
+
+#transaction{
+    -fx-background-color: white;
+    -fx-background-radius: 10px;
+}
+/*End Here*/

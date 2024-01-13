@@ -27,7 +27,7 @@ import main.main;
  *
  * @author Hello Mark
  */
-public class DashboardController implements Initializable {
+public class VoterViewController implements Initializable {
 
     @FXML
     private Label population;
@@ -40,7 +40,9 @@ public class DashboardController implements Initializable {
     @FXML
     private Label voters;
     @FXML
-    private TableView<transaction> transactionList;
+    private BarChart<String, Number> zoneVoterGraph;
+    @FXML
+    private BarChart<String, Number> statusVoterGraph;
 
 
     /**
@@ -55,6 +57,22 @@ public class DashboardController implements Initializable {
         businesses.setText("125");
         pendingCases.setText("14");
         voters.setText("1,246");
+        
+        //voters
+        XYChart.Series<String, Number> votersGraph1 = new XYChart.Series<>();
+        votersGraph1.getData().add(new XYChart.Data<>("Zone 1", 21));
+        votersGraph1.getData().add(new XYChart.Data<>("Zone 2", 5));
+        votersGraph1.getData().add(new XYChart.Data<>("Zone 3", 15));
+        votersGraph1.getData().add(new XYChart.Data<>("Zone 4", 6));
+        votersGraph1.getData().add(new XYChart.Data<>("Zone 5", 8));
+        votersGraph1.getData().add(new XYChart.Data<>("Zone 6", 11));
+        votersGraph1.getData().add(new XYChart.Data<>("Zone 7", 31));
+        zoneVoterGraph.getData().addAll(votersGraph1);
+        
+        XYChart.Series<String, Number> votersGraph2 = new XYChart.Series<>();
+        votersGraph2.getData().add(new XYChart.Data<>("Voters", 76));
+        votersGraph2.getData().add(new XYChart.Data<>("Non Voters", 90));
+        statusVoterGraph.getData().addAll(votersGraph2);
         
     }
     
