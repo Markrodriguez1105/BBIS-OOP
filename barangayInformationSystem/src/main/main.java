@@ -49,9 +49,4 @@ public class main extends Application {
         stage.show();
     }
 
-    public void closeWindow(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
-    }
-
 }
