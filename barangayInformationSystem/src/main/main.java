@@ -13,7 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-public  class main extends Application {
+public class main extends Application {
 
     private static Stage stg;
 
@@ -50,11 +50,6 @@ public  class main extends Application {
         stage.centerOnScreen();
         stage.setScene(scene);
         stage.show();
-    }
-
-    public void closeWindow(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
     }
 
 }
