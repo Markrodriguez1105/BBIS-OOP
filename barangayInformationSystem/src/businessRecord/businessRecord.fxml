@@ -19,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" fx:id="recordView" prefHeight="720.0" prefWidth="1400.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="businessrecord.FXMLDocumentController">
+<AnchorPane id="AnchorPane" fx:id="recordView" prefHeight="720.0" prefWidth="1400.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="businessrecord.businessRecordController">
 
     <children>
         <ButtonBar layoutX="251.0" layoutY="90.0" prefHeight="38.0" prefWidth="70.0" />

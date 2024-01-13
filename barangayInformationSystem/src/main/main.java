@@ -13,7 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-public  class main extends Application {
+public  class Main extends Application {
 
     private static Stage stg;
 

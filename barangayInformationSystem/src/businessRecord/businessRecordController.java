@@ -34,7 +34,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import main.Main;
 
-public class FXMLDocumentController implements Initializable {
+public class businessRecordController implements Initializable {
 
     @FXML
     private TextField Search;
@@ -81,7 +81,7 @@ public class FXMLDocumentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        loadDate();
+//        loadDate();
     }
 
     @FXML
@@ -111,7 +111,7 @@ public class FXMLDocumentController implements Initializable {
             connection.close();
 
         } catch (SQLException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(businessRecordController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -125,7 +125,7 @@ public class FXMLDocumentController implements Initializable {
             preparedStatement.execute();
 
         } catch (SQLException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(businessRecordController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -165,7 +165,7 @@ public class FXMLDocumentController implements Initializable {
             recordsTable.setItems(RecordList);
 
         } catch (SQLException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(businessRecordController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -184,7 +184,7 @@ public class FXMLDocumentController implements Initializable {
             stage.initStyle(StageStyle.UTILITY);
             stage.show();
         } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(businessRecordController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

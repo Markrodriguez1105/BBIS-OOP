@@ -64,34 +64,34 @@ public class AddFormController implements Initializable {
 
     @FXML
     public void submit(MouseEvent event) {
-        connection = DbConnect.getConnection();
-
-        String idText = idFid.getText();
-        String Name = nameFid.getText();
-        String Address = addressFid.getText();
-        String type = typeFid.getText();
-        String IncomeText = incomeFid.getText();
-        String CostText = costFid.getText();
-
-        // Check if any field is empty
-        if (idText.isEmpty() || Name.isEmpty() || Address.isEmpty() || type.isEmpty() || IncomeText.isEmpty() || CostText.isEmpty()) {
-            showAlert("Please Fill All DATA");
-            
-            
-        } else {
-            try {
-                // Parse income and cost values
-                int id = Integer.parseInt(idText);
-                int income = Integer.parseInt(IncomeText);
-                int cost = Integer.parseInt(CostText);
-
-                // Continue with the logic
-                getQuery();
-                insert();
-            } catch (NumberFormatException e) {
-                showAlert("Invalid numeric input for Income or Cost");
-            }
-        }
+//        connection = DbConnect.getConnection();
+//
+//        String idText = idFid.getText();
+//        String Name = nameFid.getText();
+//        String Address = addressFid.getText();
+//        String type = typeFid.getText();
+//        String IncomeText = incomeFid.getText();
+//        String CostText = costFid.getText();
+//
+//        // Check if any field is empty
+//        if (idText.isEmpty() || Name.isEmpty() || Address.isEmpty() || type.isEmpty() || IncomeText.isEmpty() || CostText.isEmpty()) {
+//            showAlert("Please Fill All DATA");
+//            
+//            
+//        } else {
+//            try {
+//                // Parse income and cost values
+//                int id = Integer.parseInt(idText);
+//                int income = Integer.parseInt(IncomeText);
+//                int cost = Integer.parseInt(CostText);
+//
+//                // Continue with the logic
+//                getQuery();
+//                insert();
+//            } catch (NumberFormatException e) {
+//                showAlert("Invalid numeric input for Income or Cost");
+//            }
+//        }
     }
 
     private void getQuery() {
