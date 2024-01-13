@@ -19,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" fx:id="recordView" prefHeight="720.0" prefWidth="1400.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="businessrecord.businessRecordController">
+<AnchorPane id="AnchorPane" fx:id="recordView" prefHeight="720.0" prefWidth="1400.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="businessRecord.businessRecordController">
 
     <children>
         <ButtonBar layoutX="251.0" layoutY="90.0" prefHeight="38.0" prefWidth="70.0" />
@@ -83,7 +83,7 @@
                                 <Insets right="10.0" />
                             </GridPane.margin>
                         </HBox>
-                        <Button fx:id="Dashboard" graphicTextGap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#dashboardClick" prefHeight="70.0" prefWidth="191.0" snapToPixel="false" stylesheets="@../css/left-nav.css" text="Dashboard" textFill="WHITE" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+                        <Button graphicTextGap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#dashboardClick" prefHeight="70.0" prefWidth="191.0" snapToPixel="false" stylesheets="@../css/left-nav.css" text="Dashboard" textFill="WHITE" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                             <graphic>
                                 <FontAwesomeIcon id="icon" fill="WHITE" glyphName="BAR_CHART" size="1.8em" textAlignment="CENTER" wrappingWidth="30.0" />
                             </graphic>

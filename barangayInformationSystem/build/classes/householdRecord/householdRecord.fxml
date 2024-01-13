@@ -71,7 +71,7 @@
                         <Insets right="10.0" />
                      </GridPane.margin>
                   </HBox>
-                  <Button graphicTextGap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#dashboardClick" onMouseClicked="#dashboardClick" prefHeight="70.0" prefWidth="191.0" snapToPixel="false" stylesheets="@../css/left-nav.css" text="Dashboard" textFill="WHITE" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+                  <Button graphicTextGap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#dashboardClick" prefHeight="70.0" prefWidth="191.0" snapToPixel="false" stylesheets="@../css/left-nav.css" text="Dashboard" textFill="WHITE" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                      <graphic>
                         <FontAwesomeIcon id="icon" fill="WHITE" glyphName="BAR_CHART" size="1.8em" textAlignment="CENTER" wrappingWidth="30.0" />
                      </graphic>
@@ -81,7 +81,7 @@
                         <FontAwesomeIcon id="icon" fill="WHITE" glyphName="INFO_CIRCLE" size="1.8em" textAlignment="CENTER" wrappingWidth="30.0" />
                      </graphic>
                   </Button>
-                  <Button graphicTextGap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#barangayOfficialClick" onMouseClicked="#barangayOfficialClick" prefHeight="94.0" prefWidth="191.0" stylesheets="@../css/left-nav.css" text="Barangay Official" textFill="WHITE" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
+                  <Button graphicTextGap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#barangayOfficialClick" prefHeight="94.0" prefWidth="191.0" stylesheets="@../css/left-nav.css" text="Barangay Official" textFill="WHITE" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
                      <graphic>
                         <FontAwesomeIcon id="icon" fill="WHITE" glyphName="USER" size="1.8em" textAlignment="CENTER" wrappingWidth="30.0" />
                      </graphic>
@@ -91,32 +91,32 @@
                         <FontAwesomeIcon id="icon" fill="WHITE" glyphName="USERS" size="1.8em" textAlignment="CENTER" wrappingWidth="30.0" />
                      </graphic>
                   </Button>
-                  <Button graphicTextGap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#businessRecordClick" onMouseClicked="#businessRecordClick" prefHeight="35.0" prefWidth="233.0" stylesheets="@../css/left-nav.css" text="Business Record" textFill="WHITE" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.vgrow="ALWAYS">
+                  <Button graphicTextGap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#businessRecordClick" prefHeight="35.0" prefWidth="233.0" stylesheets="@../css/left-nav.css" text="Business Record" textFill="WHITE" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.vgrow="ALWAYS">
                      <graphic>
                         <FontAwesomeIcon id="icon" fill="WHITE" glyphName="LIST_ALT" size="1.8em" textAlignment="CENTER" wrappingWidth="30.0" />
                      </graphic>
                   </Button>
-                  <Button graphicTextGap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#householdRecordClick" onMouseClicked="#householdRecordClick" prefHeight="31.0" prefWidth="310.0" style="-fx-background-color: #f4f4f4f4;" stylesheets="@../css/left-nav.css" text="Household Record" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6" GridPane.vgrow="ALWAYS">
+                  <Button graphicTextGap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#householdRecordClick" prefHeight="31.0" prefWidth="310.0" style="-fx-background-color: #f4f4f4f4;" stylesheets="@../css/left-nav.css" text="Household Record" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6" GridPane.vgrow="ALWAYS">
                      <graphic>
                         <FontAwesomeIcon id="icon" glyphName="HOME" size="1.8em" textAlignment="CENTER" wrappingWidth="30.0" />
                      </graphic>
                   </Button>
-                  <Button graphicTextGap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#requestedDocsClick" onMouseClicked="#requestedDocsClick" prefHeight="35.0" prefWidth="325.0" stylesheets="@../css/left-nav.css" text="Requested Docs" textFill="WHITE" GridPane.hgrow="ALWAYS" GridPane.rowIndex="7" GridPane.vgrow="ALWAYS">
+                  <Button graphicTextGap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#requestedDocsClick" prefHeight="35.0" prefWidth="325.0" stylesheets="@../css/left-nav.css" text="Requested Docs" textFill="WHITE" GridPane.hgrow="ALWAYS" GridPane.rowIndex="7" GridPane.vgrow="ALWAYS">
                      <graphic>
                         <FontAwesomeIcon id="icon" fill="WHITE" glyphName="FILE_TEXT_ALT" size="1.8em" textAlignment="CENTER" wrappingWidth="30.0" />
                      </graphic>
                   </Button>
-                  <Button graphicTextGap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#treasuryClick" onMouseClicked="#treasuryClick" prefHeight="35.0" prefWidth="320.0" stylesheets="@../css/left-nav.css" text="Treasury" textFill="WHITE" GridPane.hgrow="ALWAYS" GridPane.rowIndex="8" GridPane.vgrow="ALWAYS">
+                  <Button graphicTextGap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#treasuryClick" prefHeight="35.0" prefWidth="320.0" stylesheets="@../css/left-nav.css" text="Treasury" textFill="WHITE" GridPane.hgrow="ALWAYS" GridPane.rowIndex="8" GridPane.vgrow="ALWAYS">
                      <graphic>
                         <FontAwesomeIcon id="icon" fill="WHITE" glyphName="USD" size="1.8em" textAlignment="CENTER" wrappingWidth="30.0" />
                      </graphic>
                   </Button>
-                  <Button graphicTextGap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#reportsClick" onMouseClicked="#reportsClick" prefHeight="35.0" prefWidth="303.0" stylesheets="@../css/left-nav.css" text="Reports" textFill="WHITE" GridPane.hgrow="ALWAYS" GridPane.rowIndex="9" GridPane.vgrow="ALWAYS">
+                  <Button graphicTextGap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#reportsClick" prefHeight="35.0" prefWidth="303.0" stylesheets="@../css/left-nav.css" text="Reports" textFill="WHITE" GridPane.hgrow="ALWAYS" GridPane.rowIndex="9" GridPane.vgrow="ALWAYS">
                      <graphic>
                         <FontAwesomeIcon id="icon" fill="WHITE" glyphName="GAVEL" size="1.8em" textAlignment="CENTER" wrappingWidth="30.0" />
                      </graphic>
                   </Button>
-                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#logOutClick" onMouseClicked="#logOutClick" prefHeight="35.0" prefWidth="322.0" stylesheets="@../css/left-nav.css" text="Log Out" textFill="WHITE" GridPane.hgrow="ALWAYS" GridPane.rowIndex="10" GridPane.vgrow="ALWAYS">
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#logOutClick" prefHeight="35.0" prefWidth="322.0" stylesheets="@../css/left-nav.css" text="Log Out" textFill="WHITE" GridPane.hgrow="ALWAYS" GridPane.rowIndex="10" GridPane.vgrow="ALWAYS">
                      <graphic>
                         <FontAwesomeIcon id="icon" fill="WHITE" glyphName="ANGLE_DOUBLE_LEFT" size="1.8em" textAlignment="CENTER" wrappingWidth="30.0" />
                      </graphic>
