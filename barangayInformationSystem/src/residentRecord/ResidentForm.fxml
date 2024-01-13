@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="residentRecord.ResidentFormController">
+   <children>
+      <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="600.0" prefWidth="600.0">
+         <content>
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="578.0">
+               <children>
+                  <TextField fx:id="fNameForm" layoutX="39.0" layoutY="119.0" prefHeight="42.0" prefWidth="243.0" />
+                  <TextField fx:id="mNameForm" layoutX="323.0" layoutY="119.0" prefHeight="42.0" prefWidth="243.0" />
+                  <Label layoutX="46.0" layoutY="93.0" text="Firstname" />
+                  <Label layoutX="325.0" layoutY="93.0" text="Middlename" />
+                  <TextField fx:id="LnameForm" layoutX="39.0" layoutY="193.0" prefHeight="42.0" prefWidth="243.0" />
+                  <Label layoutX="39.0" layoutY="167.0" text="Lastname" />
+                  <ComboBox fx:id="genderForm" layoutX="39.0" layoutY="259.0" prefHeight="42.0" prefWidth="243.0" promptText="Gender" />
+                  <TextField fx:id="AgeForm" layoutX="39.0" layoutY="340.0" prefHeight="42.0" prefWidth="243.0" />
+                  <Label layoutX="41.0" layoutY="316.0" text="Age" />
+                  <DatePicker fx:id="birthdateForm" layoutX="323.0" layoutY="259.0" prefHeight="42.0" prefWidth="243.0" promptText="Birthdate" />
+                  <Button fx:id="addBtn" layoutX="75.0" layoutY="935.0" mnemonicParsing="false" onAction="#addResident" prefHeight="50.0" prefWidth="461.0" text="Submit" />
+                  <Label layoutX="73.0" layoutY="31.0" text="Resident Information Form">
+                     <font>
+                        <Font name="Arial" size="35.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="civilStatusForm" layoutX="39.0" layoutY="408.0" prefHeight="42.0" prefWidth="243.0" promptText="Civil Status" />
+                  <ComboBox fx:id="religionForm" editable="true" layoutX="321.0" layoutY="340.0" prefHeight="42.0" prefWidth="243.0" promptText="Religion" />
+                  <ComboBox fx:id="inOutSchoolForm" layoutX="35.0" layoutY="601.0" prefHeight="42.0" prefWidth="243.0" promptText="In school / Out of School" />
+                  <ComboBox fx:id="educAttainmentForm" layoutX="317.0" layoutY="601.0" prefHeight="42.0" prefWidth="243.0" promptText="Educational Attainment" />
+                  <Label layoutX="37.0" layoutY="537.0" text="Educational Attainment">
+                     <font>
+                        <Font name="Arial" size="20.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="occupationForm" editable="true" layoutX="33.0" layoutY="726.0" prefHeight="42.0" prefWidth="243.0" promptText="Occupation" />
+                  <Label layoutX="33.0" layoutY="681.0" text="Occupation">
+                     <font>
+                        <Font name="Arial" size="20.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="laborForceForm" layoutX="318.0" layoutY="726.0" prefHeight="42.0" prefWidth="243.0" promptText="Labor Force" />
+                  <ComboBox fx:id="pregnantForm" layoutX="33.0" layoutY="794.0" prefHeight="42.0" prefWidth="243.0" promptText="Pregnant" />
+                  <ComboBox fx:id="nursingMotherForm" layoutX="317.0" layoutY="794.0" prefHeight="42.0" prefWidth="243.0" promptText="Nursing Mother" />
+                  <ComboBox fx:id="familyPlanningForm" editable="true" layoutX="35.0" layoutY="863.0" prefHeight="42.0" prefWidth="243.0" promptText="Practice Family Planning" />
+                  <ComboBox fx:id="DisabilityForm" editable="true" layoutX="317.0" layoutY="863.0" prefHeight="42.0" prefWidth="243.0" promptText="Patient with Disability" />
+                  <TextField fx:id="suffixForm" layoutX="323.0" layoutY="193.0" prefHeight="42.0" prefWidth="243.0" />
+                  <Label layoutX="325.0" layoutY="167.0" text="Suffix" />
+                  <TextField fx:id="purokForm" layoutX="321.0" layoutY="420.0" prefHeight="42.0" prefWidth="243.0" />
+                  <Label layoutX="323.0" layoutY="396.0" text="Purok" />
+                  <TextField fx:id="houseHoldNoForm" layoutX="39.0" layoutY="486.0" prefHeight="42.0" prefWidth="243.0" />
+                  <Label layoutX="41.0" layoutY="462.0" text="Household Number" />
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>
