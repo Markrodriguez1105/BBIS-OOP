@@ -1,14 +1,13 @@
 package businessrecord;
 
-import businessrecord.data.Record;
-import helpers.DbConnect;
+import businessRecord.Record;
+import businessRecord.DbConnect;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

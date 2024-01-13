@@ -1,8 +1,8 @@
 package businessrecord;
 
-import businessrecord.data.Record;
+import businessRecord.Record;
 
-import helpers.DbConnect;
+import businessRecord.DbConnect;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
