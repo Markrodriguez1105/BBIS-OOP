@@ -7,11 +7,19 @@ package dashboard;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import main.main;
 
 /**
@@ -32,9 +40,10 @@ public class VoterViewController implements Initializable {
     @FXML
     private Label voters;
     @FXML
-    private BarChart<?, ?> zoneGraph;
+    private BarChart<String, Number> zoneVoterGraph;
     @FXML
-    private BarChart<?, ?> statusGraph;
+    private BarChart<String, Number> statusVoterGraph;
+
 
     /**
      * Initializes the controller class.
@@ -42,6 +51,29 @@ public class VoterViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        //Dashboard summary
+        population.setText("2,719");
+        household.setText("794");
+        businesses.setText("125");
+        pendingCases.setText("14");
+        voters.setText("1,246");
+        
+        //voters
+        XYChart.Series<String, Number> votersGraph1 = new XYChart.Series<>();
+        votersGraph1.getData().add(new XYChart.Data<>("Zone 1", 21));
+        votersGraph1.getData().add(new XYChart.Data<>("Zone 2", 5));
+        votersGraph1.getData().add(new XYChart.Data<>("Zone 3", 15));
+        votersGraph1.getData().add(new XYChart.Data<>("Zone 4", 6));
+        votersGraph1.getData().add(new XYChart.Data<>("Zone 5", 8));
+        votersGraph1.getData().add(new XYChart.Data<>("Zone 6", 11));
+        votersGraph1.getData().add(new XYChart.Data<>("Zone 7", 31));
+        zoneVoterGraph.getData().addAll(votersGraph1);
+        
+        XYChart.Series<String, Number> votersGraph2 = new XYChart.Series<>();
+        votersGraph2.getData().add(new XYChart.Data<>("Voters", 76));
+        votersGraph2.getData().add(new XYChart.Data<>("Non Voters", 90));
+        statusVoterGraph.getData().addAll(votersGraph2);
+        
     }
     
     //Left-Nav Controller for buttons

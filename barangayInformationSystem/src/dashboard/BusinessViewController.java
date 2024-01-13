@@ -7,10 +7,14 @@ package dashboard;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import main.main;
 
@@ -32,16 +36,39 @@ public class BusinessViewController implements Initializable {
     @FXML
     private Label voters;
     @FXML
-    private BarChart<?, ?> zoneGraph;
+    private BarChart<String, Number> zoneBusinessesGraph;
     @FXML
-    private BarChart<?, ?> statusGraph;
+    private BarChart<String, Number> statusBusinessesGraph;
+
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        // TODO        //Dashboard summary
+        population.setText("2,719");
+        household.setText("794");
+        businesses.setText("125");
+        pendingCases.setText("14");
+        voters.setText("1,246");
+        
+        //Businesses Graph
+        XYChart.Series<String, Number> businessGraph1 = new XYChart.Series<>();
+        businessGraph1.getData().add(new XYChart.Data<>("Zone 1", 21));
+        businessGraph1.getData().add(new XYChart.Data<>("Zone 2", 5));
+        businessGraph1.getData().add(new XYChart.Data<>("Zone 3", 15));
+        businessGraph1.getData().add(new XYChart.Data<>("Zone 4", 6));
+        businessGraph1.getData().add(new XYChart.Data<>("Zone 5", 8));
+        businessGraph1.getData().add(new XYChart.Data<>("Zone 6", 11));
+        businessGraph1.getData().add(new XYChart.Data<>("Zone 7", 31));
+        zoneBusinessesGraph.getData().addAll(businessGraph1);
+        
+        XYChart.Series<String, Number> businessGraph2 = new XYChart.Series<>();
+        businessGraph2.getData().add(new XYChart.Data<>("Active", 59));
+        businessGraph2.getData().add(new XYChart.Data<>("Inactive", 16));
+        statusBusinessesGraph.getData().addAll(businessGraph2);
+        
     }
     
     //Left-Nav Controller for buttons

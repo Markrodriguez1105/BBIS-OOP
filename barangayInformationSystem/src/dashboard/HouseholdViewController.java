@@ -7,10 +7,14 @@ package dashboard;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import main.main;
 
@@ -32,9 +36,10 @@ public class HouseholdViewController implements Initializable {
     @FXML
     private Label voters;
     @FXML
-    private BarChart<?, ?> zoneGraph;
+    private BarChart<String, Number> zoneHouseholdGraph;
     @FXML
-    private BarChart<?, ?> incomeGraph;
+    private BarChart<String, Number> incomeHouseholdGraph;
+
 
     /**
      * Initializes the controller class.
@@ -42,7 +47,32 @@ public class HouseholdViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+        //Dashboard summary
+        population.setText("2,719");
+        household.setText("794");
+        businesses.setText("125");
+        pendingCases.setText("14");
+        voters.setText("1,246");
+        
+        //Household Graph
+        XYChart.Series<String, Number> householdGraph1 = new XYChart.Series<>();
+        householdGraph1.getData().add(new XYChart.Data<>("Zone 1", 45));
+        householdGraph1.getData().add(new XYChart.Data<>("Zone 2", 40));
+        householdGraph1.getData().add(new XYChart.Data<>("Zone 3", 35));
+        householdGraph1.getData().add(new XYChart.Data<>("Zone 4", 75));
+        householdGraph1.getData().add(new XYChart.Data<>("Zone 5", 15));
+        householdGraph1.getData().add(new XYChart.Data<>("Zone 6", 75));
+        householdGraph1.getData().add(new XYChart.Data<>("Zone 7", 36));
+        zoneHouseholdGraph.getData().addAll(householdGraph1);
+        
+        XYChart.Series<String, Number> householdGraph2 = new XYChart.Series<>();
+        householdGraph2.getData().add(new XYChart.Data<>("0-₱10,000", 32));
+        householdGraph2.getData().add(new XYChart.Data<>("₱10,001-₱30,000", 40));
+        householdGraph2.getData().add(new XYChart.Data<>("₱30,001-₱50,000", 35));
+        householdGraph2.getData().add(new XYChart.Data<>("₱50,001-more", 75));
+        incomeHouseholdGraph.getData().addAll(householdGraph2);
+        
+    }
     
     //Left-Nav Controller for buttons
     @FXML

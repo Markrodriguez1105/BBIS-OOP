@@ -7,9 +7,14 @@ package dashboard;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
@@ -44,6 +49,13 @@ public class DashboardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        //Dashboard summary
+        population.setText("2,719");
+        household.setText("794");
+        businesses.setText("125");
+        pendingCases.setText("14");
+        voters.setText("1,246");
+        
     }
     
     //Left-Nav Controller for buttons

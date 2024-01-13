@@ -293,7 +293,7 @@
                         </Text>
                         <HBox prefHeight="100.0" prefWidth="609.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <BarChart fx:id="zoneGraph" title="Zone" titleSide="BOTTOM" HBox.hgrow="ALWAYS">
+                              <BarChart fx:id="zoneBusinessesGraph" title="Zone" titleSide="BOTTOM" HBox.hgrow="ALWAYS">
                                  <xAxis>
                                     <CategoryAxis side="BOTTOM" />
                                  </xAxis>
@@ -301,7 +301,7 @@
                                     <NumberAxis side="LEFT" />
                                  </yAxis>
                               </BarChart>
-                              <BarChart fx:id="statusGraph" layoutX="10.0" layoutY="10.0" title="Status" titleSide="BOTTOM">
+                              <BarChart fx:id="statusBusinessesGraph" layoutX="10.0" layoutY="10.0" title="Status" titleSide="BOTTOM">
                                  <xAxis>
                                     <CategoryAxis side="BOTTOM" />
                                  </xAxis>

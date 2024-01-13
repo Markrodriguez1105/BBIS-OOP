@@ -294,7 +294,7 @@
                         </Text>
                         <HBox prefHeight="100.0" prefWidth="609.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <BarChart fx:id="sexGraph" title="Sex" titleSide="BOTTOM" HBox.hgrow="ALWAYS">
+                              <BarChart fx:id="genderPopulationGraph" title="Gender" titleSide="BOTTOM" HBox.hgrow="ALWAYS">
                                 <xAxis>
                                   <CategoryAxis side="BOTTOM" />
                                 </xAxis>
@@ -302,7 +302,7 @@
                                   <NumberAxis side="LEFT" />
                                 </yAxis>
                               </BarChart>
-                              <PieChart fx:id="categoryGraph" title="Category" titleSide="BOTTOM" HBox.hgrow="ALWAYS" />
+                              <PieChart fx:id="categoryPopulationGraph" title="Category" titleSide="BOTTOM" HBox.hgrow="ALWAYS" />
                            </children>
                         </HBox>
                      </children>

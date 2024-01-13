@@ -7,11 +7,14 @@ package dashboard;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import main.main;
 
@@ -33,9 +36,9 @@ public class PopulationViewController implements Initializable {
     @FXML
     private Label voters;
     @FXML
-    private BarChart<?, ?> sexGraph;
+    private PieChart categoryPopulationGraph;
     @FXML
-    private PieChart categoryGraph;
+    private BarChart<String, Number> genderPopulationGraph;
 
     /**
      * Initializes the controller class.
@@ -43,7 +46,27 @@ public class PopulationViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+        //Dashboard summary
+        population.setText("2,719");
+        household.setText("794");
+        businesses.setText("125");
+        pendingCases.setText("14");
+        voters.setText("1,246");
+        
+        //Population Graph
+        XYChart.Series<String, Number> populationGraph1 = new XYChart.Series<>();
+        populationGraph1.getData().add(new XYChart.Data<>("Male", 25));
+        populationGraph1.getData().add(new XYChart.Data<>("Female", 43));
+        genderPopulationGraph.getData().addAll(populationGraph1);
+
+        ObservableList<PieChart.Data> populationGraph2 = FXCollections.observableArrayList(
+                new PieChart.Data("Child", 20),
+                new PieChart.Data("Teen", 43),
+                new PieChart.Data("Adult", 53),
+                new PieChart.Data("Senior", 50));
+        categoryPopulationGraph.getData().addAll(populationGraph2);
+        
+    }
     
     //Left-Nav Controller for buttons
     @FXML
