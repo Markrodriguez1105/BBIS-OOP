@@ -1,6 +1,6 @@
-package householdRecord;
+package householdRecords;
 
-import householdRecord.HouseholdRecords;
+import householdRecords.HouseholdRecords;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
