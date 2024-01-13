@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package reports;
+package requestedDocuments;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -12,29 +12,27 @@ import javafx.beans.property.StringProperty;
  *
  * @author Hello Jovel
  */
-
-public class ReportsData {
-
-    private final StringProperty reportType;
+class DocReqData {
+    private final StringProperty docType;
     private final StringProperty name;
     private final StringProperty phoneNumber;
-    private final StringProperty email;
+    private final StringProperty date;
     private final StringProperty reason;
 
-    public ReportsData(String reportType, String name, String phoneNumber, String email, String reason) {
-        this.reportType = new SimpleStringProperty(reportType);
+    public DocReqData(String docType, String name, String phoneNumber, String date, String reason) {
+        this.docType = new SimpleStringProperty(docType);
         this.name = new SimpleStringProperty(name);
         this.phoneNumber = new SimpleStringProperty(phoneNumber);
-        this.email = new SimpleStringProperty(email);
+        this.date = new SimpleStringProperty(date);
         this.reason = new SimpleStringProperty(reason);
     }
 
-    public String getReportType() {
-        return reportType.get();
+    public String getDocType() {
+        return docType.get();
     }
 
-    public StringProperty reportTypeProperty() {
-        return reportType;
+    public StringProperty DocTypeProperty() {
+        return docType;
     }
 
     public String getName() {
@@ -53,12 +51,12 @@ public class ReportsData {
         return phoneNumber;
     }
 
-    public String getEmail() {
-        return email.get();
+    public String getDate() {
+        return date.get();
     }
 
-    public StringProperty emailProperty() {
-        return email;
+    public StringProperty dateProperty() {
+        return date;
     }
 
     public String getReason() {
