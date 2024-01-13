@@ -1,7 +1,7 @@
 package businessrecord;
 
-import businessrecord.data.Record;
-import helpers.DbConnect;
+import businessRecord.Record;
+import businessRecord.DbConnect;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
