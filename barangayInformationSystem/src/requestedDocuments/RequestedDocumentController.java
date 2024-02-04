@@ -22,6 +22,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.cell.PropertyValueFactory;
 import main.main;
 import reports.DatabaseConnector;
@@ -43,7 +44,7 @@ public class RequestedDocumentController implements Initializable {
     private TextField ReqDocSearchTextField;
     
     @FXML
-    private TableView<DocReqData> ReqDocReportTableView = new TableView();
+    private TableView<DocReqData> ReqDocReportTableView;
     
     @FXML
     private TableColumn<DocReqData, String> DocTypeTableColumn;
@@ -72,6 +73,7 @@ public class RequestedDocumentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Initialize table columns
+        
         DocTypeTableColumn.setCellValueFactory(new PropertyValueFactory<>("docType"));
         DocNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         DocContactNumberTableColumn.setCellValueFactory(new PropertyValueFactory<>("contactNumber"));

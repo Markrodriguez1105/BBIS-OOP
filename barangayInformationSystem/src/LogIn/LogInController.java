@@ -17,7 +17,6 @@ import main.*;
 public class LogInController implements Initializable {
     
     private Label label;
-    @FXML
     private ComboBox<String> dropBox;
     @FXML
     private Label indicator;
@@ -29,8 +28,6 @@ public class LogInController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        dropBox.setValue("RESIDENT");
-        dropBox.setItems(FXCollections.observableArrayList("RESIDENT", "ADMIN"));
     }
 
     @FXML

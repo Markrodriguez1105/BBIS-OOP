@@ -52,11 +52,11 @@ public class VoterViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         //Dashboard summary
-        population.setText("2,719");
-        household.setText("794");
-        businesses.setText("125");
-        pendingCases.setText("14");
-        voters.setText("1,246");
+        population.setText(DashboardController.populationCount);
+        household.setText(DashboardController.householdCount);
+        businesses.setText(DashboardController.businessesCount);
+        pendingCases.setText(DashboardController.pendingCasesCount);
+        voters.setText(DashboardController.votersCount);
         
         //voters
         XYChart.Series<String, Number> votersGraph1 = new XYChart.Series<>();

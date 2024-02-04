@@ -6,6 +6,8 @@ package dashboard;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,8 +15,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.PieChart;
+import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import main.main;
 
@@ -39,41 +42,64 @@ public class HouseholdViewController implements Initializable {
     private BarChart<String, Number> zoneHouseholdGraph;
     @FXML
     private BarChart<String, Number> incomeHouseholdGraph;
-
+    @FXML
+    private LineChart<String, Number> perYear;
+    @FXML
+    private ComboBox<String> perYearFilter;
+    @FXML
+    private ComboBox<String> filterYear;
+    @FXML
+    private ComboBox<String> filterZone;
 
     /**
      * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        graphMethods graph = new graphMethods();
+        Database database = new Database();
         // TODO
         //Dashboard summary
-        population.setText("2,719");
-        household.setText("794");
-        businesses.setText("125");
-        pendingCases.setText("14");
-        voters.setText("1,246");
+        population.setText(DashboardController.populationCount);
+        household.setText(DashboardController.householdCount);
+        businesses.setText(DashboardController.businessesCount);
+        pendingCases.setText(DashboardController.pendingCasesCount);
+        voters.setText(DashboardController.votersCount);
+
+        //Combobox Initialization
+        //Filter Year
+        filterYear.setValue(setComboBox(database.executeQuery("""
+                                                          SELECT MAX(YEAR(`date_registered`))
+                                                          FROM `resident`;""")).get(0));
+        filterYear.getItems().addAll(setComboBox(database.executeQuery("""
+                                                                   SELECT YEAR(`date_registered`) AS `year`
+                                                                   FROM `resident`
+                                                                   GROUP BY 1
+                                                                   ORDER BY 1 DESC;""")));
+
+        //Filter Zone
+        filterZone.setValue("All Zone");
+        filterZone.getItems().add("All Zone");
+        filterZone.getItems().addAll(setComboBox(database.executeQuery("""
+                                                                       SELECT CONCAT('Zone ', `zone`)
+                                                                       FROM `resident`
+                                                                       GROUP BY 1
+                                                                       ORDER BY 1;""")));
+
+        //Yearly Changes
+        perYearFilter.setValue("Household");
+        perYearFilter.getItems().add("Household");
+        perYearFilter.getItems().add("Zone Household");
+        perYearFilter.getItems().add("Income Rate");
         
-        //Household Graph
-        XYChart.Series<String, Number> householdGraph1 = new XYChart.Series<>();
-        householdGraph1.getData().add(new XYChart.Data<>("Zone 1", 45));
-        householdGraph1.getData().add(new XYChart.Data<>("Zone 2", 40));
-        householdGraph1.getData().add(new XYChart.Data<>("Zone 3", 35));
-        householdGraph1.getData().add(new XYChart.Data<>("Zone 4", 75));
-        householdGraph1.getData().add(new XYChart.Data<>("Zone 5", 15));
-        householdGraph1.getData().add(new XYChart.Data<>("Zone 6", 75));
-        householdGraph1.getData().add(new XYChart.Data<>("Zone 7", 36));
-        zoneHouseholdGraph.getData().addAll(householdGraph1);
-        
-        XYChart.Series<String, Number> householdGraph2 = new XYChart.Series<>();
-        householdGraph2.getData().add(new XYChart.Data<>("0-₱10,000", 32));
-        householdGraph2.getData().add(new XYChart.Data<>("₱10,001-₱30,000", 40));
-        householdGraph2.getData().add(new XYChart.Data<>("₱30,001-₱50,000", 35));
-        householdGraph2.getData().add(new XYChart.Data<>("₱50,001-more", 75));
-        incomeHouseholdGraph.getData().addAll(householdGraph2);
-        
+        //call graph
+        showFilter();
+        showYearlyChanges();
     }
-    
+
     //Left-Nav Controller for buttons
     @FXML
     private void dashboardClick(ActionEvent event) throws IOException {
@@ -134,7 +160,7 @@ public class HouseholdViewController implements Initializable {
         main main = new main();
         main.changeScene("/LogIn/LogIn.fxml", "Log In");
     }
-    
+
     //Graph start here
 
     @FXML
@@ -166,5 +192,136 @@ public class HouseholdViewController implements Initializable {
         main main = new main();
         main.changeScene("/dashboard/voterView.fxml", "Voters View");
     }
-    
+
+    public ObservableList<String> setComboBox(ResultSet result) {
+        ObservableList<String> list = FXCollections.observableArrayList();
+        try {
+            while (result.next()) {
+                list.add(result.getString(1));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return list;
+    }
+
+    @FXML
+    private void filterYear(ActionEvent event) {
+        showFilter();
+    }
+
+    @FXML
+    private void filterZone(ActionEvent event) {
+        showFilter();
+    }
+
+    @FXML
+    private void perYearFilter(ActionEvent event) {
+        showYearlyChanges();
+    }
+
+    void showFilter() {
+        try {
+            graphMethods graph = new graphMethods();
+            Database database = new Database();
+
+            zoneHouseholdGraph.getData().clear();
+            incomeHouseholdGraph.getData().clear();
+
+            //Household Graph
+            for (XYChart.Series<String, Number> bar
+                    : graph.barGraphGenerator(database.executeQuery(String.format("""
+                                                                    SELECT %s AS `label`,
+                                                                    CONCAT('Zone ', `zone`), COUNT(`zone`)
+                                                                    FROM `household`
+                                                                    WHERE YEAR(`date_registered`) <= %s
+                                                                    GROUP BY `zone`
+                                                                    ORDER BY `zone`;""", filterYear.getValue(), filterYear.getValue()))).values()) {
+                zoneHouseholdGraph.getData().add(bar);
+            }
+
+            if (filterZone.getValue().equals("All Zone")) {
+                for (XYChart.Series<String, Number> bar : graph.barGraphGenerator(database.executeQuery(String.format("""
+                                                                                                        SELECT 'All Zone' AS `label`, CASE
+                                                                                                        WHEN `monthly_income` <= 10000 THEN '0-\u20b110,000'
+                                                                                                        WHEN `monthly_income` > 10000 AND `monthly_income` <= 30000 THEN '\u20b110,000-\u20b130,000'
+                                                                                                        WHEN `monthly_income` > 30000 AND `monthly_income` <= 50000 THEN '\u20b130,000-\u20b150,000'
+                                                                                                        ELSE '\u20b150,000-more' END AS `cat`, COUNT(*) AS `count`
+                                                                                                        FROM `household`
+                                                                                                        WHERE YEAR(`date_registered`) <= %s
+                                                                                                        GROUP BY `cat`
+                                                                                                        ORDER BY `monthly_income`;""", filterYear.getValue()))).values()) {
+                    incomeHouseholdGraph.getData().add(bar);
+                }
+            }
+            else {
+                for (XYChart.Series<String, Number> bar : graph.barGraphGenerator(database.executeQuery(String.format("""
+                                                                                                        SELECT %s AS `label`, CASE
+                                                                                                        WHEN `monthly_income` <= 10000 THEN '0-\u20b110,000'
+                                                                                                        WHEN `monthly_income` > 10000 AND `monthly_income` <= 30000 THEN '\u20b110,000-\u20b130,000'
+                                                                                                        WHEN `monthly_income` > 30000 AND `monthly_income` <= 50000 THEN '\u20b130,000-\u20b150,000'
+                                                                                                        ELSE '\u20b150,000-more' END AS `cat`, COUNT(*) AS `count`
+                                                                                                        FROM `household`
+                                                                                                        WHERE YEAR(`date_registered`) <= %s AND CONCAT('Zone ',`zone`) = '%s'
+                                                                                                        GROUP BY `cat`
+                                                                                                        ORDER BY `monthly_income`;""", filterYear.getValue(), filterYear.getValue(), filterZone.getValue()))).values()) {
+                    incomeHouseholdGraph.getData().add(bar);
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    void showYearlyChanges() {
+        perYear.getData().clear();
+        try {
+            graphMethods graph = new graphMethods();
+            Database database = new Database();
+
+            switch (perYearFilter.getValue()) {
+                case "Household":
+                    for (XYChart.Series<String, Number> line : graph.lineGraphGenerator(database.executeQuery("""
+                                                                                                            SELECT 'Household' AS label, YEAR(`date_registered`) AS year,
+                                                                                                            SUM(COUNT(*)) OVER (ORDER BY YEAR(`date_registered`)) AS count
+                                                                                                            FROM `household`
+                                                                                                            GROUP BY YEAR(`date_registered`);""")).values()) {
+                        perYear.getData().add(line);
+                    }
+                    break;
+                case "Zone Household":
+                    for (XYChart.Series<String, Number> line : graph.lineGraphGenerator(database.executeQuery("""
+                                                                                                            SELECT CONCAT('Zone ',`zone`) AS zone, YEAR(`date_registered`) AS year,
+                                                                                                            SUM(COUNT(*)) OVER (PARTITION BY `zone` ORDER BY YEAR(`date_registered`)) AS count
+                                                                                                            FROM `household`
+                                                                                                            GROUP BY `zone`, YEAR(`date_registered`);""")).values()) {
+                        perYear.getData().add(line);
+                    }
+                    break;
+                case "Income Rate":
+                    for (XYChart.Series<String, Number> line : graph.lineGraphGenerator(database.executeQuery("""
+                                                                                                              SELECT CASE 
+                                                                                                              WHEN `monthly_income` <= 10000 THEN '0-₱10,000'
+                                                                                                              WHEN `monthly_income` > 10000 AND `monthly_income` <= 30000 THEN '₱10,000-₱30,000'
+                                                                                                              WHEN `monthly_income` > 30000 AND `monthly_income` <= 50000 THEN '₱30,000-₱50,000'
+                                                                                                              ELSE '₱50,000-more' END AS cat,
+                                                                                                              YEAR(`date_registered`) AS YEAR,
+                                                                                                              SUM(COUNT(*)) OVER( PARTITION BY(
+                                                                                                              CASE
+                                                                                                              WHEN `monthly_income` <= 10000 THEN '0-₱10,000'
+                                                                                                              WHEN `monthly_income` > 10000 AND `monthly_income` <= 30000 THEN '₱10,000-₱30,000'
+                                                                                                              WHEN `monthly_income` > 30000 AND `monthly_income` <= 50000 THEN '₱30,000-₱50,000'
+                                                                                                              ELSE '₱50,000-more' END) ORDER BY YEAR(`date_registered`)) AS count
+                                                                                                              FROM `household`
+                                                                                                              GROUP BY cat, YEAR(`date_registered`);""")).values()) {
+                        perYear.getData().add(line);
+                    }
+                    break;
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

@@ -132,29 +132,31 @@ public class ResidentRecordController implements Initializable {
     }
 
     @FXML
-    private void addResident(ActionEvent event) {
-
-//         ResidentFormController residentFormController = new ResidentFormController(this);
-        // Rest of the codex
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("ResidentForm.fxml"));
-            Parent root = loader.load();
-
-            residentForm = loader.getController();
-            residentForm.setCRUDForm(this);
-
-            Stage stage = new Stage();
-            stage.setTitle("Add Resident");
-            stage.setScene(new Scene(root));
-
-            stage.show();
-            userShowData();
-            updateTableView();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void addResident(ActionEvent event) throws IOException {
+        main main = new main();
+        main.overlayWindow("/residentRecord/addForm.fxml", "Add Resident");
     }
 
+//         ResidentFormController residentFormController = new ResidentFormController(this);
+    // Rest of the codex
+//        try {
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("ResidentForm.fxml"));
+//            Parent root = loader.load();
+//
+//            residentForm = loader.getController();
+//            residentForm.setCRUDForm(this);
+//
+//            Stage stage = new Stage();
+//            stage.setTitle("Add Resident");
+//            stage.setScene(new Scene(root));
+//
+//            stage.show();
+//            userShowData();
+//            updateTableView();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
     @FXML
     private void updateResidentInfo(ActionEvent event) {
 
@@ -178,7 +180,8 @@ public class ResidentRecordController implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } else {
+        }
+        else {
             errorMessage("Select a resident first before updating resident information");
         }
     }
@@ -212,7 +215,8 @@ public class ResidentRecordController implements Initializable {
                 updateTableView();
 
                 successMessage("Successfully deleted the resident");
-            } else {
+            }
+            else {
                 errorMessage("Cancelled");
             }
 
@@ -227,9 +231,8 @@ public class ResidentRecordController implements Initializable {
                 || Resident.getmName().toUpperCase().contains(searchText.toUpperCase())
                 || String.valueOf(Resident.getPurok()).contains(searchText)
                 || String.valueOf(Resident.getHousehold()).contains(searchText)
-                
         );
-        
+
         ResidentInfoTableview.setItems(filteredList);
     }
 
@@ -291,9 +294,9 @@ public class ResidentRecordController implements Initializable {
 
         ResidentInfoTableview.setItems(residentData);
 
-        searchBar.textProperty().addListener((Observable, oldValue, newValue)->{
-        searchTable(newValue);
-    });
+        searchBar.textProperty().addListener((Observable, oldValue, newValue) -> {
+            searchTable(newValue);
+        });
     }
 
     @FXML
@@ -357,5 +360,19 @@ public class ResidentRecordController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    public void removeData(Resident selected) throws SQLException {
+        Database database = new Database();
+        String key = selected.getfName() + selected.getmName() + selected.getlName();
+        ResultSet result = database.executeQuery("SELECT `resident_id`\n"
+                + "FROM `resident`\n"
+                + "WHERE CONCAT(`first_name`, `middle_name`, `last_name`) = '"+ key +"';");
+        while (result.next()) {
+            database.executeQuery("UPDATE `resident`\n"
+                    + "SET `inOutBarangay` = false\n"
+                    + "WHERE `resident_id` = "+ result.getString(1)+";");
+            System.out.println(result.getString(1));
+        }
     }
 }
