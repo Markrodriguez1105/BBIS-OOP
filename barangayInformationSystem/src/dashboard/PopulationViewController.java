@@ -73,8 +73,10 @@ public class PopulationViewController implements Initializable {
 
         //Filter Year
         filter.setValue(setComboBox(database.executeQuery("""
-                                                          SELECT MAX(YEAR(`date_registered`))
+                                                          SELECT MAX(YEAR(`date_registered`)) AS `year`
                                                           FROM `resident`;""")).get(0));
+        System.out.println(filter.getValue());
+        
         filter.getItems().addAll(setComboBox(database.executeQuery("""
                                                                    SELECT YEAR(`date_registered`) AS `year`
                                                                    FROM `resident`
