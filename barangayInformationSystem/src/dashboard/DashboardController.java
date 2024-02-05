@@ -6,20 +6,14 @@ package dashboard;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.PieChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
 import main.main;
 
 /**
@@ -41,21 +35,34 @@ public class DashboardController implements Initializable {
     private Label voters;
     @FXML
     private TableView<transaction> transactionList;
+    
+    public static String populationCount;
+    public static String householdCount;
+    public static String businessesCount;
+    public static String pendingCasesCount;
+    public static String votersCount;
 
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        //Dashboard summary
-        population.setText("2,719");
-        household.setText("794");
-        businesses.setText("125");
-        pendingCases.setText("14");
-        voters.setText("1,246");
+        try {
+            // TODO
+            setHeaderData();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
         
+        //Dashboard summary
+        population.setText(DashboardController.populationCount);
+        household.setText(DashboardController.householdCount);
+        businesses.setText(DashboardController.businessesCount);
+        pendingCases.setText(DashboardController.pendingCasesCount);
+        voters.setText(DashboardController.votersCount);
     }
     
     //Left-Nav Controller for buttons
@@ -149,6 +156,34 @@ public class DashboardController implements Initializable {
     private void votersClick(ActionEvent event) throws IOException {
         main main = new main();
         main.changeScene("/dashboard/voterView.fxml", "Voters View");
+    }
+    
+    public static void setHeaderData() throws SQLException {
+        Database database = new Database();
+        ResultSet result1 = database.executeQuery("SELECT COUNT(`resident_id`) AS COUNT FROM `resident`;");
+        while(result1.next()){
+            DashboardController.populationCount = result1.getString(1);
+        }
+        
+        ResultSet result2 = database.executeQuery("SELECT COUNT(`household_id`) AS COUNT FROM `household`;");
+        while(result2.next()){
+            DashboardController.householdCount = result2.getString(1);
+        }
+        
+        ResultSet result3 = database.executeQuery("SELECT COUNT(`business_id`) AS COUNT FROM `business`;");
+        while(result3.next()){
+            DashboardController.businessesCount = result3.getString(1);
+        }
+        
+        ResultSet result4 = database.executeQuery("SELECT COUNT(`status`) AS COUNT FROM `report` WHERE `status` = 'pending';");
+        while(result4.next()){
+            DashboardController.pendingCasesCount = result4.getString(1);
+        }
+        
+        ResultSet result5 = database.executeQuery("SELECT COUNT(`voter_status`) AS COUNT FROM `resident` WHERE `voter_status` = 'yes';");
+        while(result5.next()){
+            DashboardController.votersCount = result5.getString(1);
+        }
     }
     
 }

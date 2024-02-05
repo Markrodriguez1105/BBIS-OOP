@@ -4,10 +4,13 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -287,24 +290,78 @@
                <children>
                   <VBox id="transaction" stylesheets="@../css/left-nav.css" HBox.hgrow="ALWAYS">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Population">
-                           <font>
-                              <Font name="Poppins SemiBold" size="18.0" />
-                           </font>
-                        </Text>
-                        <HBox prefHeight="100.0" prefWidth="609.0" VBox.vgrow="ALWAYS">
+                        <HBox>
                            <children>
-                              <BarChart fx:id="genderPopulationGraph" title="Gender" titleSide="BOTTOM" HBox.hgrow="ALWAYS">
-                                <xAxis>
-                                  <CategoryAxis side="BOTTOM" />
-                                </xAxis>
-                                <yAxis>
-                                  <NumberAxis side="LEFT" />
-                                </yAxis>
-                              </BarChart>
-                              <PieChart fx:id="categoryPopulationGraph" title="Category" titleSide="BOTTOM" HBox.hgrow="ALWAYS" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Population">
+                                 <font>
+                                    <Font name="Poppins SemiBold" size="18.0" />
+                                 </font>
+                              </Text>
                            </children>
                         </HBox>
+                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                           <content>
+                              <VBox alignment="TOP_CENTER">
+                                 <children>
+                                    <HBox alignment="CENTER_RIGHT" spacing="10.0">
+                                       <children>
+                                          <ComboBox fx:id="filter" layoutX="455.0" layoutY="10.0" onAction="#filterSelect" prefHeight="1.0" prefWidth="100.0" promptText="Filter" />
+                                       </children>
+                                    </HBox>
+                                    <BarChart fx:id="perZone" animated="false" prefHeight="300.0" prefWidth="573.0" title="Zone Population">
+                                      <xAxis>
+                                        <CategoryAxis side="BOTTOM" />
+                                      </xAxis>
+                                      <yAxis>
+                                        <NumberAxis side="LEFT">
+                                             <tickLabelFont>
+                                                <Font name="Poppins Regular" size="8.0" />
+                                             </tickLabelFont>
+                                          </NumberAxis>
+                                      </yAxis>
+                                    </BarChart>
+                                    <HBox alignment="CENTER_RIGHT" prefWidth="573.0">
+                                       <children>
+                                          <ComboBox fx:id="filterZone" onAction="#filterZoneSelect" prefHeight="1.0" prefWidth="100.0" promptText="All Zone" visibleRowCount="5" />
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="300.0" prefWidth="573.0">
+                                       <children>
+                                          <BarChart fx:id="genderPopulationGraph" animated="false" barGap="0.0" categoryGap="0.0" title="Gender">
+                                            <xAxis>
+                                              <CategoryAxis endMargin="10.0" side="BOTTOM" startMargin="10.0" />
+                                            </xAxis>
+                                            <yAxis>
+                                              <NumberAxis side="LEFT">
+                                                   <tickLabelFont>
+                                                      <Font name="Poppins Regular" size="8.0" />
+                                                   </tickLabelFont>
+                                                </NumberAxis>
+                                            </yAxis>
+                                          </BarChart>
+                                          <PieChart fx:id="categoryPopulationGraph" title="Age Group" />
+                                       </children>
+                                    </HBox>
+                                    <LineChart fx:id="perYear" animated="false" legendSide="LEFT" prefHeight="300.0" prefWidth="593.0" title="Yearly Changes" VBox.vgrow="ALWAYS">
+                                      <xAxis>
+                                        <CategoryAxis side="BOTTOM" />
+                                      </xAxis>
+                                      <yAxis>
+                                        <NumberAxis side="LEFT" />
+                                      </yAxis>
+                                    </LineChart>
+                                    <HBox alignment="CENTER">
+                                       <children>
+                                          <ComboBox fx:id="perYearFilter" onAction="#perYearClick" prefHeight="1.0" prefWidth="200.0" promptText="Filter" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </VBox>
+                           </content>
+                        </ScrollPane>
                      </children>
                      <padding>
                         <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />

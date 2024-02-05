@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="reports.ReportDetailsController">
+    <VBox alignment="CENTER" spacing="10.0" prefHeight="400.0" prefWidth="600.0">
+        <Label text="Report Details" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+        <Label fx:id="reportTypeLabel" style="-fx-font-size: 14;"/>
+        <Label fx:id="nameLabel" style="-fx-font-size: 14;"/>
+        <Label fx:id="contactNumberLabel" style="-fx-font-size: 14;"/>
+        <Label fx:id="emailLabel" style="-fx-font-size: 14;"/>
+        <Label fx:id="reasonLabel" style="-fx-font-size: 14;"/>
+    </VBox>
+</AnchorPane>

@@ -6,6 +6,8 @@ package dashboard;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,10 +15,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.PieChart;
+import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import main.main;
+import javafx.scene.control.ComboBox;
 
 /**
  * FXML Controller class
@@ -36,41 +39,47 @@ public class BusinessViewController implements Initializable {
     @FXML
     private Label voters;
     @FXML
-    private BarChart<String, Number> zoneBusinessesGraph;
+    private ComboBox<String> filterYear;
     @FXML
-    private BarChart<String, Number> statusBusinessesGraph;
-
+    private ComboBox<String> perYear;
+    @FXML
+    private BarChart<String, Number> businessesGraph;
+    @FXML
+    private LineChart<String, Number> businessesTally;
 
     /**
      * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Database database = new Database();
         // TODO        //Dashboard summary
-        population.setText("2,719");
-        household.setText("794");
-        businesses.setText("125");
-        pendingCases.setText("14");
-        voters.setText("1,246");
-        
-        //Businesses Graph
-        XYChart.Series<String, Number> businessGraph1 = new XYChart.Series<>();
-        businessGraph1.getData().add(new XYChart.Data<>("Zone 1", 21));
-        businessGraph1.getData().add(new XYChart.Data<>("Zone 2", 5));
-        businessGraph1.getData().add(new XYChart.Data<>("Zone 3", 15));
-        businessGraph1.getData().add(new XYChart.Data<>("Zone 4", 6));
-        businessGraph1.getData().add(new XYChart.Data<>("Zone 5", 8));
-        businessGraph1.getData().add(new XYChart.Data<>("Zone 6", 11));
-        businessGraph1.getData().add(new XYChart.Data<>("Zone 7", 31));
-        zoneBusinessesGraph.getData().addAll(businessGraph1);
-        
-        XYChart.Series<String, Number> businessGraph2 = new XYChart.Series<>();
-        businessGraph2.getData().add(new XYChart.Data<>("Active", 59));
-        businessGraph2.getData().add(new XYChart.Data<>("Inactive", 16));
-        statusBusinessesGraph.getData().addAll(businessGraph2);
-        
+        population.setText(DashboardController.populationCount);
+        household.setText(DashboardController.householdCount);
+        businesses.setText(DashboardController.businessesCount);
+        pendingCases.setText(DashboardController.pendingCasesCount);
+        voters.setText(DashboardController.votersCount);
+
+        //Initialization combobox
+        filterYear.setValue(setComboBox(database.executeQuery("""
+                                                          SELECT MAX(YEAR(`date_registered`))
+                                                          FROM `resident`;""")).get(0));
+        filterYear.getItems().addAll(setComboBox(database.executeQuery("""
+                                                                   SELECT YEAR(`date_registered`) AS `year`
+                                                                   FROM `resident`
+                                                                   GROUP BY 1
+                                                                   ORDER BY 1 DESC;""")));
+
+        perYear.setValue("Business");
+        perYear.getItems().add("Business");
+        perYear.getItems().add("Zone Business");
+
+        //Graph Call
     }
-    
+
     //Left-Nav Controller for buttons
     @FXML
     private void dashboardClick(ActionEvent event) throws IOException {
@@ -131,9 +140,8 @@ public class BusinessViewController implements Initializable {
         main main = new main();
         main.changeScene("/LogIn/LogIn.fxml", "Log In");
     }
-    
-    //Graph start here
 
+    //Graph start here
     @FXML
     private void populationClick(ActionEvent event) throws IOException {
         main main = new main();
@@ -162,5 +170,58 @@ public class BusinessViewController implements Initializable {
     private void votersClick(ActionEvent event) throws IOException {
         main main = new main();
         main.changeScene("/dashboard/voterView.fxml", "Voters View");
+    }
+
+    public ObservableList<String> setComboBox(ResultSet result) {
+        ObservableList<String> list = FXCollections.observableArrayList();
+        try {
+            while (result.next()) {
+                list.add(result.getString(1));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return list;
+    }
+
+    @FXML
+    private void filterYear(ActionEvent event) {
+    }
+
+    @FXML
+    private void perYear(ActionEvent event) {
+    }
+
+    void showBusinessesGraph() {
+        try {
+            Database database = new Database();
+            graphMethods graph = new graphMethods();
+
+            for (XYChart.Series<String, Number> bar : graph.barGraphGenerator(database.executeQuery(String.format("""
+                                                                                                   SELECT
+                                                                                                   CASE
+                                                                                                   WHEN `status` = 0 THEN 'Inactive'
+                                                                                                   ELSE 'Active' END AS status, `zone`, COUNT(*)
+                                                                                                   FROM `business`
+                                                                                                   WHERE YEAR(`date_registered`) <= %s
+                                                                                                   GROUP BY 2, 1
+                                                                                                   ORDER BY 2;""", filterYear.getValue()))).values()) {
+                businessesGraph.getData().add(bar);
+            }
+            
+            for (XYChart.Series<String, Number> line : graph.lineGraphGenerator(database.executeQuery(String.format("""
+                                                                                                   SELECT
+                                                                                                   CASE
+                                                                                                   WHEN `status` = 0 THEN 'Inactive'
+                                                                                                   ELSE 'Active' END AS status, `zone`, COUNT(*)
+                                                                                                   FROM `business`
+                                                                                                   WHERE YEAR(`date_registered`) <= %s
+                                                                                                   GROUP BY 2, 1
+                                                                                                   ORDER BY 2;""", filterYear.getValue()))).values()) {
+                businessesGraph.getData().add(line);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

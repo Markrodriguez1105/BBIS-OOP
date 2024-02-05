@@ -7,19 +7,16 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.paint.Color;
 import java.sql.*;
 import main.*;
 
 public class LogInController implements Initializable {
     
     private Label label;
-    @FXML
     private ComboBox<String> dropBox;
     @FXML
     private Label indicator;
@@ -31,8 +28,6 @@ public class LogInController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        dropBox.setValue("RESIDENT");
-        dropBox.setItems(FXCollections.observableArrayList("RESIDENT", "ADMIN"));
     }
 
     @FXML

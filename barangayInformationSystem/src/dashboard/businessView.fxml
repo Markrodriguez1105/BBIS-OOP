@@ -4,9 +4,12 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -286,31 +289,56 @@
                <children>
                   <VBox id="transaction" stylesheets="@../css/left-nav.css" HBox.hgrow="ALWAYS">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Businesses">
-                           <font>
-                              <Font name="Poppins SemiBold" size="18.0" />
-                           </font>
-                        </Text>
-                        <HBox prefHeight="100.0" prefWidth="609.0" VBox.vgrow="ALWAYS">
+                        <HBox>
                            <children>
-                              <BarChart fx:id="zoneBusinessesGraph" title="Zone" titleSide="BOTTOM" HBox.hgrow="ALWAYS">
-                                 <xAxis>
-                                    <CategoryAxis side="BOTTOM" />
-                                 </xAxis>
-                                 <yAxis>
-                                    <NumberAxis side="LEFT" />
-                                 </yAxis>
-                              </BarChart>
-                              <BarChart fx:id="statusBusinessesGraph" layoutX="10.0" layoutY="10.0" title="Status" titleSide="BOTTOM">
-                                 <xAxis>
-                                    <CategoryAxis side="BOTTOM" />
-                                 </xAxis>
-                                 <yAxis>
-                                    <NumberAxis side="LEFT" />
-                                 </yAxis>
-                              </BarChart>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Businesses">
+                                 <font>
+                                    <Font name="Poppins SemiBold" size="18.0" />
+                                 </font>
+                              </Text>
                            </children>
                         </HBox>
+                        <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+                           <content>
+                              <VBox>
+                                 <children>
+                                    <HBox alignment="CENTER_RIGHT">
+                                       <children>
+                                          <ComboBox fx:id="filterYear" onAction="#filterYear" prefHeight="1.0" prefWidth="100.0" promptText="Show All" />
+                                       </children>
+                                    </HBox>
+                                    <HBox>
+                                       <children>
+                                          <BarChart fx:id="businessesGraph" animated="false" prefHeight="300.0" title="Business Tally" HBox.hgrow="ALWAYS">
+                                             <xAxis>
+                                                <CategoryAxis side="BOTTOM" />
+                                             </xAxis>
+                                             <yAxis>
+                                                <NumberAxis side="LEFT" />
+                                             </yAxis>
+                                          </BarChart>
+                                       </children>
+                                    </HBox>
+                                    <LineChart fx:id="businessesTally" animated="false" legendSide="LEFT" prefHeight="300.0" title="Yearly Changes" VBox.vgrow="ALWAYS">
+                                      <xAxis>
+                                        <CategoryAxis side="BOTTOM" />
+                                      </xAxis>
+                                      <yAxis>
+                                        <NumberAxis side="LEFT" />
+                                      </yAxis>
+                                    </LineChart>
+                                    <HBox alignment="CENTER_RIGHT" layoutX="20.0" layoutY="20.0">
+                                       <children>
+                                          <ComboBox fx:id="perYear" onAction="#perYear" prefHeight="1.0" prefWidth="100.0" promptText="Show All" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </VBox>
+                           </content>
+                        </ScrollPane>
                      </children>
                      <padding>
                         <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
