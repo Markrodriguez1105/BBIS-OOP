@@ -1,145 +1,78 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
-package treasury;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
-import javafx.fxml.Initializable;
+package treasury;
 import main.main;
-import java.text.DecimalFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Button;
-import javafx.fxml.FXML;
+import java.io.IOException;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import java.io.IOException;
-import javafx.scene.Parent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.util.Callback;
 
-/**
- * FXML Controller class
- *
- * @author Hello Mark
- */
+
+
 public class TreasuryController implements Initializable {
-    
-
-    /**
-     * Initializes the controller class.
-     */
-    @FXML
-    private DatePicker myDatePicker;
-    @FXML
-    private TextField getFinalTotal;
-     @FXML
-    private TextField getCurrentDate;
-    
-    @FXML
-    private ComboBox<String> myGenderOptions;
 
     @FXML
-    private ComboBox<String> myCitizenship;
-
+    private TableColumn<Cedula, String> full_name;
     @FXML
-    private ComboBox<String> myTinNum;
-
+    private TableColumn<Cedula, String> age;
     @FXML
-    private ComboBox<String> myStatus;
+    private TableColumn<Cedula, String> gender;
     @FXML
-    private TextField getTax1;
+    private TableColumn<Cedula, String> residensy_status;
     @FXML
-    private TextField getTax2;
+    private TableColumn<Cedula, String> income;
     @FXML
-    private TextField getTax3;
+    private TableColumn<Cedula, String> date_issued;
     @FXML
-    private TextField getAmount1;
+    private TableColumn<Cedula, String> purpose;
     @FXML
-    private TextField getAmount2;
+    private TableColumn<Cedula, String> communityTax;
     @FXML
-    private TextField getAmount3;
+    private TableColumn<Cedula, String> addcommTax;
     @FXML
-    private TextField getAmount4;
+    private TableColumn<Cedula, String> total;
     @FXML
-    private TextField getTotal;
-  
-     @FXML
-    private TextField getInterest;
+    private Button getAdd;
     @FXML
-    private Button getResult;
-    
-    /*    //Preview
+    private Button getPrint;
     @FXML
-    private TextField getFirstname;
+    private TableView<Cedula> tableviewHistory;
     @FXML
-    private TextField getMIddlename;
+    private Button getRefresh;
     @FXML
-    private TextField getLastname;
-    @FXML
-    private TextField getAdress;
-   
-    @FXML
-    private DatePicker myDatePicker;
-    @FXML
-    private TextField getPlaceOfBirth;
-    @FXML
-    private TextField getProfession;
-    @FXML
-    private TextField getPlaceOfIssue;
-    @FXML
-    private TextField getCurrentDate;
-    @FXML
-    private TextField getFinalTotal;
+    private TextField searchbar;
     
     
-   */
+ 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        myGenderOptions.getItems().addAll("Male", "Female");
-        myCitizenship.getItems().addAll("Filipino", "American", "Australian", "British ", "Chinese" ,"Korean",  "Thai");
-        myTinNum.getItems().addAll("None");
-        myStatus.getItems().addAll("Single", "Married", "Widow/Widower/Legally Separated", "Divorced");
-        
-        //5 peso voluntary
-        getAmount1.setText("5");
-        
-        addChangeListener(getAmount1, getTotal);
-        addChangeListener(getAmount2, getTotal);
-        addChangeListener(getAmount3, getTotal);
-        addChangeListener(getAmount4, getTotal);
-        
-        //Date Issued
-        setCurrentDateTextField();
-        
-        
-        
-        //getTax1
-        getTax1.textProperty().addListener((observable, oldValue, newValue) -> {
-        updateAmount2(newValue);
-        updateTotal();
-        
-    });   
-        //getTax2
-        getTax2.textProperty().addListener((observable, oldValue, newValue) -> {
-        updateAmount3(newValue);
-        updateTotal();
-        
-    }); 
-        //getTax3
-        getTax3.textProperty().addListener((observable, oldValue, newValue) -> {
-        updateAmount4(newValue);
-        updateTotal();
-         
-    }); 
-        
-    }    
+        income.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getPersonalIncome())));
+        communityTax.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getCommTax())));
+        addcommTax.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getAddComTax())));
+    
+        userShowData();
+    }
     
     //Left-Nav Controller for buttons
     @FXML
@@ -199,169 +132,141 @@ public class TreasuryController implements Initializable {
     @FXML
     private void logOutClick(ActionEvent event) throws IOException {
         main main = new main();
-        main.changeScene("/LogIn/LogIn.fxml", "Log In");
-    
-        
-        
+        main.changeScene("/LogIn/LogIn.fxml", "Log In");       
+    }
+    @FXML
+    private void handleGetAdd(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("CedulaForm.fxml"));
+            Parent root = loader.load();
+
+            CedulaForm cedulaFormController = loader.getController();
+            cedulaFormController.setTreasuryController(this);
+            
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+           
     }
     
-    //Select Gender
-    @FXML
-    public void Select() {
-        // Handle Gender event
-        String selectedGender = myGenderOptions.getValue();
-        
+    public void updateTableView() {
+        userShowData(); // Refresh the table view data
     }
 
-    @FXML
-    public void getDate() {
-        // Handle DatePicker event
-        LocalDate date = myDatePicker.getValue();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        String formattedDate = date.format(formatter);
-       
+    public ObservableList<Cedula> getCedulaData() {
+        return cedulaData;
+    }
+
+    public void setCedulaData(ObservableList<Cedula> cedulaData) {
+        this.cedulaData = cedulaData;
+    }
+
+    public TableView<Cedula> getTableviewHistory() {
+        return tableviewHistory;
+    }
+
+    public void setTableviewHistory(TableView<Cedula> tableviewHistory) {
+        this.tableviewHistory = tableviewHistory;
+    }
+
+    public TextField getSearchbar() {
+        return searchbar;
+    }
+
+    public void setSearchbar(TextField searchbar) {
+        this.searchbar = searchbar;
     }
     
-    @FXML
-    private void handleResult(ActionEvent event) {
-    try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Preview.fxml"));
-        Parent root = loader.load();
-        
-        // Access the controller of the preview window
-        PreviewController previewController = loader.getController();
-        
-        // Set the input values in the preview controller
-       /* previewController.setPreviewData(
-            getFirstname.getText(),
-            getMIddlename.getText(),
-            getLastname.getText(),
-            getAdress.getText(),
-            myGenderOptions.getValue(),
-            myDatePicker.getValue(),
-            getPlaceOfBirth.getText(),
-            myCitizenship.getValue(), // Use getValue() for ComboBox
-            myTinNum.getValue(), // Use getValue() for ComboBox
-            myStatus.getValue(), // Use getValue() for ComboBox
-            getProfession.getText(),
-            getPlaceOfIssue.getText(),
-            getCurrentDate.getText(),
-            getFinalTotal.getText()
-        );
-        
-        */
-        // Create a new stage for the preview window and display it
-        Stage previewStage = new Stage();
-        previewStage.setScene(new Scene(root));
-        previewStage.show();
-    } catch (IOException e) {
-        e.printStackTrace();
+    public ObservableList<Cedula> cedulaData;
+
+    public void userShowData() {
+
+        cedulaData = cedulaInfoList();
+
+        full_name.setCellValueFactory(new PropertyValueFactory<>("fullName"));
+        age.setCellValueFactory(new PropertyValueFactory<>("age"));
+        gender.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        residensy_status.setCellValueFactory(new PropertyValueFactory<>("residencyStatus"));
+        income.setCellValueFactory(new PropertyValueFactory<>("formattedPersonalIncome"));
+        date_issued.setCellValueFactory(new PropertyValueFactory<>("dateIssued"));
+        purpose.setCellValueFactory(new PropertyValueFactory<>("purpose"));
+//        purpose.setCellValueFactory(new PropertyValueFactory<>("purok"));
+        communityTax.setCellValueFactory(new PropertyValueFactory<>("formatnum"));
+        addcommTax.setCellValueFactory(new PropertyValueFactory<>("formatnum2"));
+        total.setCellValueFactory(new PropertyValueFactory<>("formatnum3"));
+
+        // Set the sorted data to the table view
+        tableviewHistory.setItems(cedulaData);
+
+            searchbar.textProperty().addListener((Observable, oldValue, newValue) -> {
+                searchTable(newValue);
+           });
     }
+    
+    private void searchTable(String text) {
+
+                FilteredList<Cedula> filteredList = new FilteredList<>(
+                        cedulaData, Cedula
+                        -> Cedula.getlName().toUpperCase().startsWith(text.toUpperCase())
+                );
+                
+                tableviewHistory.setItems(filteredList);
+    } 
+    
+    public static Connection connectDB() {
+
+        try {
+            return DriverManager.getConnection("jdbc:mysql://localhost/bbis", "root", "");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public ObservableList<Cedula> cedulaInfoList() {
+
+        String baseQuery = "SELECT * FROM cedula ORDER by date_issued ASC";
+
+        ObservableList listData = FXCollections.observableArrayList();
+
+        String selectData = baseQuery;
+
+        try {
+
+            if ( connectDB()== null) {
+                return listData; // Return an empty list
+            }
+            PreparedStatement prepare = connectDB().prepareStatement(selectData);
+            ResultSet result = prepare.executeQuery();
+
+            Cedula cedulaInfo;
+
+            while (result.next()) {
+
+                cedulaInfo = new Cedula( result.getString("first_name"), result.getString("middle_name"),
+                        result.getString("last_name"),  result.getString("gender"), result.getInt("age"),   
+                        result.getInt("income"), result.getInt("barangay_Id"),result.getString("tin_no"),
+                        result.getString("address"), result.getString("residency_status"), result.getDate("date_issued"),
+                        result.getString("purpose"), result.getInt("community_tax"), result.getInt("addcomm_tax"), result.getInt("total"));
+                
+                listData.add(cedulaInfo);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error executing SQL query: " + e.getMessage());
+        }
+        return listData;
+    }
+    
 }
 
 
-    private void updateFinalTotal() {
-        try {
-            double amount1 = parseTextFieldValue(getAmount1);
-            double amount2 = parseTextFieldValue(getAmount2);
-            double amount3 = parseTextFieldValue(getAmount3);
-            double amount4 = parseTextFieldValue(getAmount4);
-            double interest = parseTextFieldValue(getInterest);
-           
-            double total = amount1 + amount2 + amount3 + amount4 + interest;
-
-            // Format the total with at least 2 decimal points
-            DecimalFormat df = new DecimalFormat("#.##");
-            getFinalTotal.setText(df.format(total));
-        } catch (NumberFormatException e) {
-            
-            
-        }
-    }
-
-    private void addChangeListener(TextField sourceField, TextField targetField) {
-        sourceField.textProperty().addListener((observable, oldValue, newValue) -> {
-            updateTotal();
-            updateFinalTotal(); 
-        });
-    }
-    private void updateTotal() {
-        try {
-            double amount1 = parseTextFieldValue(getAmount1);
-            double amount2 = parseTextFieldValue(getAmount2);
-            double amount3 = parseTextFieldValue(getAmount3);
-            double amount4 = parseTextFieldValue(getAmount4);
-
-            double total = amount1 + amount2 + amount3 + amount4;
-
-            DecimalFormat df = new DecimalFormat("#.##");
-            getTotal.setText(df.format(total));
-        } catch (NumberFormatException e) {
-            
-        }
-    }
-    //GetAmount2
-    private void updateAmount2(String taxValue) {
-    try {
-        double tax = Double.parseDouble(taxValue);
-        double amount2 = tax * 0.001; 
-        getAmount2.setText(String.valueOf(amount2));
-
-             DecimalFormat df = new DecimalFormat("#.##");
-             getAmount2.setText(df.format(amount2));
-             
-    } catch (NumberFormatException e) {
-       
-        getAmount2.setText("");
-        System.err.println("");
-       }
-    }
-    //GetAmount3
-    private void updateAmount3(String taxValue) {
-    try {
-        double tax = Double.parseDouble(taxValue);
-        double amount2 = tax * 0.001; 
-        getAmount3.setText(String.valueOf(amount2));
-    } catch (NumberFormatException e) {
         
-        getAmount3.setText("");
-        System.err.println("");
-       }
-    }
-    //GetAmount4
-    private void updateAmount4(String taxValue) {
-    try {
-        double tax = Double.parseDouble(taxValue);
-        double amount2 = tax * 0.001; 
-        getAmount4.setText(String.valueOf(amount2));
-    } catch (NumberFormatException e) {
-        
-        getAmount4.setText("");
-        System.err.println("");
-    }
-    }    
+
     
    
-    private double parseTextFieldValue(TextField textField) {
-        try {
-            return Double.parseDouble(textField.getText());
-        } catch (NumberFormatException e) {
-            return 0.0;
-        }
-        
-    }
-    
-    //Set date issued to current date
-    private void setCurrentDateTextField() {
-        
-        LocalDate currentDate = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        String formattedDate = currentDate.format(formatter);
-
-        
-        getCurrentDate.setText(formattedDate);
-    }
-    
-}
-    
 

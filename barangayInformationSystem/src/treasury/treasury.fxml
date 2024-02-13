@@ -3,9 +3,8 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -19,8 +18,108 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="639.0" prefWidth="983.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="treasury.TreasuryController">
+<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="1417.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="treasury.TreasuryController">
    <children>
+      <VBox layoutX="211.3333282470703" prefHeight="640.0" prefWidth="1209.0" style="-fx-background-color: #F4F4F4;" AnchorPane.leftAnchor="211.0" AnchorPane.rightAnchor="-3.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="49.0" prefWidth="689.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" smooth="false" HBox.hgrow="ALWAYS">
+                           <image>
+                              <Image url="@../images/logo%20(1x1).png" />
+                           </image>
+                        </ImageView>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Bonifacio, San Fernando, Camarines Sur">
+                           <font>
+                              <Font name="Poppins SemiBold" size="14.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="554.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <FontAwesomeIcon glyphName="BELL" size="1.5em" />
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="39.0" prefWidth="689.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Pane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="1.0" prefWidth="143.0" style="-fx-background-color: black; -fx-background-radius: 10px;" HBox.hgrow="ALWAYS" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Treasury" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="Poppins Regular" size="22.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="20.0" right="20.0" />
+                     </HBox.margin>
+                  </Text>
+                  <Pane layoutX="201.0" layoutY="29.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="1.0" prefWidth="143.0" style="-fx-background-color: black; -fx-background-radius: 10px;" HBox.hgrow="ALWAYS" />
+               </children>
+               <padding>
+                  <Insets left="20.0" right="20.0" />
+               </padding>
+            </HBox>
+            <VBox prefHeight="552.0" prefWidth="1275.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <HBox prefHeight="36.0" prefWidth="772.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <HBox alignment="BASELINE_RIGHT" prefHeight="41.0" prefWidth="490.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <TextField fx:id="searchbar" prefHeight="40.0" prefWidth="220.0" promptText="Search" />
+                           </children>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin></HBox>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="10.0" prefHeight="458.0" prefWidth="772.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <TableView fx:id="tableviewHistory" prefHeight="455.0" prefWidth="752.0" HBox.hgrow="ALWAYS">
+                          <columns>
+                            <TableColumn fx:id="full_name" prefWidth="243.0" text="Name" />
+                            <TableColumn fx:id="age" minWidth="0.0" prefWidth="68.0" resizable="false" style="-fx-alignment: BASELINE-RIGHT;" text="Age" />
+                              <TableColumn fx:id="gender" minWidth="9.0" prefWidth="91.0" text="Gender" />
+                              <TableColumn fx:id="residensy_status" prefWidth="123.0" text="Residency Status" />
+                              <TableColumn fx:id="income" minWidth="9.0" resizable="false" style="-fx-alignment: BASELINE-RIGHT;" text="Income" />
+                              <TableColumn fx:id="date_issued" minWidth="1.0" prefWidth="103.0" resizable="false" style="-fx-alignment: BASELINE-RIGHT;" text="Date Issued" />
+                              <TableColumn fx:id="purpose" minWidth="0.0" prefWidth="162.0" text="Purpose" />
+                              <TableColumn fx:id="communityTax" minWidth="0.0" prefWidth="72.0" resizable="false" style="-fx-alignment: BASELINE-RIGHT;" text="Basic Tax" />
+                              <TableColumn fx:id="addcommTax" minWidth="0.0" prefWidth="111.0" resizable="false" style="-fx-alignment: BASELINE-RIGHT;" text="Additional Tax" />
+                              <TableColumn fx:id="total" minWidth="0.0" prefWidth="86.0" resizable="false" style="-fx-alignment: BASELINE-RIGHT;" text="Total" />
+                          </columns>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </TableView>
+                     </children>
+                  </HBox>
+                  <HBox alignment="BASELINE_RIGHT" layoutX="10.0" layoutY="46.0" prefHeight="51.0" prefWidth="772.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Button fx:id="getAdd" mnemonicParsing="false" onAction="#handleGetAdd" prefHeight="30.0" prefWidth="139.0" style="-fx-background-color: #3a53a5; -fx-background-radius: 10;" text="Add" textFill="#fffefe" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets right="10.0" top="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="getPrint" layoutX="623.0" layoutY="20.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="139.0" style="-fx-background-color: #3a53a5; -fx-background-radius: 10;" text="Print" textFill="#fffefe" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets right="10.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
       <VBox layoutX="150.0" layoutY="100.0" prefHeight="600.0" prefWidth="211.0" style="-fx-background-color: #3A53A5;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <GridPane alignment="CENTER_LEFT" prefHeight="484.0" prefWidth="171.0" vgap="10.0" VBox.vgrow="ALWAYS">
@@ -141,366 +240,5 @@
             </VBox>
          </children>
       </VBox>
-      <VBox layoutX="211.3333282470703" style="-fx-background-color: #F4F4F4;" AnchorPane.leftAnchor="211.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="49.0" prefWidth="689.0" VBox.vgrow="ALWAYS">
-               <children>
-                  <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0" HBox.hgrow="ALWAYS">
-                     <children>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" smooth="false" HBox.hgrow="ALWAYS">
-                           <image>
-                              <Image url="@../images/logo%20(1x1).png" />
-                           </image>
-                        </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Bonifacio, San Fernando, Camarines Sur">
-                           <font>
-                              <Font name="Poppins SemiBold" size="14.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="554.0" HBox.hgrow="ALWAYS">
-                     <children>
-                        <FontAwesomeIcon glyphName="BELL" size="1.5em" />
-                     </children>
-                  </HBox>
-               </children>
-               <padding>
-                  <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
-               </padding>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="39.0" prefWidth="689.0" VBox.vgrow="ALWAYS">
-               <children>
-                  <Pane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="1.0" prefWidth="143.0" style="-fx-background-color: black; -fx-background-radius: 10px;" HBox.hgrow="ALWAYS" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Treasury" textAlignment="CENTER">
-                     <font>
-                        <Font name="Poppins Regular" size="22.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="20.0" right="20.0" />
-                     </HBox.margin>
-                  </Text>
-                  <Pane layoutX="201.0" layoutY="29.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="1.0" prefWidth="143.0" style="-fx-background-color: black; -fx-background-radius: 10px;" HBox.hgrow="ALWAYS" />
-               </children>
-               <padding>
-                  <Insets left="20.0" right="20.0" />
-               </padding>
-            </HBox>
-         </children>
-      </VBox>
-      <VBox layoutY="94.0" prefHeight="506.0" prefWidth="689.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="211.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="94.0">
-         <children>
-            <HBox prefHeight="39.0" prefWidth="775.0">
-               <children>
-                  <TextField fx:id="getFirstname" prefHeight="35.0" prefWidth="218.0" promptText="Firstname" style="-fx-background-color: WHITE; -fx-border-color: GREY;">
-                     <font>
-                        <Font name="Arial" size="12.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="37.0" />
-                     </HBox.margin>
-                  </TextField>
-                  <TextField fx:id="getMiddlename" prefHeight="35.0" prefWidth="211.0" promptText="Middlename" style="-fx-background-color: WHITE; -fx-border-color: GREY;">
-                     <HBox.margin>
-                        <Insets left="37.0" />
-                     </HBox.margin>
-                  </TextField>
-                  <TextField fx:id="getLastname" prefHeight="35.0" prefWidth="192.0" promptText="Lastname" style="-fx-background-color: WHITE; -fx-border-color: GREY;">
-                     <HBox.margin>
-                        <Insets left="37.0" />
-                     </HBox.margin>
-                  </TextField>
-               </children>
-            </HBox>
-            <HBox prefHeight="39.0" prefWidth="775.0">
-               <children>
-                  <TextField fx:id="getAddress" prefHeight="35.0" prefWidth="466.0" promptText="Address" style="-fx-background-color: WHITE; -fx-border-color: GREY;">
-                     <HBox.margin>
-                        <Insets left="37.0" top="5.0" />
-                     </HBox.margin>
-                  </TextField>
-                  <ComboBox fx:id="myGenderOptions" onAction="#Select" prefHeight="35.0" prefWidth="192.0" promptText="Gender" style="-fx-background-color: WHITE; -fx-border-color: GREY;">
-                     <HBox.margin>
-                        <Insets left="37.0" top="5.0" />
-                     </HBox.margin>
-                  </ComboBox>
-               </children>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="49.0" prefHeight="39.0" prefWidth="775.0">
-               <children>
-                  <DatePicker fx:id="myDatePicker" onAction="#getDate" prefHeight="35.0" prefWidth="218.0" promptText="Birthdate" style="-fx-background-color: GREY;">
-                     <HBox.margin>
-                        <Insets left="37.0" top="5.0" />
-                     </HBox.margin>
-                  </DatePicker>
-                  <TextField fx:id="getPlaceOfBirth" prefHeight="35.0" prefWidth="212.0" promptText="Place of Birth" style="-fx-background-color: #ffffff; -fx-border-color: GREY;">
-                     <HBox.margin>
-                        <Insets left="37.0" top="5.0" />
-                     </HBox.margin>
-                  </TextField>
-                  <ComboBox fx:id="myCitizenship" editable="true" onAction="#Select" prefHeight="35.0" prefWidth="192.0" promptText="Citizenship" style="-fx-background-color: GREY;">
-                     <HBox.margin>
-                        <Insets left="37.0" top="5.0" />
-                     </HBox.margin>
-                  </ComboBox>
-               </children>
-               <VBox.margin>
-                  <Insets bottom="3.0" top="5.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="88.0" prefHeight="39.0" prefWidth="775.0">
-               <children>
-                  <ComboBox fx:id="myTinNum" editable="true" onAction="#Select" prefHeight="35.0" prefWidth="218.0" promptText=" Tin No. (If Any)" style="-fx-background-color: GREY;">
-                     <HBox.margin>
-                        <Insets left="37.0" />
-                     </HBox.margin>
-                  </ComboBox>
-                  <ComboBox fx:id="myStatus" onAction="#Select" prefHeight="34.0" prefWidth="212.0" promptText="Civil Status" style="-fx-background-color: WHITE; -fx-border-color: GREY;">
-                     <HBox.margin>
-                        <Insets left="37.0" />
-                     </HBox.margin>
-                  </ComboBox>
-                  <TextField fx:id="getProfession" prefHeight="35.0" prefWidth="192.0" promptText="Profession/Occupation/Business" style="-fx-background-color: WHITE; -fx-border-color: GREY;">
-                     <HBox.margin>
-                        <Insets left="37.0" />
-                     </HBox.margin>
-                  </TextField>
-               </children>
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="197.0" prefHeight="39.0" prefWidth="775.0">
-               <children>
-                  <TextField fx:id="getPlaceOfIssue" editable="false" prefHeight="34.0" prefWidth="467.0" promptText="Place of Issue" style="-fx-background-color: WHITE; -fx-border-color: GREY;" text="Bonifacio, San Fernando, Camarines Sur">
-                     <HBox.margin>
-                        <Insets left="37.0" />
-                     </HBox.margin>
-                  </TextField>
-                  <TextField fx:id="getCurrentDate" prefHeight="35.0" prefWidth="192.0" promptText="Date Issued" style="-fx-background-color: WHITE; -fx-border-color: GREY;">
-                     <HBox.margin>
-                        <Insets left="37.0" />
-                     </HBox.margin>
-                  </TextField>
-               </children>
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="236.0" prefHeight="39.0" prefWidth="775.0">
-               <children>
-                  <HBox prefHeight="39.0" prefWidth="491.0" />
-                  <Label prefHeight="16.0" prefWidth="90.0" text="Taxable Amount">
-                     <font>
-                        <Font size="11.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets right="30.0" top="8.0" />
-                     </HBox.margin>
-                  </Label>
-                  <Label text="Community Tax Due">
-                     <font>
-                        <Font size="11.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets top="8.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="275.0" prefHeight="31.0" prefWidth="773.0">
-               <children>
-                  <HBox prefHeight="25.0" prefWidth="490.0">
-                     <children>
-                        <Label prefHeight="18.0" prefWidth="392.0" text="A. BASIC COMMUNITY TAX (₱5.00) Voluntary or Exempted (₱1.00)">
-                           <font>
-                              <Font name="Arial" size="11.5" />
-                           </font>
-                           <padding>
-                              <Insets left="37.0" top="6.0" />
-                           </padding>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <TextField disable="true" prefHeight="26.0" prefWidth="110.0" style="-fx-background-color: grey; -fx-background-radius: 10px;">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </TextField>
-                  <TextField fx:id="getAmount1" alignment="CENTER" editable="false" prefHeight="26.0" prefWidth="110.0" style="-fx-background-radius: 10;">
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </TextField>
-               </children>
-               <padding>
-                  <Insets bottom="4.0" />
-               </padding>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="244.0" prefHeight="31.0" prefWidth="775.0">
-               <children>
-                  <HBox prefHeight="25.0" prefWidth="491.0">
-                     <children>
-                        <Label prefHeight="18.0" prefWidth="402.0" text="B. ADDITIONAL COMMUNITY TAX (tax not to exceed ₱5,000.00)">
-                           <font>
-                              <Font name="Arial" size="11.5" />
-                           </font>
-                           <padding>
-                              <Insets left="37.0" top="6.0" />
-                           </padding>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <TextField disable="true" prefHeight="26.0" prefWidth="110.0" style="-fx-background-color: grey; -fx-background-radius: 10px;" />
-                  <TextField disable="true" layoutX="501.0" layoutY="10.0" prefHeight="26.0" prefWidth="110.0" style="-fx-background-color: grey; -fx-background-radius: 10px;">
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </TextField>
-               </children>
-               <padding>
-                  <Insets bottom="4.0" />
-               </padding>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="283.0" prefHeight="31.0" prefWidth="772.0">
-               <children>
-                  <VBox prefHeight="31.0" prefWidth="492.0">
-                     <children>
-                        <Label prefHeight="14.0" prefWidth="447.0" text="1. GROSS RECEIPTS OR EARNINGS DERIVED FROM BUSINESS DURING ">
-                           <font>
-                              <Font name="Arial" size="11.5" />
-                           </font>
-                           <padding>
-                              <Insets left="37.0" />
-                           </padding>
-                        </Label>
-                        <Label prefHeight="18.0" prefWidth="372.0" text="THE PRECEEDING YEAR (₱1.00 for every ₱1,000.00)   ">
-                           <font>
-                              <Font name="Arial" size="11.5" />
-                           </font>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                           <padding>
-                              <Insets left="50.0" />
-                           </padding>
-                        </Label>
-                     </children>
-                  </VBox>
-                  <TextField fx:id="getTax1" alignment="CENTER" prefHeight="26.0" prefWidth="110.0" style="-fx-background-radius: 10;">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </TextField>
-                  <TextField fx:id="getAmount2" alignment="CENTER" prefHeight="26.0" prefWidth="110.0" style="-fx-background-radius: 10;">
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin></TextField>
-               </children>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="324.0" prefHeight="31.0" prefWidth="772.0">
-               <children>
-                  <VBox prefHeight="31.0" prefWidth="493.0">
-                     <children>
-                        <Label prefHeight="15.0" prefWidth="490.0" text="2. SALARIES OR GROSS RECEIPT OR EARNINGS DERIVED FROM EXERCISE OF">
-                           <font>
-                              <Font name="Arial" size="11.5" />
-                           </font>
-                           <padding>
-                              <Insets left="37.0" />
-                           </padding>
-                        </Label>
-                        <Label prefHeight="18.0" prefWidth="488.0" text="PROFESSION OR PURSUIT OF ANY OCCUPATION (₱1.00 for every ₱1,000)   ">
-                           <font>
-                              <Font name="Arial" size="11.5" />
-                           </font>
-                           <padding>
-                              <Insets left="50.0" />
-                           </padding>
-                        </Label>
-                     </children>
-                  </VBox>
-                  <TextField fx:id="getTax2" alignment="CENTER" prefHeight="26.0" prefWidth="110.0" style="-fx-background-radius: 10;" />
-                  <TextField fx:id="getAmount3" alignment="CENTER" prefHeight="26.0" prefWidth="110.0" style="-fx-background-radius: 10;">
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </TextField>
-               </children>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="355.0" prefHeight="31.0" prefWidth="772.0">
-               <children>
-                  <VBox prefHeight="31.0" prefWidth="493.0">
-                     <children>
-                        <Label prefHeight="18.0" prefWidth="402.0" text="3. INCOME FROM REAL PROPERTY (₱1.00 for every ₱1,000)">
-                           <font>
-                              <Font name="Arial" size="11.5" />
-                           </font>
-                           <padding>
-                              <Insets left="37.0" />
-                           </padding>
-                        </Label>
-                        <Label prefHeight="12.0" prefWidth="489.0" text="PROFESSION OR PURSUIT OF ANY OCCUPATION (₱1.00 for every ₱1,000)   ">
-                           <font>
-                              <Font name="Arial" size="11.5" />
-                           </font>
-                           <padding>
-                              <Insets left="50.0" />
-                           </padding>
-                        </Label>
-                     </children>
-                  </VBox>
-                  <TextField fx:id="getTax3" alignment="CENTER" prefHeight="26.0" prefWidth="110.0" style="-fx-background-radius: 10;" />
-                  <TextField fx:id="getAmount4" alignment="CENTER" prefHeight="26.0" prefWidth="110.0" style="-fx-background-radius: 10;">
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </TextField>
-               </children>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="387.0" prefHeight="31.0" prefWidth="772.0">
-               <children>
-                  <VBox prefHeight="31.0" prefWidth="493.0" />
-                  <TextField alignment="TOP_RIGHT" editable="false" prefHeight="26.0" prefWidth="110.0" style="-fx-background-radius: 10;" text="TOTAL" />
-                  <TextField fx:id="getTotal" alignment="CENTER" editable="false" prefHeight="26.0" prefWidth="110.0" style="-fx-background-radius: 10;">
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </TextField>
-               </children>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="418.0" prefHeight="31.0" prefWidth="772.0">
-               <children>
-                  <VBox prefHeight="31.0" prefWidth="493.0" />
-                  <TextField alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="110.0" style="-fx-background-radius: 10;" text="INTEREST" />
-                  <TextField fx:id="getInterest" alignment="CENTER" prefHeight="26.0" prefWidth="110.0" style="-fx-background-radius: 10;">
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </TextField>
-               </children>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="445.0" prefHeight="31.0" prefWidth="772.0">
-               <children>
-                  <VBox prefHeight="31.0" prefWidth="461.0" />
-                  <TextField alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="142.0" style="-fx-background-radius: 10;" text="TOTAL AMOUNT PAID" />
-                  <TextField fx:id="getFinalTotal" alignment="CENTER" editable="false" prefHeight="26.0" prefWidth="110.0" style="-fx-background-radius: 10;">
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </TextField>
-               </children>
-            </HBox>
-            <HBox prefHeight="69.0" prefWidth="772.0">
-               <children>
-                  <VBox prefHeight="49.0" prefWidth="621.0" />
-                  <Button fx:id="getResult" mnemonicParsing="false" onAction="#handleResult" prefHeight="30.0" prefWidth="110.0" style="-fx-background-color: #3a53a5; -fx-background-radius: 10;" text="Submit" textFill="WHITE" />
-               </children>
-               <padding>
-                  <Insets top="20.0" />
-               </padding>
-            </HBox>
-         </children></VBox>
-      <TextField alignment="CENTER" disable="true" layoutX="873.0" layoutY="649.0" prefHeight="26.0" prefWidth="110.0" style="-fx-background-radius: 10;" visible="false" />
    </children>
 </AnchorPane>
