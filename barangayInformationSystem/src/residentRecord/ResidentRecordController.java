@@ -1,6 +1,6 @@
 package residentRecord;
 
-import connect.Connect;
+import dashboard.Database;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
