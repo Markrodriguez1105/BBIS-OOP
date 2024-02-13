@@ -24,6 +24,8 @@ public class LogInController implements Initializable {
     private TextField userName;
     @FXML
     private PasswordField password;
+    
+    public static int resident_id = 1;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

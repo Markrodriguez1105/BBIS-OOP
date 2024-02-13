@@ -4,6 +4,7 @@
  */
 package dashboard;
 
+import assets.Database;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -72,32 +73,28 @@ public class PopulationViewController implements Initializable {
         voters.setText(DashboardController.votersCount);
 
         //Filter Year
-        filter.setValue(setComboBox(database.executeQuery("""
-                                                          SELECT MAX(YEAR(`date_registered`)) AS `year`
-                                                          FROM `resident`;""")).get(0));
-        System.out.println(filter.getValue());
-        
         filter.getItems().addAll(setComboBox(database.executeQuery("""
-                                                                   SELECT YEAR(`date_registered`) AS `year`
-                                                                   FROM `resident`
-                                                                   GROUP BY 1
-                                                                   ORDER BY 1 DESC;""")));
+                                                                        SELECT YEAR(`date_registered`) AS `year`
+                                                                        FROM `existresident`
+                                                                        GROUP BY 1
+                                                                        ORDER BY 1 DESC;""")));
+        filter.setValue(filter.getItems().getFirst());
 
         //Combo box per year
-        perYearFilter.setValue("Population");
         perYearFilter.getItems().add("Population");
         perYearFilter.getItems().add("Gender");
         perYearFilter.getItems().add("Category");
         perYearFilter.getItems().add("Zone Population");
+        perYearFilter.setValue(perYearFilter.getItems().getFirst());
 
         //Filter zone
-        filterZone.setValue("All Zone");
         filterZone.getItems().add("All Zone");
         filterZone.getItems().addAll(setComboBox(database.executeQuery("""
                                                                        SELECT CONCAT('Zone ', `zone`)
-                                                                       FROM `resident`
+                                                                       FROM `existresident`
                                                                        GROUP BY 1
                                                                        ORDER BY 1;""")));
+        filterZone.setValue(filterZone.getItems().getFirst());
 
         //Population Graph
         genderPopulationGraph.setCategoryGap(5);
@@ -132,7 +129,7 @@ public class PopulationViewController implements Initializable {
     @FXML
     private void residentRecordClick(ActionEvent event) throws IOException {
         main main = new main();
-        main.changeScene("/residentRecord/residentRecord.fxml", "Resident Record");
+        main.changeScene("/existresidentRecord/existresidentRecord.fxml", "existresident Record");
     }
 
     @FXML
@@ -238,7 +235,7 @@ public class PopulationViewController implements Initializable {
             perZone.getData().clear();
             //perZone
             ResultSet perZoneResult = database.executeQuery("SELECT '" + filter.getValue() + "' AS `label`, CONCAT('Zone ',`zone`), COUNT(*) AS `count`\n"
-                    + "FROM `resident`\n"
+                    + "FROM `existresident`\n"
                     + "WHERE YEAR(`date_registered`) <= " + filter.getValue() + "\n"
                     + "GROUP BY 2 \n"
                     + "ORDER BY 2;");
@@ -253,7 +250,7 @@ public class PopulationViewController implements Initializable {
                         + "WHEN `gender` = 'Male' THEN 1\n"
                         + "WHEN `gender` = 'Female' THEN 2\n"
                         + "ELSE 3 END AS `sort`\n"
-                        + "FROM `resident`\n"
+                        + "FROM `existresident`\n"
                         + "WHERE YEAR(`date_registered`) <= " + filter.getValue() + "\n"
                         + "GROUP BY 2 \n"
                         + "ORDER BY `sort`;");
@@ -274,7 +271,7 @@ public class PopulationViewController implements Initializable {
                                                         WHEN `age`> 13 AND `age` <= 18 THEN 2 
                                                         WHEN `age`> 18 AND `age` <= 60 THEN 3
                                                         ELSE 4 END AS `sort`
-                                                        FROM `resident`
+                                                        FROM `existresident`
                                                         WHERE YEAR(`date_registered`) <= %s
                                                         GROUP BY 1
                                                         ORDER BY 3;""", filter.getValue()));
@@ -283,7 +280,7 @@ public class PopulationViewController implements Initializable {
             else {
                 //Gender
                 ResultSet gender = database.executeQuery("SELECT '" + filter.getValue() + "' AS `label` , `gender`, COUNT(`gender`)\n"
-                        + "FROM `resident`\n"
+                        + "FROM `existresident`\n"
                         + "WHERE YEAR(`date_registered`) <= " + filter.getValue() + " AND CONCAT('Zone ', `zone`) = '" + filterZone.getValue() + "'\n"
                         + "GROUP BY 2;");
                 for (XYChart.Series<String, Number> bar : graph.barGraphGenerator(gender).values()) {
@@ -303,7 +300,7 @@ public class PopulationViewController implements Initializable {
                                                         WHEN `age`> 13 AND `age` <= 18 THEN 2 
                                                         WHEN `age`> 18 AND `age` <= 60 THEN 3
                                                         ELSE 4 END AS `sort`
-                                                        FROM `resident`
+                                                        FROM `existresident`
                                                         WHERE YEAR(`date_registered`) <= %s AND CONCAT('Zone ', `zone`) = '%s'
                                                         GROUP BY 1
                                                         ORDER BY 3;""", filter.getValue(), filterZone.getValue()));
@@ -325,7 +322,7 @@ public class PopulationViewController implements Initializable {
                 ResultSet result = database.executeQuery("""
                                                            SELECT `gender`, YEAR(`date_registered`),
                                                            SUM(COUNT(*)) OVER (PARTITION BY `gender` ORDER BY YEAR(`date_registered`)) AS `count`
-                                                           FROM `resident`
+                                                           FROM `existresident`
                                                            GROUP BY 1, 2
                                                            ORDER BY 2, 1;""");
                 for (XYChart.Series<String, Number> line : graph.lineGraphGenerator(result).values()) {
@@ -336,7 +333,7 @@ public class PopulationViewController implements Initializable {
                 ResultSet result = database.executeQuery("""
                                                            SELECT 'Population' AS `label`, YEAR(`date_registered`),
                                                            SUM(COUNT(*)) OVER (ORDER BY YEAR(`date_registered`)) AS `count`
-                                                           FROM `resident`
+                                                           FROM `existresident`
                                                            GROUP BY 2
                                                            ORDER BY 2;""");
                 for (XYChart.Series<String, Number> line : graph.lineGraphGenerator(result).values()) {
@@ -347,7 +344,7 @@ public class PopulationViewController implements Initializable {
                 ResultSet result = database.executeQuery("""
                                                            SELECT CONCAT('Zone ',`zone`), YEAR(`date_registered`),
                                                            SUM(COUNT(*)) OVER (PARTITION BY `zone` ORDER BY YEAR(`date_registered`)) AS `count`
-                                                           FROM `resident`
+                                                           FROM `existresident`
                                                            GROUP BY 1 , 2
                                                            ORDER BY 1;""");
                 for (XYChart.Series<String, Number> line : graph.lineGraphGenerator(result).values()) {
@@ -362,7 +359,7 @@ public class PopulationViewController implements Initializable {
                                                            END) ORDER BY YEAR(`date_registered`)) AS count,
                                                            CASE WHEN `age` <= 13 THEN 1 WHEN `age` > 13 AND `age` <= 18 THEN 2 WHEN `age` > 18 AND `age` <= 60 THEN 3 ELSE 4
                                                            END AS `sort`
-                                                           FROM `resident`
+                                                           FROM `existresident`
                                                            GROUP BY 1, 2
                                                            ORDER BY `sort`;""");
                 for (XYChart.Series<String, Number> line : graph.lineGraphGenerator(result).values()) {

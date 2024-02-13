@@ -4,6 +4,7 @@
  */
 package dashboard;
 
+import assets.Database;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -160,7 +161,7 @@ public class DashboardController implements Initializable {
     
     public static void setHeaderData() throws SQLException {
         Database database = new Database();
-        ResultSet result1 = database.executeQuery("SELECT COUNT(`resident_id`) AS COUNT FROM `resident`;");
+        ResultSet result1 = database.executeQuery("SELECT COUNT(`resident_id`) AS COUNT FROM `existresident`;");
         while(result1.next()){
             DashboardController.populationCount = result1.getString(1);
         }
@@ -170,7 +171,7 @@ public class DashboardController implements Initializable {
             DashboardController.householdCount = result2.getString(1);
         }
         
-        ResultSet result3 = database.executeQuery("SELECT COUNT(`business_id`) AS COUNT FROM `business`;");
+        ResultSet result3 = database.executeQuery("SELECT COUNT(`business_id`) AS COUNT FROM `business` WHERE `status` = 1;");
         while(result3.next()){
             DashboardController.businessesCount = result3.getString(1);
         }
@@ -180,7 +181,7 @@ public class DashboardController implements Initializable {
             DashboardController.pendingCasesCount = result4.getString(1);
         }
         
-        ResultSet result5 = database.executeQuery("SELECT COUNT(`voter_status`) AS COUNT FROM `resident` WHERE `voter_status` = 'yes';");
+        ResultSet result5 = database.executeQuery("SELECT COUNT(`voter_status`) AS COUNT FROM `existresident` WHERE `voter_status` = 1;");
         while(result5.next()){
             DashboardController.votersCount = result5.getString(1);
         }

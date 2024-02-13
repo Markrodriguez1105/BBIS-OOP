@@ -162,11 +162,6 @@
                         </Text>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="554.0" HBox.hgrow="ALWAYS">
-                     <children>
-                        <FontAwesomeIcon glyphName="BELL" size="1.5em" />
-                     </children>
-                  </HBox>
                </children>
                <padding>
                   <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
@@ -309,7 +304,7 @@
                                     </HBox>
                                     <HBox>
                                        <children>
-                                          <BarChart fx:id="businessesGraph" animated="false" prefHeight="300.0" title="Business Tally" HBox.hgrow="ALWAYS">
+                                          <BarChart fx:id="businessesTally" animated="false" prefHeight="300.0" title="Business Tally" HBox.hgrow="ALWAYS">
                                              <xAxis>
                                                 <CategoryAxis side="BOTTOM" />
                                              </xAxis>
@@ -317,9 +312,17 @@
                                                 <NumberAxis side="LEFT" />
                                              </yAxis>
                                           </BarChart>
+                                          <BarChart fx:id="businessStatus" animated="false" prefHeight="400.0" prefWidth="401.0" title="Status">
+                                            <xAxis>
+                                              <CategoryAxis side="BOTTOM" />
+                                            </xAxis>
+                                            <yAxis>
+                                              <NumberAxis side="LEFT" />
+                                            </yAxis>
+                                          </BarChart>
                                        </children>
                                     </HBox>
-                                    <LineChart fx:id="businessesTally" animated="false" legendSide="LEFT" prefHeight="300.0" title="Yearly Changes" VBox.vgrow="ALWAYS">
+                                    <LineChart fx:id="businessesYearly" animated="false" legendSide="LEFT" prefHeight="300.0" title="Yearly Changes" VBox.vgrow="ALWAYS">
                                       <xAxis>
                                         <CategoryAxis side="BOTTOM" />
                                       </xAxis>
@@ -327,9 +330,9 @@
                                         <NumberAxis side="LEFT" />
                                       </yAxis>
                                     </LineChart>
-                                    <HBox alignment="CENTER_RIGHT" layoutX="20.0" layoutY="20.0">
+                                    <HBox alignment="CENTER" layoutX="20.0" layoutY="20.0">
                                        <children>
-                                          <ComboBox fx:id="perYear" onAction="#perYear" prefHeight="1.0" prefWidth="100.0" promptText="Show All" />
+                                          <ComboBox fx:id="perYear" onAction="#perYear" prefHeight="1.0" prefWidth="200.0" promptText="Show All" />
                                        </children>
                                     </HBox>
                                  </children>

@@ -4,8 +4,10 @@
  */
 package dashboard;
 
+import assets.Database;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,8 +15,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
@@ -43,10 +47,14 @@ public class VoterViewController implements Initializable {
     private BarChart<String, Number> zoneVoterGraph;
     @FXML
     private BarChart<String, Number> statusVoterGraph;
-
+    @FXML
+    private LineChart<String, Number> yearlyChanges;
 
     /**
      * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -57,25 +65,12 @@ public class VoterViewController implements Initializable {
         businesses.setText(DashboardController.businessesCount);
         pendingCases.setText(DashboardController.pendingCasesCount);
         voters.setText(DashboardController.votersCount);
-        
-        //voters
-        XYChart.Series<String, Number> votersGraph1 = new XYChart.Series<>();
-        votersGraph1.getData().add(new XYChart.Data<>("Zone 1", 21));
-        votersGraph1.getData().add(new XYChart.Data<>("Zone 2", 5));
-        votersGraph1.getData().add(new XYChart.Data<>("Zone 3", 15));
-        votersGraph1.getData().add(new XYChart.Data<>("Zone 4", 6));
-        votersGraph1.getData().add(new XYChart.Data<>("Zone 5", 8));
-        votersGraph1.getData().add(new XYChart.Data<>("Zone 6", 11));
-        votersGraph1.getData().add(new XYChart.Data<>("Zone 7", 31));
-        zoneVoterGraph.getData().addAll(votersGraph1);
-        
-        XYChart.Series<String, Number> votersGraph2 = new XYChart.Series<>();
-        votersGraph2.getData().add(new XYChart.Data<>("Voters", 76));
-        votersGraph2.getData().add(new XYChart.Data<>("Non Voters", 90));
-        statusVoterGraph.getData().addAll(votersGraph2);
-        
+
+        //ShowGraph
+        showVoterGraph();
+        showYearlyGraph();
     }
-    
+
     //Left-Nav Controller for buttons
     @FXML
     private void dashboardClick(ActionEvent event) throws IOException {
@@ -98,7 +93,7 @@ public class VoterViewController implements Initializable {
     @FXML
     private void residentRecordClick(ActionEvent event) throws IOException {
         main main = new main();
-        main.changeScene("/residentRecord/residentRecord.fxml", "Resident Record");
+        main.changeScene("/existresidentRecord/existresidentRecord.fxml", "existresident Record");
     }
 
     @FXML
@@ -136,9 +131,8 @@ public class VoterViewController implements Initializable {
         main main = new main();
         main.changeScene("/LogIn/LogIn.fxml", "Log In");
     }
-    
-    //Graph start here
 
+    //Graph start here
     @FXML
     private void populationClick(ActionEvent event) throws IOException {
         main main = new main();
@@ -168,5 +162,53 @@ public class VoterViewController implements Initializable {
         main main = new main();
         main.changeScene("/dashboard/voterView.fxml", "Voters View");
     }
-    
+
+    void showVoterGraph() {
+        try {
+            Database database = new Database();
+            graphMethods graph = new graphMethods();
+
+            for (XYChart.Series<String, Number> bar : graph.barGraphGenerator(database.executeQuery("""
+                                                                                                    SELECT 'Zone Voters' AS label, CONCAT('Zone ',`zone`) AS zone, COUNT(*)
+                                                                                                    FROM `existresident`
+                                                                                                    WHERE `voter_status` = 1
+                                                                                                    GROUP BY `zone`
+                                                                                                    ORDER BY `zone`;""")).values()) {
+                zoneVoterGraph.getData().add(bar);
+            }
+
+            for (XYChart.Series<String, Number> bar : graph.barGraphGenerator(database.executeQuery("""
+                                                                                                    SELECT 'Status' AS label,
+                                                                                                    CASE
+                                                                                                    WHEN `voter_status` = 1 THEN 'Registered'
+                                                                                                    ELSE 'Not-Registered' END AS status, COUNT(*)
+                                                                                                    FROM `existresident`
+                                                                                                    GROUP BY `voter_status`
+                                                                                                    ORDER BY `voter_status` DESC;""")).values()) {
+                statusVoterGraph.getData().add(bar);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    void showYearlyGraph() {
+        try {
+            Database database = new Database();
+            graphMethods graph = new graphMethods();
+
+            for (XYChart.Series<String, Number> line : graph.lineGraphGenerator(database.executeQuery("""
+                                                                                                   SELECT "Voters" AS label, YEAR(`date_registered`),
+                                                                                                   SUM(COUNT(*)) OVER (ORDER BY YEAR(`date_registered`)) AS count
+                                                                                                   FROM `existresident`
+                                                                                                   WHERE `voter_status` = 1
+                                                                                                   GROUP BY 2
+                                                                                                   ORDER BY 2;""")).values()) {
+                yearlyChanges.getData().add(line);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 }

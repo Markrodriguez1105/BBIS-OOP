@@ -129,7 +129,6 @@ public class businessRecordController implements Initializable {
             stage.initStyle(StageStyle.UTILITY);
             stage.show();
         } catch (IOException ex) {
-            Logger.getLogger(BusinessRecord.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
