@@ -49,31 +49,31 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <TextField layoutX="10.0" layoutY="57.0" style="-fx-background-color: none;" text="USERNAME">
+                              <Label alignment="CENTER" prefHeight="69.0" prefWidth="90.0" text="Username">
                                  <font>
-                                    <Font size="13.0" />
+                                    <Font name="Poppins Regular" size="15.0" />
                                  </font>
-                              </TextField>
-                              <TextField style="-fx-background-color: none;" text="PASSWORD" GridPane.rowIndex="1">
+                              </Label>
+                              <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="69.0" prefWidth="90.0" text="Password" GridPane.rowIndex="1">
                                  <font>
-                                    <Font size="13.0" />
+                                    <Font name="Poppins Regular" size="15.0" />
                                  </font>
-                              </TextField>
+                              </Label>
                               <TextField fx:id="userName" prefHeight="48.0" prefWidth="259.0" promptText="Email Address/Phone Number" style="-fx-background-color: none; -fx-border-color: #2e3192; -fx-border-radius: 5;" GridPane.columnIndex="1">
                                  <font>
-                                    <Font size="13.0" />
+                                    <Font name="Poppins Regular" size="13.0" />
                                  </font>
                               </TextField>
                               <PasswordField fx:id="password" prefHeight="49.0" prefWidth="259.0" promptText="Enter your password" style="-fx-background-color: none; -fx-border-color: #2e3192; -fx-border-radius: 5;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <font>
-                                    <Font size="13.0" />
+                                    <Font name="Poppins Regular" size="13.0" />
                                  </font>
                               </PasswordField>
                               <HBox alignment="CENTER" prefHeight="27.0" prefWidth="137.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                  <children>
                                     <Button mnemonicParsing="false" onAction="#userLogIn" prefHeight="36.0" prefWidth="259.0" style="-fx-background-color: #2e3192;" text="LOG IN" textFill="WHITE">
                                        <font>
-                                          <Font name="System Bold" size="15.0" />
+                                          <Font name="Poppins Bold" size="15.0" />
                                        </font>
                                     </Button>
                                  </children>
