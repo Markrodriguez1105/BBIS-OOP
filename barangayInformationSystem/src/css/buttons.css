@@ -11,3 +11,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-background-color: #F45D49;
 }
 
+#treasury_field{
+    -fx-background-color: white, white;
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 3, 2;
+    -fx-padding: 0.333333em 0.666667em 0.333333em 0.666667em;
+    -fx-text-fill: -fx-text-inner-color;
+    -fx-font-size: 1em;
+}
+
+#treasury_field:hover{
+    -fx-background-color: #e6f3ff; /* Background color when focused */
+    -fx-border-color: #4d90fe; /* Border color when focused */  
+    -fx-border-radius: 3;
+}
+

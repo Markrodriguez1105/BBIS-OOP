@@ -36,24 +36,32 @@ public class main extends Application {
     }
 
     public void changeScene(String fxml, String title) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource(fxml));
-        stg.getScene().setRoot(root);
-        stg.setTitle(title);
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource(fxml));
+            stg.getScene().setRoot(root);
+            stg.setTitle(title);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    public void overlayWindow(String fxml, String title) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource(fxml));
-        Stage stage = new Stage();
-        Scene scene = new Scene(root);
-        stage.setTitle(title);
-        stage.centerOnScreen();
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
+    public void overlayWindow(String fxml, String title) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource(fxml));
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setTitle(title);
+            stage.centerOnScreen();
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.show();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    public void closeWindow(ActionEvent event){
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+    public void closeWindow(ActionEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }
 

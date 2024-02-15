@@ -11,15 +11,18 @@ import java.util.Date;
  * @author HELLO MARK
  */
 public class document {
-    String id, fullName, cat, documentType, stats;
-    Date date;
 
-    public document(String id, String fullName, String cat, String documentType, String stats, Date date) {
+    private String id;
+    private String fullName, cat, documentType, stats, rqstFname;
+    private Date date;
+
+    public document(String id, String fullName, String cat, String documentType, String stats, String rqstFname, Date date) {
         this.id = id;
         this.fullName = fullName;
         this.cat = cat;
         this.documentType = documentType;
         this.stats = stats;
+        this.rqstFname = rqstFname;
         this.date = date;
     }
 
@@ -61,6 +64,14 @@ public class document {
 
     public void setStats(String stats) {
         this.stats = stats;
+    }
+
+    public String getRqstFname() {
+        return rqstFname;
+    }
+
+    public void setRqstFname(String rqstFname) {
+        this.rqstFname = rqstFname;
     }
 
     public Date getDate() {

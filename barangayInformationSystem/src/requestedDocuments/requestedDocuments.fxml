@@ -229,11 +229,11 @@
                <children>
                   <TableView fx:id="documentList" onMouseClicked="#cellSelected" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                     <columns>
-                        <TableColumn fx:id="dateReq" prefWidth="75.0" text=" Date Request" />
-                      <TableColumn fx:id="fullName" prefWidth="75.0" text="Full Name" />
-                      <TableColumn fx:id="cat" prefWidth="75.0" text="Category" />
-                        <TableColumn fx:id="docType" prefWidth="75.0" text="Document Type" />
-                        <TableColumn fx:id="stats" prefWidth="75.0" text="Payment Status" />
+                        <TableColumn fx:id="dateReq" editable="false" prefWidth="75.0" sortable="false" text=" Date Request" />
+                      <TableColumn fx:id="fullName" editable="false" prefWidth="75.0" sortable="false" text="Full Name" />
+                      <TableColumn fx:id="cat" editable="false" prefWidth="75.0" sortable="false" text="Category" />
+                        <TableColumn fx:id="docType" editable="false" prefWidth="75.0" sortable="false" text="Document Type" />
+                        <TableColumn fx:id="stats" editable="false" prefWidth="75.0" sortable="false" text="Payment Status" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -367,7 +367,7 @@
                                                 <Font name="Poppins Regular" size="12.0" />
                                              </font>
                                           </Text>
-                                          <Label maxWidth="1.7976931348623157E308" prefWidth="161.0" text="Barangay Permit" wrapText="true">
+                                          <Label fx:id="Pcategory" maxWidth="1.7976931348623157E308" prefWidth="161.0" text="Barangay Permit" wrapText="true">
                                              <font>
                                                 <Font name="Poppins SemiBold" size="14.0" />
                                              </font>
