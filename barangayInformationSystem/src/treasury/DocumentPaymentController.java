@@ -4,18 +4,8 @@
  */
 package treasury;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
-import main.*;
-import requestedDocuments.*;
 import assets.*;
+import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,7 +13,18 @@ import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
+import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import main.*;
+import requestedDocuments.*;
 
 /**
  * FXML Controller class
@@ -56,9 +57,19 @@ public class DocumentPaymentController implements Initializable {
     private TextField change;
     @FXML
     private Button nextShow;
+    @FXML
+    private DatePicker ctcIssued;
+    @FXML
+    private TextField ctcNo;
+    @FXML
+    private TextField ctcAmount;
+    @FXML
+    private TextField ctcAddress;
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -68,7 +79,7 @@ public class DocumentPaymentController implements Initializable {
 
         selected = RequestedDocumentController.selected;
 
-        name.setText(selected.getFullName());
+        name.setText(selected.getFullname());
         dateRqst.setText(selected.getDate().toString());
         docType.setText(selected.getDocumentType());
         docCat.setText(selected.getCat());
@@ -85,19 +96,25 @@ public class DocumentPaymentController implements Initializable {
     @FXML
     private void next(ActionEvent event) {
         Database database = new Database();
-        if (Float.parseFloat(change.getText()) > 0) {
+        if (Float.parseFloat(change.getText()) >= 0) {
             if (selected.getCat().equals("Barangay Permit")) {
                 try {
-                    PreparedStatement p = database.insertQuery("INSERT INTO `permittreasury`(`id`, `document_id`, `tax`, `document_cost`, `amount_pay`, `date_issued`) VALUES (?,?,?,?,?,?)");
+                    PreparedStatement p = database.insertQuery("INSERT INTO `permittreasury`(`id`, `document_id`, `stamp_fee`, `document_cost`, `amount_pay`, `date_issued`, `ctc_issued_date`, `ctc_fee`, `ctc_num`, `ctc_address_issued`) VALUES (?,?,?,?,?,?,?,?,?,?)");
                     p.setString(1, ranNum("TRPT"));
                     p.setString(2, selected.getId());
                     p.setFloat(3, Float.parseFloat(tax.getText()));
                     p.setFloat(4, Float.parseFloat(cost.getText()));
                     p.setFloat(5, Float.parseFloat(amountPay.getText()));
                     p.setString(6, String.valueOf(ZonedDateTime.now(java.time.ZoneId.of("Asia/Manila")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
+                    p.setString(7, String.valueOf(ZonedDateTime.now(java.time.ZoneId.of("Asia/Manila")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
+                    p.setFloat(8, Float.parseFloat(ctcAmount.getText()));
+                    p.setString(9, ctcNo.getText());
+                    p.setString(10, ctcAddress.getText());
                     int rowsAffected = p.executeUpdate();
                     if (rowsAffected > 0) {
                         System.out.println("User inserted successfully!");
+                        RequestedDocumentController request = new RequestedDocumentController();
+                        request.updateTable();
                         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                         alert.setTitle("System Message");
                         alert.setHeaderText(null);
@@ -109,9 +126,9 @@ public class DocumentPaymentController implements Initializable {
                         alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
 
                         Optional<ButtonType> result = alert.showAndWait();
-
                         if (result.isPresent() && result.get() == buttonTypeYes) {
-                            System.out.println("User clicked Yes");
+                            docReceipt dr = new docReceipt(ctcIssued.getValue().toString(), ctcNo.getText(), ctcAmount.getText(), ctcAddress.getText(), tax.getText(), cost.getText(), amount.getText(), amountPay.getText());
+                            new main().overlayWindow("/requestedDocuments/businessPermitTemp.fxml", "Business Permit");
                             new main().closeWindow(event);
                         } else {
                             new main().closeWindow(event);
@@ -124,16 +141,22 @@ public class DocumentPaymentController implements Initializable {
                 }
             } else {
                 try {
-                    PreparedStatement p = database.insertQuery("INSERT INTO `certificationtreasury` (`id`, `document_id`, `tax`, `document_cost`, `amount_pay`, `date_issued`) VALUES (?,?,?,?,?,?)");
+                    PreparedStatement p = database.insertQuery("INSERT INTO `certificationtreasury` (`id`, `document_id`, `stamp_fee`, `document_cost`, `amount_pay`, `date_issued`, `ctc_issued_date`, `ctc_fee`, `ctc_num`, `ctc_address_issued`) VALUES (?,?,?,?,?,?,?,?,?,?)");
                     p.setString(1, ranNum("TRPT"));
                     p.setString(2, selected.getId());
                     p.setFloat(3, Float.parseFloat(tax.getText()));
                     p.setFloat(4, Float.parseFloat(cost.getText()));
                     p.setFloat(5, Float.parseFloat(amountPay.getText()));
-                    p.setString(6, String.valueOf(ZonedDateTime.now(java.time.ZoneId.of("Asia/Manila")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
+                    p.setString(6, String.valueOf(ZonedDateTime.now(java.time.ZoneId.of("Asia/Manila")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
+                    p.setString(7, ctcIssued.getValue().toString());
+                    p.setFloat(8, Float.parseFloat(ctcAmount.getText()));
+                    p.setString(9, ctcNo.getText());
+                    p.setString(10, ctcAddress.getText());
                     int rowsAffected = p.executeUpdate();
                     if (rowsAffected > 0) {
                         System.out.println("User inserted successfully!");
+                        RequestedDocumentController request = new RequestedDocumentController();
+                        request.updateTable();
                         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                         alert.setTitle("System Message");
                         alert.setHeaderText(null);
@@ -147,7 +170,8 @@ public class DocumentPaymentController implements Initializable {
                         Optional<ButtonType> result = alert.showAndWait();
 
                         if (result.isPresent() && result.get() == buttonTypeYes) {
-                            System.out.println("User clicked Yes");
+                            docReceipt dr = new docReceipt(ctcIssued.getValue().toString(), ctcNo.getText(), ctcAmount.getText(), ctcAddress.getText(), tax.getText(), cost.getText(), amount.getText(), amountPay.getText());
+                            new main().overlayWindow("/requestedDocuments/barangayCertificationTemp.fxml", "Barangay Certification");
                             new main().closeWindow(event);
                         } else {
                             new main().closeWindow(event);

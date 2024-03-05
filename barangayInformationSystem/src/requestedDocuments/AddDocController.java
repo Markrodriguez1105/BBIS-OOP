@@ -52,7 +52,7 @@ public class AddDocController implements Initializable {
     @FXML
     private TextField lname;
     @FXML
-    private TextField suffix;
+    private ComboBox<String> suffix;
     @FXML
     private TextField municipal;
     @FXML
@@ -75,9 +75,6 @@ public class AddDocController implements Initializable {
     private ComboBox<String> docsType;
     @FXML
     private RowConstraints businessSection;
-    @FXML
-    private VBox showDocsType;
-    
 
     /**
      * Initializes the controller class.
@@ -94,7 +91,7 @@ public class AddDocController implements Initializable {
         businessDisplay1.setVisible(false);
         businessDisplay2.setVisible(false);
         businessDisplay3.setVisible(false);
-        showDocsType.setDisable(true);
+        docsType.setDisable(true);
         //Initialized ComboBox
         docsCat.getItems().add("Barangay Certification");
         docsCat.getItems().add("Barangay Permit");
@@ -106,6 +103,11 @@ public class AddDocController implements Initializable {
         zone.getItems().add("5");
         zone.getItems().add("6");
         zone.getItems().add("7");
+        
+        suffix.setValue("");
+        suffix.getItems().add("");
+        suffix.getItems().add("Jr.");
+        suffix.getItems().add("Sr.");
 
     }
 
@@ -119,93 +121,127 @@ public class AddDocController implements Initializable {
     private void save(ActionEvent event) throws IOException {
         Database database = new Database();
         RequestedDocumentController request = new RequestedDocumentController();
-        
-        switch (docsCat.getValue()) {
-            case "Barangay Permit": {
-                try {
-                    PreparedStatement prep = database.insertQuery("INSERT INTO `permit`(`id`, `resident_id`, `firstName`, `middleName`, `lastName`, `address`, `phone_num`, `email`, `business_name`, `business_type`, `business_address`, `permit_type`, `date_requested`, `purpose`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-                    prep.setString(1, ranNum("PRMT"));
-                    prep.setInt(2, LogInController.resident_id);
-                    prep.setString(3, fname.getText());
-                    prep.setString(4, mname.getText());
-                    prep.setString(5, lname.getText());
-                    prep.setString(6, address());
-                    prep.setString(7, phoneNum.getText());
-                    prep.setString(8, email.getText());
-                    prep.setString(9, businessName.getText());
-                    prep.setString(10, businessType.getValue());
-                    prep.setString(11, businessAddress.getText());
-                    prep.setString(12, docsType.getValue());
-                    prep.setString(13, String.valueOf(ZonedDateTime.now(java.time.ZoneId.of("Asia/Manila")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
-                    prep.setString(14, purpose.getText());
-                    int rowsAffected = prep.executeUpdate();
-                    if (rowsAffected > 0) {
-                        System.out.println("User inserted successfully!");
-                    } else {
-                        System.out.println("Insertion failed.");
-                    }
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("System Message");
-                    alert.setHeaderText("");
-                    alert.setContentText("New Barangay Permit added successfully.");
-                    alert.showAndWait();
-                    request.updateTable();
-                    main main = new main();
-                    main.closeWindow(event);
 
-                } catch (SQLException e) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("System Message");
-                    alert.setHeaderText("");
-                    alert.setContentText(e.getMessage());
-                    alert.showAndWait();
-                }
-                break;
-            }
-            case "Barangay Certification": {
-                try {
-                    PreparedStatement prep = database.insertQuery("INSERT INTO `certification`(`id`, `resident_id`, `firstName`, `middleName`, `lastName`, `address`, `phone_num`, `email`, `certification_type`, `date_requested`, `purpose`) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
-                    prep.setString(1, ranNum("CTFT"));
-                    prep.setInt(2, LogInController.resident_id);
-                    prep.setString(3, fname.getText());
-                    prep.setString(4, mname.getText());
-                    prep.setString(5, lname.getText());
-                    prep.setString(6, address());
-                    prep.setString(7, phoneNum.getText());
-                    prep.setString(8, email.getText());
-                    prep.setString(9, docsType.getValue());
-                    prep.setString(10, String.valueOf(ZonedDateTime.now(java.time.ZoneId.of("Asia/Manila")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
-                    prep.setString(11, purpose.getText());
-                    int rowsAffected = prep.executeUpdate();
-                    if (rowsAffected > 0) {
-                        System.out.println("User inserted successfully!");
-                    } else {
-                        System.out.println("Insertion failed.");
+        if(isFieldEmpty()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("System Message");
+            alert.setHeaderText("");
+            alert.setContentText("Please Fill in all the black");
+            alert.showAndWait();
+        }else if(isText(fname.getText()) || isText(mname.getText()) || isText(lname.getText())){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("System Message");
+            alert.setHeaderText("");
+            alert.setContentText("Error at full name section");
+            alert.showAndWait();
+        }else if(isEmail(email.getText())){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("System Message");
+            alert.setHeaderText("");
+            alert.setContentText("Error at Email Section");
+            alert.showAndWait();
+        }else if(isPhoneNum(phoneNum.getText())){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("System Message");
+            alert.setHeaderText("");
+            alert.setContentText("Error at Phone Number Section");
+            alert.showAndWait();
+        }else if(isText(municipal.getText()) || isText(province.getText())){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("System Message");
+            alert.setHeaderText("");
+            alert.setContentText("Error at Address Section");
+            alert.showAndWait();
+        }else {
+            switch (docsCat.getValue()) {
+                case "Barangay Permit": {
+                    try {
+                        PreparedStatement prep = database.insertQuery("INSERT INTO `permit`(`id`, `resident_id`, `firstName`, `middleName`, `lastName`, `suffix`, `address`, `phone_num`, `email`, `business_name`, `business_type`, `business_address`, `permit_type`, `date_requested`, `purpose`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                        prep.setString(1, ranNum("PRMT"));
+                        prep.setInt(2, LogInController.resident_id);
+                        prep.setString(3, fname.getText());
+                        prep.setString(4, mname.getText());
+                        prep.setString(5, lname.getText());
+                        prep.setString(6, suffix.getValue());
+                        prep.setString(7, address());
+                        prep.setString(8, phoneNum.getText());
+                        prep.setString(9, email.getText());
+                        prep.setString(10, businessName.getText());
+                        prep.setString(11, businessType.getValue());
+                        prep.setString(12, businessAddress.getText());
+                        prep.setString(13, docsType.getValue());
+                        prep.setString(14, String.valueOf(ZonedDateTime.now(java.time.ZoneId.of("Asia/Manila")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
+                        prep.setString(15, purpose.getText());
+                        int rowsAffected = prep.executeUpdate();
+                        if (rowsAffected > 0) {
+                            System.out.println("User inserted successfully!");
+                        } else {
+                            System.out.println("Insertion failed.");
+                        }
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("System Message");
+                        alert.setHeaderText("");
+                        alert.setContentText("New Barangay Permit added successfully.");
+                        alert.showAndWait();
+                        request.updateTable();
+                        main main = new main();
+                        main.closeWindow(event);
+
+                    } catch (SQLException e) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("System Message");
+                        alert.setHeaderText("");
+                        alert.setContentText(e.getMessage());
+                        alert.showAndWait();
                     }
+                    break;
+                }
+                case "Barangay Certification": {
+                    try {
+                        PreparedStatement prep = database.insertQuery("INSERT INTO `certification`(`id`, `resident_id`, `firstName`, `middleName`, `lastName`, `suffix`, `address`, `phone_num`, `email`, `certification_type`, `date_requested`, `purpose`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
+                        prep.setString(1, ranNum("CTFT"));
+                        prep.setInt(2, LogInController.resident_id);
+                        prep.setString(3, fname.getText());
+                        prep.setString(4, mname.getText());
+                        prep.setString(5, lname.getText());
+                        prep.setString(6, suffix.getValue());
+                        prep.setString(7, address());
+                        prep.setString(8, phoneNum.getText());
+                        prep.setString(9, email.getText());
+                        prep.setString(10, docsType.getValue());
+                        prep.setString(11, String.valueOf(ZonedDateTime.now(java.time.ZoneId.of("Asia/Manila")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
+                        prep.setString(12, purpose.getText());
+                        int rowsAffected = prep.executeUpdate();
+                        if (rowsAffected > 0) {
+                            System.out.println("User inserted successfully!");
+                        } else {
+                            System.out.println("Insertion failed.");
+                        }
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("System Message");
+                        alert.setHeaderText("");
+                        alert.setContentText("New Barangay Certificate added successfully.");
+                        alert.showAndWait();
+                        request.updateTable();
+                        main main = new main();
+                        main.closeWindow(event);
+                    } catch (SQLException e) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("System Message");
+                        alert.setHeaderText("");
+                        alert.setContentText(e.getMessage());
+                        alert.showAndWait();
+                    }
+                    break;
+                }
+                default: {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("System Message");
                     alert.setHeaderText("");
-                    alert.setContentText("New Barangay Certificate added successfully.");
+                    alert.setContentText("Please Select Document Type");
                     alert.showAndWait();
-                    request.updateTable();
-                    main main = new main();
-                    main.closeWindow(event);
-                } catch (SQLException e) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("System Message");
-                    alert.setHeaderText("");
-                    alert.setContentText(e.getMessage());
-                    alert.showAndWait();
+                    break;
                 }
-                break;
-            }
-            default: {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("System Message");
-                alert.setHeaderText("");
-                alert.setContentText("Please Select Document Type");
-                alert.showAndWait();
-                break;
             }
         }
     }
@@ -243,7 +279,7 @@ public class AddDocController implements Initializable {
     @FXML
     private void docsCatSelected(ActionEvent event) {
         Database database = new Database();
-        showDocsType.setDisable(false);
+        docsType.setDisable(false);
         if (docsCat.getValue().equals("Barangay Permit")) {
             businessSection.setMaxHeight(Region.USE_COMPUTED_SIZE);
             businessSection.setMinHeight(Region.USE_COMPUTED_SIZE);
@@ -263,5 +299,43 @@ public class AddDocController implements Initializable {
             businessDisplay3.setVisible(false);
             docsType.setItems(setComboBox(database.executeQuery("SELECT `certification_type` FROM `certification` GROUP BY 1 ORDER BY 1;")));
         }
+    }
+
+    private boolean isFieldEmpty() {
+        if (fname.getText().isEmpty() || email.getText().isEmpty() || phoneNum.getText().isEmpty()
+                || zone.getValue() == null || barangay.getText().isEmpty() || purpose.getText().isEmpty()
+                || lname.getText().isEmpty() || municipal.getText().isEmpty() || province.getText().isEmpty() || docsCat.getValue() == null
+                || docsType.getValue().isBlank()) {
+            if(docsType.getValue() != null && docsCat.getValue().equals("Barangay Permit") && (businessName.getText().isEmpty() || businessAddress.getText().isEmpty() || businessType.getValue() == null)){
+                return true;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isText(String input) {
+        // Regular expression for a valid text
+        return !(input.matches("^[a-zA-Z\\s]+$") || input.isBlank());
+    }
+    
+    private boolean isNum(String input){
+        // Regular expression for a valid number
+        return !input.matches("^[0-9]+$");
+    }
+    
+    private boolean isPhoneNum(String input){
+        // Regular expression for a valid Phone number
+        if(input.matches("^09\\d{9}$")){
+            return false;
+        }else if(input.matches("^\\+63\\d{10}$")){
+            return false;
+        }
+        return true;
+    }
+    
+    private boolean isEmail(String input){
+        // Regular expression for a valid number
+        return !input.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
     }
 }

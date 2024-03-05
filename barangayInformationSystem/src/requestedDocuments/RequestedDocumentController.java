@@ -4,51 +4,44 @@
  */
 package requestedDocuments;
 
+import assets.*;
 import java.io.IOException;
+import java.net.URL;
+import java.sql.*;
+import java.util.Date;
+import java.util.ResourceBundle;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-
-import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.event.ActionEvent;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
-import main.main;
-import assets.*;
-import com.mysql.cj.protocol.Resultset;
-import java.util.Date;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Labeled;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
-import reports.DatabaseConnector;
-import java.sql.*;
+import main.main;
 
 /**
  * FXML Report Controller class
  *
- * @author Hello Jovel
  */
 public class RequestedDocumentController implements Initializable {
 
-    private static ObservableList<document> list = FXCollections.observableArrayList();
-    public static document selected;
+    private static ObservableList<document> lists = FXCollections.observableArrayList();
+    public static document selected = null;
 
     @FXML
     private ComboBox<String> docsType;
@@ -124,10 +117,25 @@ public class RequestedDocumentController implements Initializable {
     private TextField search;
     @FXML
     private Label Pcategory;
+    @FXML
+    private Button Cdelete;
+    @FXML
+    private Button Pdelete;
+    @FXML
+    private Button Cprint;
+    @FXML
+    private Button Pprint;
+    @FXML
+    private Text user_lname;
+    @FXML
+    private Text user_fname;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        user_fname.setText(LogIn.LogInController.user_fname);
+        user_lname.setText(LogIn.LogInController.user_lname);
+        
         Database database = new Database();
         permitView.setVisible(false);
         certificateView.setVisible(false);
@@ -144,7 +152,7 @@ public class RequestedDocumentController implements Initializable {
         docsType.setValue(docsType.getItems().getFirst());
 
         //Initialized TableView
-        fullName.setCellValueFactory(new PropertyValueFactory<>("fullName"));
+        fullName.setCellValueFactory(new PropertyValueFactory<>("fullname"));
         cat.setCellValueFactory(new PropertyValueFactory<>("cat"));
         docType.setCellValueFactory(new PropertyValueFactory<>("documentType"));
         stats.setCellValueFactory(new PropertyValueFactory<>("stats"));
@@ -152,8 +160,8 @@ public class RequestedDocumentController implements Initializable {
         documentList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
         documentList.getItems().clear();
-        list.setAll(setTable());
-        documentList.setItems(list);
+        lists.setAll(setTable());
+        documentList.setItems(lists);
 
     }
 
@@ -245,19 +253,22 @@ public class RequestedDocumentController implements Initializable {
 
     ObservableList<document> setTable() {
         Database database = new Database();
-        document rd;
+        document d;
         ObservableList<document> list = FXCollections.observableArrayList();
         try {
             ResultSet result = database.executeQuery("""
                                                      SELECT rd.*,
-                                                     CASE WHEN dp.id IS NOT NULL THEN 'Paid'
-                                                     ELSE 'Pending' END AS payed
-                                                     FROM requesteddocs AS rd LEFT JOIN document_paid AS dp
-                                                     ON rd.id = dp.document_id
+                                                     CASE WHEN dp.OR IS NOT NULL THEN 'Paid' ELSE 'Pending' END AS payed
+                                                     FROM requesteddocs AS rd
+                                                     LEFT JOIN document_paid AS dp
+                                                     ON rd.id = dp.id
                                                      ORDER BY date_requested DESC;""");
             while (result.next()) {
-                rd = new document(result.getString(1), result.getString(2), result.getString(4), result.getString(5), result.getString(7), result.getString(3), result.getDate(6));
-                list.add(rd);
+                d = new document(result.getString(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5), result.getString(6), result.getString(7), result.getString(8), result.getString(9), result.getString(10), result.getString(11), result.getDate(12), result.getString(13));
+                if(result.getString(11).equalsIgnoreCase("Indigency")){
+                    d.setStats("No Payment");
+                }
+                list.add(d);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -265,9 +276,9 @@ public class RequestedDocumentController implements Initializable {
         return list;
     }
 
-    void updateTable() {
-        list.setAll(setTable());
-        documentList.setItems(list);
+    public void updateTable() {
+        lists.setAll(setTable());
+        documentList.setItems(lists);
     }
 
     @FXML
@@ -278,7 +289,7 @@ public class RequestedDocumentController implements Initializable {
     @FXML
     private void clear(MouseEvent event) {
         search.setText("");
-        documentList.setItems(list);
+        documentList.setItems(lists);
     }
 
     @FXML
@@ -289,6 +300,11 @@ public class RequestedDocumentController implements Initializable {
 
     @FXML
     private void print(ActionEvent event) {
+        if (selected.getCat().equals("Barangay Certification")) {
+            new main().overlayWindow("/requestedDocuments/barangayCertificationTemp.fxml", "Barangay Certification");
+        }else{
+            new main().overlayWindow("/requestedDocuments/businessPermitTemp.fxml", "Business Permit");
+        }
     }
 
     @FXML
@@ -298,17 +314,18 @@ public class RequestedDocumentController implements Initializable {
 
     @FXML
     private void search(KeyEvent event) {
-//        docsType.setValue(docsType.getItems().getFirst());
         ObservableList<document> filtered = FXCollections.observableArrayList();
         if (!search.getText().isBlank()) {
-            for (document record : list) {
-                if (record.getFullName().toLowerCase().contains(search.getText().toLowerCase())) {
+            for (document record : lists) {
+                if (record.getFirstname().toLowerCase().startsWith(search.getText().toLowerCase()) 
+                        || record.getMiddlename().toLowerCase().startsWith(search.getText().toLowerCase())
+                        || record.getLastname().toLowerCase().startsWith(search.getText().toLowerCase())) {
                     filtered.add(record);
                 }
             }
             documentList.setItems(filtered);
         } else {
-            documentList.setItems(list);
+            documentList.setItems(lists);
         }
     }
 
@@ -329,7 +346,7 @@ public class RequestedDocumentController implements Initializable {
         updateTable();
         permitView.setVisible(false);
         certificateView.setVisible(false);
-        
+
     }
 
     public void showCellSelected() {
@@ -341,41 +358,51 @@ public class RequestedDocumentController implements Initializable {
         certificateView.setVisible(false);
         Ppayment.setDisable(false);
         Cpayment.setDisable(false);
+        Pdelete.setDisable(false);
+        Cdelete.setDisable(false);
+        Cprint.setDisable(true);
+        Pprint.setDisable(true);
 
         if (selected.getStats().equalsIgnoreCase("Paid")) {
             Ppayment.setDisable(true);
             Cpayment.setDisable(true);
+            Pdelete.setDisable(true);
+            Cdelete.setDisable(true);
+            Cprint.setDisable(false);
+            Pprint.setDisable(false);
+        }else if(selected.getStats().equalsIgnoreCase("No Payment")){
+            Ppayment.setDisable(true);
+            Cpayment.setDisable(true);
+            Cprint.setDisable(false);
+            Pprint.setDisable(false);
         }
 
         if (selected.getCat().equalsIgnoreCase("Barangay Permit")) {
             permitView.setVisible(true);
             try {
                 ResultSet result = database.executeQuery(String.format("""
-                                                         SELECT `id`, `resident_id`, CONCAT(lastName, ", ", firstName, " ", 
-                                                         CASE
-                                                         WHEN LENGTH(middleName) > 0 THEN CONCAT(SUBSTRING(middleName, 1, 1),'.')
-                                                         ELSE '' END) AS fullName, `address`, `phone_num`, `email`, `business_name`, `business_type`, `business_address`, `permit_type`, `date_requested`, `purpose`
+                                                         SELECT `id`, `address`, `phone_num`, `email`, `business_name`, `business_type`, `business_address`, `purpose`
                                                          FROM `permit`
                                                          WHERE `id` = '%s';""", selected.getId()));
                 while (result.next()) {
-                    PDocsId.setText(result.getString(1));
-                    PrqstName.setText(selected.getRqstFname());
-                    Pname.setText(result.getString(3));
-                    PAddress.setText(result.getString(4));
-                    PphoneNumber.setText(result.getString(5));
-                    Pemail.setText(result.getString(6));
-                    PBusinessName.setText(result.getString(7));
-                    PBusinessType.setText(result.getString(8));
-                    PbusinessAddress.setText(result.getString(9));
+                    PDocsId.setText(selected.getId());
+                    PrqstName.setText(selected.getRfullname());
+                    Pname.setText(selected.getFullname());
+                    PAddress.setText(result.getString(2));
+                    PphoneNumber.setText(result.getString(3));
+                    Pemail.setText(result.getString(4));
+                    PBusinessName.setText(result.getString(5));
+                    PBusinessType.setText(result.getString(6));
+                    PbusinessAddress.setText(result.getString(7));
                     Pcategory.setText(selected.getCat());
                     PpayStats.setText(selected.getStats());
-                    PDocsType.setText(result.getString(10));
-                    PrqstDate.setText(result.getDate(11).toString());
-                    Ppurpose.setText(result.getString(12));
-                    if (PpayStats.getText().equalsIgnoreCase("Paid")) {
-                        PpayStats.setStyle("-fx-text-fill: GREEN;");
-                    } else {
+                    PDocsType.setText(selected.getDocumentType());
+                    PrqstDate.setText(selected.getDate().toString());
+                    Ppurpose.setText(result.getString(8));
+                    if (PpayStats.getText().equalsIgnoreCase("Pending")) {
                         PpayStats.setStyle("-fx-text-fill: RED;");
+                    } else {
+                        PpayStats.setStyle("-fx-text-fill: GREEN;");
                     }
                 }
             } catch (SQLException e) {
@@ -385,28 +412,25 @@ public class RequestedDocumentController implements Initializable {
             certificateView.setVisible(true);
             try {
                 ResultSet result = database.executeQuery(String.format("""
-                                                         SELECT `id`, `resident_id`, CONCAT(lastName, ", ", firstName, " ", 
-                                                         CASE
-                                                         WHEN LENGTH(middleName) > 0 THEN CONCAT(SUBSTRING(middleName, 1, 1),'.')
-                                                         ELSE '' END) AS fullName, `address`, `phone_num`, `email`, `certification_type`, `date_requested`, `purpose`
+                                                         SELECT `id`, `address`, `phone_num`, `email`, `purpose`
                                                          FROM `certification`
                                                          WHERE `id` = '%s';""", selected.getId()));
                 while (result.next()) {
-                    CDocsId.setText(result.getString(1));
-                    CrqstName.setText(selected.getRqstFname());
-                    Cname.setText(result.getString(3));
-                    CAddress.setText(result.getString(4));
-                    CphoneNumber.setText(result.getString(5));
-                    Cemail.setText(result.getString(6));
-                    CDocsType.setText(result.getString(7));
+                    CDocsId.setText(selected.getId());
+                    CrqstName.setText(selected.getRfullname());
+                    Cname.setText(selected.getFullname());
+                    CAddress.setText(result.getString(2));
+                    CphoneNumber.setText(result.getString(3));
+                    Cemail.setText(result.getString(4));
+                    CDocsType.setText(selected.getDocumentType());
                     Ccategory.setText(selected.getCat());
-                    CrqstDate.setText(result.getDate(8).toString());
+                    CrqstDate.setText(selected.getDate().toString());
                     CpayStats.setText(selected.getStats());
-                    Cpurpose.setText(result.getString(9));
-                    if (CpayStats.getText().equalsIgnoreCase("Paid")) {
-                        CpayStats.setStyle("-fx-text-fill: GREEN;");
-                    } else {
+                    Cpurpose.setText(result.getString(5));
+                    if (CpayStats.getText().equalsIgnoreCase("Pending")) {
                         CpayStats.setStyle("-fx-text-fill: RED;");
+                    } else {
+                        CpayStats.setStyle("-fx-text-fill: GREEN;");
                     }
                 }
             } catch (SQLException e) {
@@ -425,14 +449,14 @@ public class RequestedDocumentController implements Initializable {
     private void docsType(ActionEvent event) {
         ObservableList<document> filtered = FXCollections.observableArrayList();
         if (!docsType.getValue().equals("All Documents")) {
-            for (document record : list) {
+            for (document record : lists) {
                 if (record.getDocumentType().equals(docsType.getValue())) {
                     filtered.add(record);
                 }
             }
             documentList.setItems(filtered);
         } else {
-            documentList.setItems(list);
+            documentList.setItems(lists);
         }
     }
 }

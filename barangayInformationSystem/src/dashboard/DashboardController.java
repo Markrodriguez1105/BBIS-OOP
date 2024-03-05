@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
+import javafx.scene.text.Text;
 import main.main;
 
 /**
@@ -42,6 +43,10 @@ public class DashboardController implements Initializable {
     public static String businessesCount;
     public static String pendingCasesCount;
     public static String votersCount;
+    @FXML
+    private Text user_lname;
+    @FXML
+    private Text user_fname;
 
 
     /**
@@ -51,6 +56,9 @@ public class DashboardController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        user_fname.setText(LogIn.LogInController.user_fname);
+        user_lname.setText(LogIn.LogInController.user_lname);
+        
         try {
             // TODO
             setHeaderData();

@@ -163,6 +163,11 @@
                         </Text>
                      </children>
                   </HBox>
+                  <HBox alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="554.0">
+                     <children>
+                        <FontAwesomeIcon glyphName="BELL" size="1.5em" />
+                     </children>
+                  </HBox>
                </children>
                <padding>
                   <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />

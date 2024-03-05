@@ -54,6 +54,8 @@ public class main extends Application {
             stage.centerOnScreen();
             stage.setScene(scene);
             stage.setResizable(false);
+            Image icon = new Image(getClass().getResourceAsStream("/images/logo.png"));
+            stage.getIcons().add(icon);
             stage.show();
         } catch (IOException e) {
             System.out.println(e.getMessage());

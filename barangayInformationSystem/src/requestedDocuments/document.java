@@ -11,35 +11,34 @@ import java.util.Date;
  * @author HELLO MARK
  */
 public class document {
-
-    private String id;
-    private String fullName, cat, documentType, stats, rqstFname;
+    
+    private String id, firstname, middlename, lastname, suffix, cat, documentType, stats, Rfname, Rmname, Rlname, Rsuffix;
     private Date date;
 
-    public document(String id, String fullName, String cat, String documentType, String stats, String rqstFname, Date date) {
+    public document(String id, String firstname, String middlename, String lastname, String suffix, String Rfname, String Rmname, String Rlname, String Rsuffix, String cat, String documentType, Date date, String stats) {
         this.id = id;
-        this.fullName = fullName;
+        this.firstname = firstname;
+        this.middlename = middlename;
+        this.lastname = lastname;
+        this.suffix = suffix;
         this.cat = cat;
         this.documentType = documentType;
         this.stats = stats;
-        this.rqstFname = rqstFname;
+        this.Rfname = Rfname;
+        this.Rmname = Rmname;
+        this.Rlname = Rlname;
+        this.Rsuffix = Rsuffix;
         this.date = date;
     }
 
+    
+    
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
     }
 
     public String getCat() {
@@ -66,14 +65,6 @@ public class document {
         this.stats = stats;
     }
 
-    public String getRqstFname() {
-        return rqstFname;
-    }
-
-    public void setRqstFname(String rqstFname) {
-        this.rqstFname = rqstFname;
-    }
-
     public Date getDate() {
         return date;
     }
@@ -81,7 +72,76 @@ public class document {
     public void setDate(Date date) {
         this.date = date;
     }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getMiddlename() {
+        return middlename;
+    }
+
+    public void setMiddlename(String middlename) {
+        this.middlename = middlename;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getSuffix() {
+        return suffix;
+    }
+
+    public void setSuffix(String suffix) {
+        this.suffix = suffix;
+    }
+
+    public String getRfname() {
+        return Rfname;
+    }
+
+    public void setRfname(String Rfname) {
+        this.Rfname = Rfname;
+    }
+
+    public String getRmname() {
+        return Rmname;
+    }
+
+    public void setRmname(String Rmname) {
+        this.Rmname = Rmname;
+    }
+
+    public String getRlname() {
+        return Rlname;
+    }
+
+    public void setRlname(String Rlname) {
+        this.Rlname = Rlname;
+    }
+
+    public String getRsuffix() {
+        return Rsuffix;
+    }
+
+    public void setRsuffix(String Rsuffix) {
+        this.Rsuffix = Rsuffix;
+    }
     
+    public String getFullname(){
+        return lastname + ", " + firstname + (!middlename.isEmpty() ? " " + middlename.toUpperCase().charAt(0) + "." : "") + (!suffix.isEmpty() ? " " + suffix : "");
+    }
     
-    
+    public String getRfullname(){
+        return Rlname + ", " + Rfname + (!Rmname.isEmpty() ? " " + Rmname.toUpperCase().charAt(0)+ "." : "") + (!Rsuffix.isEmpty() ? " " + Rsuffix : "");
+    }
 }
