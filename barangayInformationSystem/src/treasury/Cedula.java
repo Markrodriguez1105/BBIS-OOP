@@ -24,10 +24,11 @@ public class Cedula {
     final private int commTax = 5;
     private double addComTax;
     private double total;
+    private String cedulaNum;
 
     public Cedula(String fName, String mName, String lName, String Gender, int age, int personalIncome, int barangayID, 
              String tin_id, String address, String residencyStatus,
-            Date dateIssued, String purpose, int commTax, int addComTax, int total) {
+            Date dateIssued, String purpose, int total, String cedulaNum) {
         this.fName = fName;
         this.mName = mName;
         this.lName = lName;
@@ -40,8 +41,8 @@ public class Cedula {
         this.residencyStatus = residencyStatus;
         this.dateIssued = dateIssued;
         this.purpose = purpose;
-        this.addComTax = addComTax;
         this.total = total;
+        this.cedulaNum = cedulaNum;
     }
 
     public String getTin_id() {
@@ -58,14 +59,6 @@ public class Cedula {
 
     public Date getDateIssued() {
         return dateIssued;
-    }
-
-    public int getCommTax() {
-        return commTax;
-    }
-
-    public double getAddComTax() {
-        return addComTax;
     }
 
     public double getTotal() {
@@ -129,15 +122,19 @@ public class Cedula {
         return personalIncome;
     }
 
-    public double getTax() {
-        return commTax;
+   
+    public String getCedulaNum() {
+        return cedulaNum;
     }
 
-    public double getAddTax() {
-        return addComTax;
+    public void setCedulaNum(String cedulaNum) {
+        this.cedulaNum = cedulaNum;
     }
 
     // Other methods
+
+    public Cedula() {
+    }
 }
 
 

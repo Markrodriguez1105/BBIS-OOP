@@ -45,22 +45,18 @@ public class TreasuryController implements Initializable {
     private TableColumn<Cedula, String> date_issued;
     @FXML
     private TableColumn<Cedula, String> purpose;
-    @FXML
     private TableColumn<Cedula, String> communityTax;
-    @FXML
     private TableColumn<Cedula, String> addcommTax;
     @FXML
     private TableColumn<Cedula, String> total;
     @FXML
     private Button getAdd;
     @FXML
-    private Button getPrint;
-    @FXML
     private TableView<Cedula> tableviewHistory;
     @FXML
-    private Button getRefresh;
-    @FXML
     private TextField searchbar;
+    @FXML
+    private TableColumn<?, ?> cedulaNum;
     
     
  
@@ -68,8 +64,7 @@ public class TreasuryController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
         income.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getPersonalIncome())));
-        communityTax.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getCommTax())));
-        addcommTax.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getAddComTax())));
+       
     
         userShowData();
     }
@@ -194,10 +189,10 @@ public class TreasuryController implements Initializable {
         date_issued.setCellValueFactory(new PropertyValueFactory<>("dateIssued"));
         purpose.setCellValueFactory(new PropertyValueFactory<>("purpose"));
 //        purpose.setCellValueFactory(new PropertyValueFactory<>("purok"));
-        communityTax.setCellValueFactory(new PropertyValueFactory<>("formatnum"));
-        addcommTax.setCellValueFactory(new PropertyValueFactory<>("formatnum2"));
+        
+        
         total.setCellValueFactory(new PropertyValueFactory<>("formatnum3"));
-
+        cedulaNum.setCellValueFactory(new PropertyValueFactory<> ("cedulaNum"));
         // Set the sorted data to the table view
         tableviewHistory.setItems(cedulaData);
 
@@ -250,7 +245,7 @@ public class TreasuryController implements Initializable {
                         result.getString("last_name"),  result.getString("gender"), result.getInt("age"),   
                         result.getInt("income"), result.getInt("barangay_Id"),result.getString("tin_no"),
                         result.getString("address"), result.getString("residency_status"), result.getDate("date_issued"),
-                        result.getString("purpose"), result.getInt("community_tax"), result.getInt("addcomm_tax"), result.getInt("total"));
+                        result.getString("purpose"),  result.getInt("total"), result.getString("cedula_num"));
                 
                 listData.add(cedulaInfo);
             }
