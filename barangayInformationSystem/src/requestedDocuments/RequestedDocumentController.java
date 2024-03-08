@@ -140,10 +140,10 @@ public class RequestedDocumentController implements Initializable {
         ResultSet resultSet = null;
         if (DocSelectedCategory.isEmpty()) {
             query = "SELECT * FROM `documents`;";
-            resultSet = databaseConnector.executeQuery(query);
+            //resultSet = databaseConnector.executeQuery(query);
         } else {
             query = "SELECT * FROM `documents` WHERE `document_type = ?`;";
-            resultSet = databaseConnector.getFromDatabase(query, DocSelectedCategory);
+            //resultSet = databaseConnector.getFromDatabase(query, DocSelectedCategory);
         }
 
         // Check if resultSet is null
