@@ -366,7 +366,6 @@ public class CedulaForm implements Initializable {
             stmt.setDouble(15, total);
 
             stmt.executeUpdate();
-            treasuryController.updateTableView();
             
             Stage stage = (Stage) getSubmit.getScene().getWindow();
             stage.close();
