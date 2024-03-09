@@ -163,7 +163,7 @@
                         </Text>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="554.0" HBox.hgrow="ALWAYS">
+                  <HBox alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="554.0">
                      <children>
                         <FontAwesomeIcon glyphName="BELL" size="1.5em" />
                      </children>

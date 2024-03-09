@@ -4,6 +4,7 @@
  */
 package dashboard;
 
+import assets.Database;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -71,30 +72,28 @@ public class HouseholdViewController implements Initializable {
 
         //Combobox Initialization
         //Filter Year
-        filterYear.setValue(setComboBox(database.executeQuery("""
-                                                          SELECT MAX(YEAR(`date_registered`))
-                                                          FROM `resident`;""")).get(0));
         filterYear.getItems().addAll(setComboBox(database.executeQuery("""
-                                                                   SELECT YEAR(`date_registered`) AS `year`
-                                                                   FROM `resident`
-                                                                   GROUP BY 1
-                                                                   ORDER BY 1 DESC;""")));
+                                                                        SELECT YEAR(`date_registered`) AS `year`
+                                                                        FROM `resident`
+                                                                        GROUP BY 1
+                                                                        ORDER BY 1 DESC;""")));
+        filterYear.setValue(filterYear.getItems().getFirst());
 
         //Filter Zone
-        filterZone.setValue("All Zone");
         filterZone.getItems().add("All Zone");
         filterZone.getItems().addAll(setComboBox(database.executeQuery("""
                                                                        SELECT CONCAT('Zone ', `zone`)
                                                                        FROM `resident`
                                                                        GROUP BY 1
                                                                        ORDER BY 1;""")));
+        filterZone.setValue(filterZone.getItems().getFirst());
 
         //Yearly Changes
-        perYearFilter.setValue("Household");
         perYearFilter.getItems().add("Household");
         perYearFilter.getItems().add("Zone Household");
         perYearFilter.getItems().add("Income Rate");
-        
+        perYearFilter.setValue(perYearFilter.getItems().getFirst());
+
         //call graph
         showFilter();
         showYearlyChanges();
@@ -162,7 +161,6 @@ public class HouseholdViewController implements Initializable {
     }
 
     //Graph start here
-
     @FXML
     private void populationClick(ActionEvent event) throws IOException {
         main main = new main();
@@ -253,8 +251,7 @@ public class HouseholdViewController implements Initializable {
                                                                                                         ORDER BY `monthly_income`;""", filterYear.getValue()))).values()) {
                     incomeHouseholdGraph.getData().add(bar);
                 }
-            }
-            else {
+            } else {
                 for (XYChart.Series<String, Number> bar : graph.barGraphGenerator(database.executeQuery(String.format("""
                                                                                                         SELECT %s AS `label`, CASE
                                                                                                         WHEN `monthly_income` <= 10000 THEN '0-\u20b110,000'

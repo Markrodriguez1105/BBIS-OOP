@@ -69,7 +69,7 @@ public class HouseholdRecordController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        showHouseholdRecords();
+//        showHouseholdRecords();
     }
 
     public Connection getConnection() {

@@ -4,6 +4,7 @@
  */
 package dashboard;
 
+import assets.Database;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -41,11 +42,13 @@ public class BusinessViewController implements Initializable {
     @FXML
     private ComboBox<String> filterYear;
     @FXML
+    private BarChart<String, Number> businessesTally;
+    @FXML
+    private BarChart<String, Number> businessStatus;
+    @FXML
+    private LineChart<String, Number> businessesYearly;
+    @FXML
     private ComboBox<String> perYear;
-    @FXML
-    private BarChart<String, Number> businessesGraph;
-    @FXML
-    private LineChart<String, Number> businessesTally;
 
     /**
      * Initializes the controller class.
@@ -64,20 +67,20 @@ public class BusinessViewController implements Initializable {
         voters.setText(DashboardController.votersCount);
 
         //Initialization combobox
-        filterYear.setValue(setComboBox(database.executeQuery("""
-                                                          SELECT MAX(YEAR(`date_registered`))
-                                                          FROM `resident`;""")).get(0));
         filterYear.getItems().addAll(setComboBox(database.executeQuery("""
-                                                                   SELECT YEAR(`date_registered`) AS `year`
-                                                                   FROM `resident`
-                                                                   GROUP BY 1
-                                                                   ORDER BY 1 DESC;""")));
+                                                                        SELECT YEAR(`date_registered`) AS `year`
+                                                                        FROM `resident`
+                                                                        GROUP BY 1
+                                                                        ORDER BY 1 DESC;""")));
+        filterYear.setValue(filterYear.getItems().getFirst());
 
-        perYear.setValue("Business");
         perYear.getItems().add("Business");
         perYear.getItems().add("Zone Business");
+        perYear.setValue(perYear.getItems().getFirst());
 
         //Graph Call
+        showBusinessesGraph();
+        showYearlyGraph();
     }
 
     //Left-Nav Controller for buttons
@@ -186,39 +189,68 @@ public class BusinessViewController implements Initializable {
 
     @FXML
     private void filterYear(ActionEvent event) {
+        showBusinessesGraph();
     }
 
     @FXML
     private void perYear(ActionEvent event) {
+        showYearlyGraph();
     }
 
     void showBusinessesGraph() {
         try {
             Database database = new Database();
             graphMethods graph = new graphMethods();
+            businessStatus.getData().clear();
+            businessesTally.getData().clear();
 
             for (XYChart.Series<String, Number> bar : graph.barGraphGenerator(database.executeQuery(String.format("""
-                                                                                                   SELECT
-                                                                                                   CASE
-                                                                                                   WHEN `status` = 0 THEN 'Inactive'
-                                                                                                   ELSE 'Active' END AS status, `zone`, COUNT(*)
+                                                                                                   SELECT %s AS label, CASE WHEN `status` = 0 THEN 'Inactive' ELSE 'Active'
+                                                                                                   END AS status, COUNT(*)
                                                                                                    FROM `business`
                                                                                                    WHERE YEAR(`date_registered`) <= %s
-                                                                                                   GROUP BY 2, 1
-                                                                                                   ORDER BY 2;""", filterYear.getValue()))).values()) {
-                businessesGraph.getData().add(bar);
+                                                                                                   GROUP BY 2;""", filterYear.getValue(), filterYear.getValue()))).values()) {
+                businessStatus.getData().add(bar);
             }
-            
-            for (XYChart.Series<String, Number> line : graph.lineGraphGenerator(database.executeQuery(String.format("""
-                                                                                                   SELECT
-                                                                                                   CASE
-                                                                                                   WHEN `status` = 0 THEN 'Inactive'
-                                                                                                   ELSE 'Active' END AS status, `zone`, COUNT(*)
+
+            for (XYChart.Series<String, Number> bar : graph.barGraphGenerator(database.executeQuery(String.format("""
+                                                                                                   SELECT %s AS label, `business_type`, COUNT(*)
                                                                                                    FROM `business`
                                                                                                    WHERE YEAR(`date_registered`) <= %s
-                                                                                                   GROUP BY 2, 1
-                                                                                                   ORDER BY 2;""", filterYear.getValue()))).values()) {
-                businessesGraph.getData().add(line);
+                                                                                                   GROUP BY `business_type`;""", filterYear.getValue(), filterYear.getValue()))).values()) {
+                businessesTally.getData().add(bar);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    void showYearlyGraph() {
+        try {
+            Database database = new Database();
+            graphMethods graph = new graphMethods();
+            businessesYearly.getData().clear();
+
+            switch (perYear.getValue()) {
+                case "Business":
+                    for (XYChart.Series<String, Number> line : graph.lineGraphGenerator(database.executeQuery("""
+                                                                                                   SELECT 'Business' AS label, YEAR(`date_registered`), 
+                                                                                                   SUM(COUNT(*)) OVER (ORDER BY `date_registered`)
+                                                                                                   FROM `business`
+                                                                                                   GROUP BY 2;""")).values()) {
+                        businessesYearly.getData().add(line);
+                    }
+                    break;
+                case "Zone Business":
+                    for (XYChart.Series<String, Number> line : graph.lineGraphGenerator(database.executeQuery("""
+                                                                                                   SELECT CONCAT('Zone ', `zone`), YEAR(`date_registered`),
+                                                                                                   SUM(COUNT(*)) OVER (PARTITION BY `zone` ORDER BY YEAR(`date_registered`)) AS `count`
+                                                                                                   FROM `business`
+                                                                                                   GROUP BY 1, 2
+                                                                                                   ORDER BY 1;""")).values()) {
+                        businessesYearly.getData().add(line);
+                    }
+                    break;
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

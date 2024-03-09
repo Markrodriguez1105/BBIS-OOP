@@ -4,202 +4,167 @@
  */
 package requestedDocuments;
 
+import assets.*;
 import java.io.IOException;
+import java.net.URL;
+import java.sql.*;
+import java.util.Date;
+import java.util.ResourceBundle;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-
-import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.event.ActionEvent;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import main.main;
-import reports.DatabaseConnector;
 
 /**
  * FXML Report Controller class
  *
- * @author Hello Jovel
  */
 public class RequestedDocumentController implements Initializable {
 
-    @FXML
-    private Label ReqDocCategoryLabel;
-    
-    @FXML
-    private ComboBox<String> ReqDocCategoryComboBox;
-    
-    @FXML
-    private TextField ReqDocSearchTextField;
-    
-    @FXML
-    private TableView<DocReqData> ReqDocReportTableView;
-    
-    @FXML
-    private TableColumn<DocReqData, String> DocTypeTableColumn;
-    
-    @FXML
-    private TableColumn<DocReqData, String> DocNameTableColumn;
-    
-    @FXML
-    private TableColumn<DocReqData, String> DocContactNumberTableColumn;
-    
-    @FXML
-    private TableColumn<DocReqData, String> DocDateTableColumn;
-    
-    @FXML
-    private TableColumn<DocReqData, String> DocReasonTableColumn;
+    private static ObservableList<document> lists = FXCollections.observableArrayList();
+    public static document selected = null;
 
     @FXML
-    private TableColumn<DocReqData, String> DocPrintTableColumn;
+    private ComboBox<String> docsType;
+    @FXML
+    private TableColumn<document, String> fullName;
+    @FXML
+    private TableColumn<document, String> cat;
+    @FXML
+    private TableColumn<document, String> docType;
+    @FXML
+    private TableColumn<document, String> stats;
+    @FXML
+    private TableView<document> documentList = new TableView<>();
+    @FXML
+    private TableColumn<document, Date> dateReq;
+    @FXML
+    private ScrollPane certificateView;
+    @FXML
+    private ScrollPane permitView;
+    @FXML
+    private Text CrqstName;
+    @FXML
+    private Text CDocsId;
+    @FXML
+    private Text CrqstDate;
+    @FXML
+    private Label Cname;
+    @FXML
+    private Label CphoneNumber;
+    @FXML
+    private Label Cemail;
+    @FXML
+    private Label CAddress;
+    @FXML
+    private Label Ccategory;
+    @FXML
+    private Label CDocsType;
+    @FXML
+    private Label CpayStats;
+    @FXML
+    private Label Cpurpose;
+    @FXML
+    private Text PrqstName;
+    @FXML
+    private Text PDocsId;
+    @FXML
+    private Text PrqstDate;
+    @FXML
+    private Label Pname;
+    @FXML
+    private Label PphoneNumber;
+    @FXML
+    private Label Pemail;
+    @FXML
+    private Label PBusinessName;
+    @FXML
+    private Label PBusinessType;
+    @FXML
+    private Label PbusinessAddress;
+    @FXML
+    private Label PpayStats;
+    @FXML
+    private Label PDocsType;
+    @FXML
+    private Label PAddress;
+    @FXML
+    private Label Ppurpose;
+    @FXML
+    private Button Cpayment;
+    @FXML
+    private Button Ppayment;
+    @FXML
+    private TextField search;
+    @FXML
+    private Label Pcategory;
+    @FXML
+    private Button Cdelete;
+    @FXML
+    private Button Pdelete;
+    @FXML
+    private Button Cprint;
+    @FXML
+    private Button Pprint;
+    @FXML
+    private Text user_lname;
+    @FXML
+    private Text user_fname;
 
-    private String[] Category = {"All Documents", "Barangay Indigency", "Barangay Clearance", "Agricultural Permit", "Business Permit"};
-
-    private final DatabaseConnector databaseConnector = new DatabaseConnector();
-    private boolean usingSampleData = true; // Set this to true to use sample data, false to fetch from the database
-    static ObservableList<DocReqData> DocDataList;
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Initialize table columns
+        // TODO
+        user_fname.setText(LogIn.LogInController.user_fname);
+        user_lname.setText(LogIn.LogInController.user_lname);
         
-        DocTypeTableColumn.setCellValueFactory(new PropertyValueFactory<>("docType"));
-        DocNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        DocContactNumberTableColumn.setCellValueFactory(new PropertyValueFactory<>("contactNumber"));
-        DocDateTableColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
-        DocReasonTableColumn.setCellValueFactory(new PropertyValueFactory<>("reason"));
-        DocPrintTableColumn.setCellValueFactory(new PropertyValueFactory<>("print"));
+        Database database = new Database();
+        permitView.setVisible(false);
+        certificateView.setVisible(false);
+        permitView.setVvalue(0);
+        certificateView.setVvalue(0);
 
-        // Initialize combo box
-        ReqDocCategoryComboBox.getItems().addAll(Category);
-        // Set the initial value to "All Reports"
-        ReqDocCategoryComboBox.setValue("All Documents");
-        // Set the label to "All Reports" initially
-        ReqDocCategoryLabel.setText("All Documents");
+        //Initialized ComboBox
+        docsType.getItems().add("All Documents");
+        docsType.getItems().addAll(setComboBox(database.executeQuery("""
+                                                                  SELECT `document_type` 
+                                                                  FROM `requesteddocs`
+                                                                  GROUP BY 1
+                                                                  ORDER BY 1;""")));
+        docsType.setValue(docsType.getItems().getFirst());
 
-        // Initialize the observable list
-        DocDataList = FXCollections.observableArrayList();
+        //Initialized TableView
+        fullName.setCellValueFactory(new PropertyValueFactory<>("fullname"));
+        cat.setCellValueFactory(new PropertyValueFactory<>("cat"));
+        docType.setCellValueFactory(new PropertyValueFactory<>("documentType"));
+        stats.setCellValueFactory(new PropertyValueFactory<>("stats"));
+        dateReq.setCellValueFactory(new PropertyValueFactory<>("date"));
+        documentList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
-        try {
-            // Load data into the table immediately
-            loadDataDocIntoTable();
-        } catch (SQLException ex) {
-            Logger.getLogger(RequestedDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        documentList.getItems().clear();
+        lists.setAll(setTable());
+        documentList.setItems(lists);
 
-        ReqDocSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            // Set content alignment to center for all columns
-            ReqDocReportTableView.setStyle("-fx-alignment: CENTER;");
-            DocNameTableColumn.setStyle("-fx-alignment: CENTER;");
-            DocContactNumberTableColumn.setStyle("-fx-alignment: CENTER;");
-            DocDateTableColumn.setStyle("-fx-alignment: CENTER;");
-            DocReasonTableColumn.setStyle("-fx-alignment: CENTER;");
-            DocPrintTableColumn.setStyle("-fx-alignment: CENTER;");
-            try {
-                // Reload data when search text changes
-                loadDataDocIntoTable();
-            } catch (SQLException ex) {
-                Logger.getLogger(RequestedDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
-
-        ReqDocCategoryComboBox.setOnAction(event -> {
-            getCategory(event);
-            try {
-                loadDataDocIntoTable(); // Reload data when category changes
-            } catch (SQLException ex) {
-                Logger.getLogger(RequestedDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
-    }
-        
-    private void loadDataDocIntoTable() throws SQLException {
-        // Clear the DocDataList
-        DocDataList.clear();
-
-        // Get the selected category
-        String DocSelectedCategory = ReqDocCategoryComboBox.getValue();
-        String searchText = ReqDocSearchTextField.getText().toLowerCase(); // Convert to lowercase for case-insensitive comparison
-
-        // Check if selectedCategory is null or "All Documents"
-        if (DocSelectedCategory == null || "All Documents".equals(DocSelectedCategory)) {
-            DocSelectedCategory = "";
-        }
-
-        // Fetch data from the MySQL database
-        String query;
-        ResultSet resultSet = null;
-        if (DocSelectedCategory.isEmpty()) {
-            query = "SELECT * FROM `documents`;";
-            resultSet = databaseConnector.executeQuery(query);
-        } else {
-            query = "SELECT * FROM `documents` WHERE `document_type = ?`;";
-            resultSet = databaseConnector.getFromDatabase(query, DocSelectedCategory);
-        }
-
-        // Check if resultSet is null
-        if (resultSet == null) {
-            System.out.println("Error fetching data from the database. ResultSet is null.");
-            return;
-        }
-
-        try {
-            while (resultSet.next()) {
-                DocReqData document = new DocReqData(
-                        resultSet.getString(1),
-                        resultSet.getString(2),
-                        resultSet.getString(3),
-                        resultSet.getString(4),
-                        resultSet.getString(5)
-                );
-                DocDataList.add(document);
-            }
-        } catch (SQLException e) {
-            System.out.println("Error loading data into table: " + e.getMessage());
-            e.printStackTrace();
-        } finally {
-            try {
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-            } catch (SQLException e) {
-                System.out.println("Error closing result set: " + e.getMessage());
-                e.printStackTrace();
-            }
-        }
-
-        // Set the data in the TableView
-        ReqDocReportTableView.getItems().setAll(DocDataList);
-    }
-    // Utility method to check if a string array contains the specified search text (case-insensitive)
-    private boolean containsIgnoreCase(String[] data, String searchText) {
-        for (String value : data) {
-            if (value.toLowerCase().contains(searchText)) {
-                return true;
-            }
-        }
-        return false;
     }
 
-    
-
-    public void getCategory(ActionEvent event) {
-        String selectedCategory = ReqDocCategoryComboBox.getValue();
-        ReqDocCategoryLabel.setText(selectedCategory);
-
-    }    
-    
     //Left-Nav Controller for buttons
     @FXML
     private void dashboardClick(ActionEvent event) throws IOException {
@@ -257,7 +222,241 @@ public class RequestedDocumentController implements Initializable {
 
     @FXML
     private void logOutClick(ActionEvent event) throws IOException {
-        main main = new main(); 
+        main main = new main();
         main.changeScene("/LogIn/LogIn.fxml", "Log In");
+    }
+
+    @FXML
+    private void copy(MouseEvent event) {
+        ClipboardContent clipboardContent = new ClipboardContent();
+        clipboardContent.putString(((Labeled) event.getSource()).getText());
+        Clipboard.getSystemClipboard().setContent(clipboardContent);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("System Messsage");
+        alert.setHeaderText(null);
+        alert.setContentText("Text Copied to Clipboard");
+        alert.showAndWait();
+
+    }
+
+    public ObservableList<String> setComboBox(ResultSet result) {
+        ObservableList<String> list = FXCollections.observableArrayList();
+        try {
+            while (result.next()) {
+                list.add(result.getString(1));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return list;
+    }
+
+    ObservableList<document> setTable() {
+        Database database = new Database();
+        document d;
+        ObservableList<document> list = FXCollections.observableArrayList();
+        try {
+            ResultSet result = database.executeQuery("""
+                                                     SELECT rd.*,
+                                                     CASE WHEN dp.OR IS NOT NULL THEN 'Paid' ELSE 'Pending' END AS payed
+                                                     FROM requesteddocs AS rd
+                                                     LEFT JOIN document_paid AS dp
+                                                     ON rd.id = dp.id
+                                                     ORDER BY date_requested DESC;""");
+            while (result.next()) {
+                d = new document(result.getString(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5), result.getString(6), result.getString(7), result.getString(8), result.getString(9), result.getString(10), result.getString(11), result.getDate(12), result.getString(13));
+                if(result.getString(11).equalsIgnoreCase("Indigency")){
+                    d.setStats("No Payment");
+                }
+                list.add(d);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return list;
+    }
+
+    public void updateTable() {
+        lists.setAll(setTable());
+        documentList.setItems(lists);
+    }
+
+    @FXML
+    private void cellSelected(MouseEvent event) {
+        showCellSelected();
+    }
+
+    @FXML
+    private void clear(MouseEvent event) {
+        search.setText("");
+        documentList.setItems(lists);
+    }
+
+    @FXML
+    private void edit(ActionEvent event) {
+        main main = new main();
+        main.overlayWindow("/requestedDocuments/editDoc.fxml", "Update Document");
+    }
+
+    @FXML
+    private void print(ActionEvent event) {
+        if (selected.getCat().equals("Barangay Certification")) {
+            new main().overlayWindow("/requestedDocuments/barangayCertificationTemp.fxml", "Barangay Certification");
+        }else{
+            new main().overlayWindow("/requestedDocuments/businessPermitTemp.fxml", "Business Permit");
+        }
+    }
+
+    @FXML
+    private void payment(ActionEvent event) {
+        new main().overlayWindow("/treasury/documentPayment.fxml", "Payment");
+    }
+
+    @FXML
+    private void search(KeyEvent event) {
+        ObservableList<document> filtered = FXCollections.observableArrayList();
+        if (!search.getText().isBlank()) {
+            for (document record : lists) {
+                if (record.getFirstname().toLowerCase().startsWith(search.getText().toLowerCase()) 
+                        || record.getMiddlename().toLowerCase().startsWith(search.getText().toLowerCase())
+                        || record.getLastname().toLowerCase().startsWith(search.getText().toLowerCase())) {
+                    filtered.add(record);
+                }
+            }
+            documentList.setItems(filtered);
+        } else {
+            documentList.setItems(lists);
+        }
+    }
+
+    @FXML
+    private void delete(ActionEvent event) throws SQLException {
+        Database database = new Database();
+        selected = documentList.getSelectionModel().getSelectedItem();
+        if (selected.getCat().equals("Barangay Permit")) {
+            PreparedStatement prep = database.insertQuery(String.format("DELETE FROM `permit` WHERE `id` = '%s'", selected.getId()));
+            System.out.println(prep.executeUpdate());
+
+        } else if (selected.getCat().equals("Barangay Certification")) {
+            PreparedStatement prep = database.insertQuery(String.format("DELETE FROM `certification` WHERE `id` = '%s'", selected.getId()));
+            System.out.println(prep.executeUpdate());
+        } else {
+            System.out.println("No passed");
+        }
+        updateTable();
+        permitView.setVisible(false);
+        certificateView.setVisible(false);
+
+    }
+
+    public void showCellSelected() {
+        permitView.setVvalue(0);
+        certificateView.setVvalue(0);
+        Database database = new Database();
+        selected = documentList.getSelectionModel().getSelectedItem();
+        permitView.setVisible(false);
+        certificateView.setVisible(false);
+        Ppayment.setDisable(false);
+        Cpayment.setDisable(false);
+        Pdelete.setDisable(false);
+        Cdelete.setDisable(false);
+        Cprint.setDisable(true);
+        Pprint.setDisable(true);
+
+        if (selected.getStats().equalsIgnoreCase("Paid")) {
+            Ppayment.setDisable(true);
+            Cpayment.setDisable(true);
+            Pdelete.setDisable(true);
+            Cdelete.setDisable(true);
+            Cprint.setDisable(false);
+            Pprint.setDisable(false);
+        }else if(selected.getStats().equalsIgnoreCase("No Payment")){
+            Ppayment.setDisable(true);
+            Cpayment.setDisable(true);
+            Cprint.setDisable(false);
+            Pprint.setDisable(false);
+        }
+
+        if (selected.getCat().equalsIgnoreCase("Barangay Permit")) {
+            permitView.setVisible(true);
+            try {
+                ResultSet result = database.executeQuery(String.format("""
+                                                         SELECT `id`, `address`, `phone_num`, `email`, `business_name`, `business_type`, `business_address`, `purpose`
+                                                         FROM `permit`
+                                                         WHERE `id` = '%s';""", selected.getId()));
+                while (result.next()) {
+                    PDocsId.setText(selected.getId());
+                    PrqstName.setText(selected.getRfullname());
+                    Pname.setText(selected.getFullname());
+                    PAddress.setText(result.getString(2));
+                    PphoneNumber.setText(result.getString(3));
+                    Pemail.setText(result.getString(4));
+                    PBusinessName.setText(result.getString(5));
+                    PBusinessType.setText(result.getString(6));
+                    PbusinessAddress.setText(result.getString(7));
+                    Pcategory.setText(selected.getCat());
+                    PpayStats.setText(selected.getStats());
+                    PDocsType.setText(selected.getDocumentType());
+                    PrqstDate.setText(selected.getDate().toString());
+                    Ppurpose.setText(result.getString(8));
+                    if (PpayStats.getText().equalsIgnoreCase("Pending")) {
+                        PpayStats.setStyle("-fx-text-fill: RED;");
+                    } else {
+                        PpayStats.setStyle("-fx-text-fill: GREEN;");
+                    }
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        } else if (selected.getCat().equalsIgnoreCase("Barangay Certification")) {
+            certificateView.setVisible(true);
+            try {
+                ResultSet result = database.executeQuery(String.format("""
+                                                         SELECT `id`, `address`, `phone_num`, `email`, `purpose`
+                                                         FROM `certification`
+                                                         WHERE `id` = '%s';""", selected.getId()));
+                while (result.next()) {
+                    CDocsId.setText(selected.getId());
+                    CrqstName.setText(selected.getRfullname());
+                    Cname.setText(selected.getFullname());
+                    CAddress.setText(result.getString(2));
+                    CphoneNumber.setText(result.getString(3));
+                    Cemail.setText(result.getString(4));
+                    CDocsType.setText(selected.getDocumentType());
+                    Ccategory.setText(selected.getCat());
+                    CrqstDate.setText(selected.getDate().toString());
+                    CpayStats.setText(selected.getStats());
+                    Cpurpose.setText(result.getString(5));
+                    if (CpayStats.getText().equalsIgnoreCase("Pending")) {
+                        CpayStats.setStyle("-fx-text-fill: RED;");
+                    } else {
+                        CpayStats.setStyle("-fx-text-fill: GREEN;");
+                    }
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    @FXML
+    private void createDocs(ActionEvent event) throws IOException {
+        main main = new main();
+        main.overlayWindow("/requestedDocuments/addDoc.fxml", "Create New Document");
+    }
+
+    @FXML
+    private void docsType(ActionEvent event) {
+        ObservableList<document> filtered = FXCollections.observableArrayList();
+        if (!docsType.getValue().equals("All Documents")) {
+            for (document record : lists) {
+                if (record.getDocumentType().equals(docsType.getValue())) {
+                    filtered.add(record);
+                }
+            }
+            documentList.setItems(filtered);
+        } else {
+            documentList.setItems(lists);
+        }
     }
 }

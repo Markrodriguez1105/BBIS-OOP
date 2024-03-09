@@ -1,15 +1,9 @@
-package dashboard;
+package assets;
 
 import java.sql.*;
-import java.util.Comparator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.TableView;
 
 public class Database {
-    
+
     public Connection connectDb() {
         Connection connect;
         try {
@@ -21,18 +15,23 @@ public class Database {
             return null;
         }
     }
-    
-    public ResultSet executeQuery(String query){
+
+    public ResultSet executeQuery(String query) {
         Connection connect = connectDb();
         PreparedStatement prep;
         ResultSet result = null;
-        
+
         try {
             prep = connect.prepareStatement(query);
             result = prep.executeQuery();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return result;
+    }
+
+    public PreparedStatement insertQuery(String query) throws SQLException {
+        Connection connect = connectDb();
+        return connect.prepareStatement(query);
     }
 }

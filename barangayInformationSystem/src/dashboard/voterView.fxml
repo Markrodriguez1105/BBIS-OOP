@@ -4,10 +4,11 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -160,11 +161,6 @@
                         </Text>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="554.0" HBox.hgrow="ALWAYS">
-                     <children>
-                        <FontAwesomeIcon glyphName="BELL" size="1.5em" />
-                     </children>
-                  </HBox>
                </children>
                <padding>
                   <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
@@ -294,33 +290,47 @@
                                     <Font name="Poppins SemiBold" size="18.0" />
                                  </font>
                               </Text>
-                              <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                           </children>
+                        </HBox>
+                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                           <content>
+                              <VBox>
                                  <children>
-                                    <ComboBox fx:id="filter" prefHeight="1.0" prefWidth="127.0" promptText="Show All" />
+                                    <HBox prefHeight="350.0">
+                                       <children>
+                                          <BarChart fx:id="zoneVoterGraph" prefHeight="343.0" prefWidth="620.0" title="Zone" HBox.hgrow="ALWAYS">
+                                             <xAxis>
+                                                <CategoryAxis side="BOTTOM" />
+                                             </xAxis>
+                                             <yAxis>
+                                                <NumberAxis side="LEFT" />
+                                             </yAxis>
+                                          </BarChart>
+                                          <BarChart fx:id="statusVoterGraph" layoutX="10.0" layoutY="10.0" title="Status">
+                                             <xAxis>
+                                                <CategoryAxis side="BOTTOM" />
+                                             </xAxis>
+                                             <yAxis>
+                                                <NumberAxis side="LEFT" />
+                                             </yAxis>
+                                          </BarChart>
+                                       </children>
+                                    </HBox>
+                                    <LineChart fx:id="yearlyChanges" legendSide="LEFT" prefHeight="300.0" title="Yearly Changes">
+                                      <xAxis>
+                                        <CategoryAxis side="BOTTOM" />
+                                      </xAxis>
+                                      <yAxis>
+                                        <NumberAxis side="LEFT" />
+                                      </yAxis>
+                                    </LineChart>
                                  </children>
-                              </HBox>
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="100.0" prefWidth="609.0" VBox.vgrow="ALWAYS">
-                           <children>
-                              <BarChart fx:id="zoneVoterGraph" prefHeight="343.0" prefWidth="620.0" title="Zone" titleSide="BOTTOM" HBox.hgrow="ALWAYS">
-                                 <xAxis>
-                                    <CategoryAxis side="BOTTOM" />
-                                 </xAxis>
-                                 <yAxis>
-                                    <NumberAxis side="LEFT" />
-                                 </yAxis>
-                              </BarChart>
-                              <BarChart fx:id="statusVoterGraph" layoutX="10.0" layoutY="10.0" title="Status" titleSide="BOTTOM">
-                                 <xAxis>
-                                    <CategoryAxis side="BOTTOM" />
-                                 </xAxis>
-                                 <yAxis>
-                                    <NumberAxis side="LEFT" />
-                                 </yAxis>
-                              </BarChart>
-                           </children>
-                        </HBox>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </VBox>
+                           </content>
+                        </ScrollPane>
                      </children>
                      <padding>
                         <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />

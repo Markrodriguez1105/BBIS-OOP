@@ -1,0 +1,685 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="592.0" prefWidth="511.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="requestedDocuments.BarangayCertificationTempController">
+   <children>
+      <ScrollPane fx:id="docContainer" fitToWidth="true" hbarPolicy="NEVER" prefHeight="547.0" prefWidth="588.0" vvalue="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="45.0">
+         <content>
+            <StackPane fx:id="document" prefHeight="700.0" prefWidth="541.0">
+               <children>
+                  <ImageView disable="true" fitHeight="400.0" fitWidth="400.0" opacity="0.1" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/logo.png" />
+                     </image>
+                  </ImageView>
+                  <VBox prefHeight="792.0" prefWidth="521.0" spacing="10.0">
+                     <children>
+                        <HBox alignment="CENTER" fillHeight="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="87.0" prefWidth="202.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="84.0" prefWidth="107.0">
+                                 <children>
+                                    <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/logo.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                              <VBox alignment="CENTER" prefHeight="84.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <VBox alignment="CENTER">
+                                       <children>
+                                          <Label contentDisplay="CENTER" text="REPUBLIC OF THE PHILIPPINES" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="Poppins Regular" size="9.0" />
+                                             </font>
+                                          </Label>
+                                          <Label contentDisplay="CENTER" text="PROVINCE OF CAMARINES SUR" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="Poppins Regular" size="9.0" />
+                                             </font>
+                                          </Label>
+                                          <Label contentDisplay="CENTER" text="MUNICIPALITY OF SAN FERNANDO" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="Poppins Regular" size="9.0" />
+                                             </font>
+                                          </Label>
+                                          <Label contentDisplay="CENTER" text="BARANGAY BONIFACIO(POB.)" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="Poppins SemiBold" size="11.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                    <Label contentDisplay="CENTER" text="OFFICE OF THE PUNONG BARANGAY" textAlignment="CENTER">
+                                       <font>
+                                          <Font name="Poppins SemiBold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <HBox alignment="CENTER" prefHeight="84.0" prefWidth="107.0">
+                                 <children>
+                                    <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/sanFernandoLogo.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                        <Label fx:id="docType" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" style="-fx-background-color: YELLOW;" text="BARANGAY CLEARANCE" textAlignment="CENTER">
+                           <font>
+                              <Font name="Poppins Bold" size="25.0" />
+                           </font>
+                        </Label>
+                        <HBox prefHeight="608.0" prefWidth="519.0" spacing="10.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <VBox alignment="TOP_CENTER" prefHeight="608.0" prefWidth="120.0" spacing="5.0">
+                                 <children>
+                                    <VBox alignment="CENTER">
+                                       <children>
+                                          <Label contentDisplay="CENTER" text="MARLYN L. ROMERO" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="Poppins SemiBold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <Label contentDisplay="CENTER" text="Punong Barangay" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="Poppins Regular" size="10.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="CENTER">
+                                       <children>
+                                          <Label contentDisplay="CENTER" text="JOEL B. QUINAO" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="Poppins SemiBold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <Label contentDisplay="CENTER" text="Barangay Kagawad" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="Poppins Regular" size="10.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="CENTER">
+                                       <children>
+                                          <Label contentDisplay="CENTER" text="RODOLFO B. BASILAN" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="Poppins SemiBold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <Label contentDisplay="CENTER" text="Barangay Kagawad" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="Poppins Regular" size="10.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="CENTER">
+                                       <children>
+                                          <Label contentDisplay="CENTER" text="MAGALO T. LAÑADA" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="Poppins SemiBold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <Label contentDisplay="CENTER" text="Barangay Kagawad" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="Poppins Regular" size="10.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="CENTER">
+                                       <children>
+                                          <Label contentDisplay="CENTER" text="MELLISA C. VIDA" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="Poppins SemiBold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <Label contentDisplay="CENTER" text="Barangay Kagawad" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="Poppins Regular" size="10.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="CENTER">
+                                       <children>
+                                          <Label contentDisplay="CENTER" text="FLORO C. GLOBO" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="Poppins SemiBold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <Label contentDisplay="CENTER" text="Barangay Kagawad" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="Poppins Regular" size="10.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="CENTER">
+                                       <children>
+                                          <Label contentDisplay="CENTER" text="AIDA B. SALIOT" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="Poppins SemiBold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <Label contentDisplay="CENTER" text="Barangay Kagawad" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="Poppins Regular" size="10.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="CENTER">
+                                       <children>
+                                          <Label contentDisplay="CENTER" text="RAMON S. DELA TRINIDAD" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="Poppins SemiBold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <Label contentDisplay="CENTER" text="Barangay Kagawad" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="Poppins Regular" size="10.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="CENTER">
+                                       <children>
+                                          <Label contentDisplay="CENTER" text="JOHN EMIL D. CARULLO" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="Poppins SemiBold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <Label contentDisplay="CENTER" text="SK Chairperson" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="Poppins Regular" size="10.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="CENTER">
+                                       <children>
+                                          <Label contentDisplay="CENTER" text="MARIA TERESA S. GABO" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="Poppins SemiBold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <Label contentDisplay="CENTER" text="Barangay Treasurer" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="Poppins Regular" size="10.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="CENTER">
+                                       <children>
+                                          <Label contentDisplay="CENTER" text="GINALYN M. MARAVILLA" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="Poppins SemiBold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <Label contentDisplay="CENTER" text="Barangay Secretary" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="Poppins Regular" size="10.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <HBox spacing="5.0">
+                                             <children>
+                                                <StackPane>
+                                                   <children>
+                                                      <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../images/qr_code_PNG6.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                      <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../images/logo.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </children>
+                                                </StackPane>
+                                                <VBox prefWidth="100.0">
+                                                   <children>
+                                                      <ImageView fitHeight="50.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../images/codabarbarcode2-removebg-preview.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                      <HBox>
+                                                         <children>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ID:">
+                                                               <font>
+                                                                  <Font name="Poppins Regular" size="9.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fx:id="docId" layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0123456789">
+                                                               <font>
+                                                                  <Font name="Poppins Regular" size="9.0" />
+                                                               </font>
+                                                            </Text>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </VBox>
+                              <Pane prefHeight="200.0" prefWidth="2.0" style="-fx-background-color: black;" />
+                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <VBox minHeight="-Infinity" prefWidth="277.0" spacing="5.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TO WHOM IT MAY CONCERN:">
+                                             <font>
+                                                <Font name="Poppins Medium" size="10.0" />
+                                             </font>
+                                          </Text>
+                                          <Label fx:id="docContent" prefWidth="277.0" text="           This is to certify that as per record, the person whose name and signature appearing herein has requested a CLEARANCE from this office with the following detail/s;" textAlignment="JUSTIFY" wrapText="true">
+                                             <font>
+                                                <Font name="Poppins Medium" size="9.0" />
+                                             </font>
+                                          </Label>
+                                          <GridPane>
+                                            <columnConstraints>
+                                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="179.33331298828125" minWidth="10.0" prefWidth="119.33330535888672" />
+                                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="248.66669464111328" minWidth="10.0" prefWidth="248.66669464111328" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                             <children>
+                                                <Label layoutX="10.0" layoutY="17.0" text="First Name :" GridPane.rowIndex="1">
+                                                   <font>
+                                                      <Font name="Poppins Regular" size="9.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="10.0" layoutY="47.0" text="Middle Name :" GridPane.rowIndex="2">
+                                                   <font>
+                                                      <Font name="Poppins Regular" size="9.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="10.0" layoutY="77.0" text="Address :" GridPane.rowIndex="3">
+                                                   <font>
+                                                      <Font name="Poppins Regular" size="9.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="10.0" layoutY="107.0" text="Pupose :" GridPane.rowIndex="4">
+                                                   <font>
+                                                      <Font name="Poppins Regular" size="9.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="10.0" layoutY="137.0" text="Remarks :" GridPane.rowIndex="5">
+                                                   <font>
+                                                      <Font name="Poppins Regular" size="9.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="lname" layoutX="10.0" layoutY="17.0" text="Sample" wrapText="true" GridPane.columnIndex="1">
+                                                   <font>
+                                                      <Font name="Poppins SemiBold" size="10.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="fname" layoutX="129.0" layoutY="17.0" text="Sample" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                   <font>
+                                                      <Font name="Poppins SemiBold" size="10.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="mname" layoutX="129.0" layoutY="47.0" text="Sample" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                   <font>
+                                                      <Font name="Poppins SemiBold" size="10.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="address" layoutX="129.0" layoutY="77.0" prefWidth="203.0" text="Barangay Bonifacio, San Fernando, Camarines Sur" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                   <font>
+                                                      <Font name="Poppins SemiBold" size="10.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="purpose" layoutX="129.0" layoutY="107.0" text="Sample" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                                   <font>
+                                                      <Font name="Poppins SemiBold" size="10.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="remarks" layoutX="129.0" layoutY="137.0" text="No Derogatory Record" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                                   <font>
+                                                      <Font name="Poppins SemiBold" size="10.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="10.0" layoutY="27.0" text="Last Name :">
+                                                   <font>
+                                                      <Font name="Poppins Regular" size="9.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </GridPane>
+                                          <Label layoutX="10.0" layoutY="33.0" prefWidth="277.0" text="           This document is issued upon the requested of the above subject for the purpose stated." textAlignment="JUSTIFY" wrapText="true">
+                                             <font>
+                                                <Font name="Poppins Medium" size="9.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="CENTER">
+                                       <children>
+                                          <Label fx:id="sigFullName" text="Sample Full Name" textAlignment="JUSTIFY" wrapText="true">
+                                             <font>
+                                                <Font name="Poppins SemiBold" size="11.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="10.0" layoutY="10.0" text="Signiture Over Printed Name of Claimant" textAlignment="JUSTIFY" wrapText="true">
+                                             <font>
+                                                <Font name="Poppins Regular" size="9.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                       <padding>
+                                          <Insets top="10.0" />
+                                       </padding>
+                                    </VBox>
+                                    <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="317.0">
+                                       <children>
+                                          <Label alignment="CENTER" prefWidth="200.0" text="GINILYN M. MARAVILLA" wrapText="true">
+                                             <font>
+                                                <Font name="Poppins SemiBold" size="11.0" />
+                                             </font>
+                                          </Label>
+                                          <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefWidth="200.0" text="Secretary" wrapText="true">
+                                             <font>
+                                                <Font name="Poppins Regular" size="9.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                       <padding>
+                                          <Insets top="10.0" />
+                                       </padding>
+                                    </VBox>
+                                    <VBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="375.0">
+                                       <children>
+                                          <Label alignment="CENTER" prefWidth="200.0" text="MARLYN L. ROMERO" wrapText="true">
+                                             <font>
+                                                <Font name="Poppins SemiBold" size="11.0" />
+                                             </font>
+                                          </Label>
+                                          <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefWidth="200.0" text="Punong Barangay" wrapText="true">
+                                             <font>
+                                                <Font name="Poppins Regular" size="9.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                       <padding>
+                                          <Insets top="10.0" />
+                                       </padding>
+                                    </VBox>
+                                    <VBox VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <VBox prefHeight="200.0" prefWidth="100.0">
+                                             <children>
+                                                <HBox prefWidth="277.0">
+                                                   <children>
+                                                      <VBox prefWidth="181.0">
+                                                         <children>
+                                                            <VBox>
+                                                               <children>
+                                                                  <HBox>
+                                                                     <children>
+                                                                        <Label text="DATE ISSUED: ">
+                                                                           <font>
+                                                                              <Font name="Poppins Medium" size="8.0" />
+                                                                           </font>
+                                                                        </Label>
+                                                                        <Label fx:id="issuedDate" text="01/01/2024">
+                                                                           <font>
+                                                                              <Font name="Poppins Medium" size="8.0" />
+                                                                           </font>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </HBox>
+                                                                  <Label text="(6) Six Months Validity">
+                                                                     <font>
+                                                                        <Font name="Poppins Medium" size="8.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                                  <Label fx:id="valMes" layoutX="10.0" layoutY="41.0" text="Validity of the CLEARANCE from the Date of Issuance">
+                                                                     <font>
+                                                                        <Font name="Poppins Italic" size="5.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </VBox>
+                                                            <GridPane fx:id="showPay">
+                                                              <columnConstraints>
+                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                              </columnConstraints>
+                                                              <rowConstraints>
+                                                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                                              </rowConstraints>
+                                                               <children>
+                                                                  <Label text="Paid Under the Following:" GridPane.columnSpan="2147483647">
+                                                                     <font>
+                                                                        <Font name="Poppins Medium" size="8.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                                  <Label layoutX="10.0" layoutY="13.0" text="Date Issued:" GridPane.rowIndex="1">
+                                                                     <font>
+                                                                        <Font name="Poppins Regular" size="8.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                                  <Label layoutX="10.0" layoutY="35.0" text="OR Number:" GridPane.rowIndex="2">
+                                                                     <font>
+                                                                        <Font name="Poppins Regular" size="8.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                                  <Label layoutX="10.0" layoutY="57.0" text="Document Fee:" GridPane.rowIndex="3">
+                                                                     <font>
+                                                                        <Font name="Poppins Regular" size="8.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                                  <Label layoutX="10.0" layoutY="79.0" text="Doc Stamp:" GridPane.rowIndex="4">
+                                                                     <font>
+                                                                        <Font name="Poppins Regular" size="8.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                                  <Label fx:id="issuedDate2" layoutX="10.0" layoutY="35.0" text="01/01/2024" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                                     <font>
+                                                                        <Font name="Poppins Regular" size="8.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                                  <Label fx:id="ORNum" layoutX="124.0" layoutY="35.0" text="123456789" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                                     <font>
+                                                                        <Font name="Poppins Regular" size="8.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                                  <Label fx:id="docFee" layoutX="124.0" layoutY="57.0" text="75.00" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                                     <font>
+                                                                        <Font name="Poppins Regular" size="8.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                                  <Label fx:id="stampFee" layoutX="124.0" layoutY="79.0" text="30.00" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                                                     <font>
+                                                                        <Font name="Poppins Regular" size="8.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </GridPane>
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox alignment="TOP_CENTER" prefWidth="114.0">
+                                                         <children>
+                                                            <Label text="Application's Thumb Mark">
+                                                               <font>
+                                                                  <Font size="8.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="117.0">
+                                                               <children>
+                                                                  <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="70.0" prefWidth="20.0" style="-fx-border-color: black; -fx-opacity: 50%;" text="LEFT" HBox.hgrow="ALWAYS">
+                                                                     <font>
+                                                                        <Font size="8.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                                  <Label alignment="CENTER" layoutX="68.0" layoutY="10.0" maxWidth="1.7976931348623157E308" prefHeight="70.0" prefWidth="20.0" style="-fx-border-color: black; -fx-opacity: 50%;" text="RIGHT" HBox.hgrow="ALWAYS">
+                                                                     <font>
+                                                                        <Font size="8.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </HBox>
+                                                            <Label layoutX="10.0" layoutY="33.0" text="No Valid Without Seal">
+                                                               <font>
+                                                                  <Font size="6.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <Label layoutX="21.0" layoutY="142.0" text="Paid Document">
+                                                               <font>
+                                                                  <Font size="6.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </HBox>
+                                                <GridPane fx:id="showCTC" layoutX="10.0" layoutY="75.0" prefHeight="13.0" prefWidth="277.0">
+                                                   <columnConstraints>
+                                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="136.0" minWidth="10.0" prefWidth="80.33333587646484" />
+                                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="197.66666412353516" minWidth="10.0" prefWidth="197.66666412353516" />
+                                                   </columnConstraints>
+                                                   <rowConstraints>
+                                                      <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                                                      <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                                                      <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                                                      <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                                                      <RowConstraints vgrow="SOMETIMES" />
+                                                   </rowConstraints>
+                                                   <children>
+                                                      <Label text="CTC Details:" GridPane.columnSpan="2147483647">
+                                                         <font>
+                                                            <Font name="Poppins Medium" size="8.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label layoutX="10.0" layoutY="13.0" text="CTC Date Issued:" GridPane.rowIndex="1">
+                                                         <font>
+                                                            <Font name="Poppins Regular" size="8.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label layoutX="10.0" layoutY="35.0" text="CTC Amt. Paid:" GridPane.rowIndex="2">
+                                                         <font>
+                                                            <Font name="Poppins Regular" size="8.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label layoutX="10.0" layoutY="57.0" text="CTC No:" GridPane.rowIndex="3">
+                                                         <font>
+                                                            <Font name="Poppins Regular" size="8.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label layoutX="10.0" layoutY="79.0" text="CTC Place Issued:" GridPane.rowIndex="4">
+                                                         <font>
+                                                            <Font name="Poppins Regular" size="8.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="ctcIssuedDate" layoutX="10.0" layoutY="35.0" text="01/01/2024" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                         <font>
+                                                            <Font name="Poppins Regular" size="8.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="ctcFee" layoutX="124.0" layoutY="35.0" text="110.00" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                         <font>
+                                                            <Font name="Poppins Regular" size="8.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="ctcNum" layoutX="124.0" layoutY="57.0" text="123456789" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                         <font>
+                                                            <Font name="Poppins Regular" size="8.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="placeIssued" layoutX="124.0" layoutY="79.0" text="Barangay Bonifacio, San Fernando, Camarines Sur" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                                         <font>
+                                                            <Font name="Poppins Regular" size="8.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </GridPane>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </StackPane>
+         </content>
+      </ScrollPane>
+      <HBox alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="612.0" spacing="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <children>
+            <Label text="Click Print to Proceed">
+               <font>
+                  <Font name="Poppins Medium" size="12.0" />
+               </font>
+            </Label>
+            <Button alignment="CENTER" contentDisplay="RIGHT" defaultButton="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#print" prefWidth="100.0" text="Print">
+               <graphic>
+                  <FontAwesomeIcon glyphName="PRINT" />
+               </graphic>
+               <font>
+                  <Font name="Poppins Regular" size="12.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <ComboBox fx:id="printerAvailable" prefWidth="150.0" promptText="Printer Available" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
