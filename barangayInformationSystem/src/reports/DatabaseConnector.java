@@ -10,15 +10,11 @@ import java.util.List;
 
 public class DatabaseConnector {
 
-    private final String DB_URL = "jdbc:mysql://localhost:3308/bbis";
-    private final String DB_USER = "root";
-    private final String DB_PASSWORD = "";
-
     public Connection connect() throws SQLException {
         Connection connection = null;
         try {
             // Open a connection
-            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/bbis", "root", "");
 
             System.out.println("Connected to the database");
         } catch (SQLException e) {
