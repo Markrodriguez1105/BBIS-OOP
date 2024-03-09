@@ -57,12 +57,12 @@
                         </ImageView>
                         <VBox alignment="CENTER_LEFT" prefHeight="58.0" prefWidth="101.0">
                            <children>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Lastname">
+                              <Text fx:id="user_lname" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Lastname">
                                  <font>
                                     <Font name="Poppins Regular" size="15.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Firstname">
+                              <Text fx:id="user_fname" fill="WHITE" layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Firstname">
                                  <font>
                                     <Font size="13.0" />
                                  </font>
@@ -229,11 +229,11 @@
                <children>
                   <TableView fx:id="documentList" onMouseClicked="#cellSelected" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                     <columns>
-                        <TableColumn fx:id="dateReq" prefWidth="75.0" text=" Date Request" />
-                      <TableColumn fx:id="fullName" prefWidth="75.0" text="Full Name" />
-                      <TableColumn fx:id="cat" prefWidth="75.0" text="Category" />
-                        <TableColumn fx:id="docType" prefWidth="75.0" text="Document Type" />
-                        <TableColumn fx:id="stats" prefWidth="75.0" text="Payment Status" />
+                        <TableColumn fx:id="dateReq" editable="false" prefWidth="75.0" sortable="false" text=" Date Request" />
+                      <TableColumn fx:id="fullName" editable="false" prefWidth="75.0" sortable="false" text="Full Name" />
+                      <TableColumn fx:id="cat" editable="false" prefWidth="75.0" sortable="false" text="Category" />
+                        <TableColumn fx:id="docType" editable="false" prefWidth="75.0" sortable="false" text="Document Type" />
+                        <TableColumn fx:id="stats" editable="false" prefWidth="75.0" sortable="false" text="Payment Status" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -242,7 +242,7 @@
                   <StackPane style="-fx-background-color: white;">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="No Document Selected" />
-                        <ScrollPane fx:id="permitView" fitToWidth="true" layoutX="10.0" layoutY="10.0" vvalue="1.0">
+                        <ScrollPane fx:id="permitView" fitToWidth="true" layoutX="10.0" layoutY="10.0" visible="false" vvalue="1.0">
                            <content>
                               <VBox prefWidth="249.0" spacing="10.0">
                                  <children>
@@ -367,7 +367,7 @@
                                                 <Font name="Poppins Regular" size="12.0" />
                                              </font>
                                           </Text>
-                                          <Label maxWidth="1.7976931348623157E308" prefWidth="161.0" text="Barangay Permit" wrapText="true">
+                                          <Label fx:id="Pcategory" maxWidth="1.7976931348623157E308" prefWidth="161.0" text="Barangay Permit" wrapText="true">
                                              <font>
                                                 <Font name="Poppins SemiBold" size="14.0" />
                                              </font>
@@ -480,7 +480,7 @@
                                                 <FontAwesomeIcon glyphName="PENCIL" />
                                              </graphic>
                                           </Button>
-                                          <Button alignment="CENTER" contentDisplay="RIGHT" defaultButton="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#delete" prefWidth="100.0" text="Delete" GridPane.columnIndex="1">
+                                          <Button fx:id="Cdelete" alignment="CENTER" contentDisplay="RIGHT" defaultButton="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#delete" prefWidth="100.0" text="Delete" GridPane.columnIndex="1">
                                              <graphic>
                                                 <FontAwesomeIcon glyphName="TRASH" />
                                              </graphic>
@@ -491,7 +491,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </Button>
-                                          <Button fx:id="Ppayment" alignment="CENTER" contentDisplay="RIGHT" defaultButton="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#payment" prefWidth="100.0" text="Payment" GridPane.rowIndex="1">
+                                          <Button fx:id="Cpayment" alignment="CENTER" contentDisplay="RIGHT" defaultButton="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#payment" prefWidth="100.0" text="Payment" GridPane.rowIndex="1">
                                              <font>
                                                 <Font name="Poppins Regular" size="12.0" />
                                              </font>
@@ -502,7 +502,7 @@
                                                 <FontAwesomeIcon glyphName="MONEY" />
                                              </graphic>
                                           </Button>
-                                          <Button alignment="CENTER" contentDisplay="RIGHT" defaultButton="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#print" prefWidth="100.0" text="Print" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                          <Button fx:id="Cprint" alignment="CENTER" contentDisplay="RIGHT" defaultButton="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#print" prefWidth="100.0" text="Print" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                              <graphic>
                                                 <FontAwesomeIcon glyphName="PRINT" />
                                              </graphic>
@@ -522,7 +522,7 @@
                               </VBox>
                            </content>
                         </ScrollPane>
-                        <ScrollPane fx:id="certificateView" fitToWidth="true" visible="false" vvalue="1.0">
+                        <ScrollPane fx:id="certificateView" fitToWidth="true" vvalue="1.0">
                            <StackPane.margin>
                               <Insets />
                            </StackPane.margin>
@@ -721,7 +721,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </Button>
-                                          <Button alignment="CENTER" contentDisplay="RIGHT" defaultButton="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#delete" prefWidth="100.0" text="Delete" GridPane.columnIndex="1">
+                                          <Button fx:id="Pdelete" alignment="CENTER" contentDisplay="RIGHT" defaultButton="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#delete" prefWidth="100.0" text="Delete" GridPane.columnIndex="1">
                                              <graphic>
                                                 <FontAwesomeIcon glyphName="TRASH" />
                                              </graphic>
@@ -732,7 +732,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </Button>
-                                          <Button fx:id="Cpayment" alignment="CENTER" contentDisplay="RIGHT" defaultButton="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#payment" prefWidth="100.0" text="Payment" GridPane.rowIndex="1">
+                                          <Button fx:id="Ppayment" alignment="CENTER" contentDisplay="RIGHT" defaultButton="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#payment" prefWidth="100.0" text="Payment" GridPane.rowIndex="1">
                                              <graphic>
                                                 <FontAwesomeIcon glyphName="MONEY" />
                                              </graphic>
@@ -743,7 +743,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </Button>
-                                          <Button alignment="CENTER" contentDisplay="RIGHT" defaultButton="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#print" prefWidth="100.0" text="Print" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                          <Button fx:id="Pprint" alignment="CENTER" contentDisplay="RIGHT" defaultButton="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#print" prefWidth="100.0" text="Print" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                              <graphic>
                                                 <FontAwesomeIcon glyphName="PRINT" />
                                              </graphic>
