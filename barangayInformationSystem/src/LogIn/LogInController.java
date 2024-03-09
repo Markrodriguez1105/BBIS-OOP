@@ -57,15 +57,17 @@ public class LogInController implements Initializable {
         main main = new main();
         Database database = new Database();
         ResultSet result = database.executeQuery(String.format("SELECT * FROM `account` WHERE BINARY `admin_id` = '%s' && BINARY `password` = '%s';", userName.getText(), password.getText()));
-        ResultSet result2 = database.executeQuery(String.format("SELECT first_name, middle_name, last_name FROM `resident` WHERE `resident_id` = %s", userName.getText()));
         try {
             if (!userName.getText().isBlank() && !password.getText().isBlank()) {
-                if (result.next() && result2.next()) {
-                    resident_id = result.getInt(1);
-                    user_fname = result2.getString(1);
-                    user_mname = result2.getString(2);
-                    user_lname = result2.getString(3);
-                    main.changeScene("/dashboard/dashboard.fxml", "Dashboard");
+                if (result.next()) {
+                    ResultSet result2 = database.executeQuery(String.format("SELECT first_name, middle_name, last_name FROM `resident` WHERE `resident_id` = %s", result.getInt(1)));
+                    while (result2.next()) {
+                        resident_id = result.getInt(1);
+                        user_fname = result2.getString(1);
+                        user_mname = result2.getString(2);
+                        user_lname = result2.getString(3);
+                        main.changeScene("/dashboard/dashboard.fxml", "Dashboard");
+                    }
                 } else {
                     indicator.setText("Wrong Username and Password");
                 }

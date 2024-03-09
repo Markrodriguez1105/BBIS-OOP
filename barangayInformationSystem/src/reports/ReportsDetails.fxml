@@ -1,16 +1,293 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="reports.ReportDetailsController">
-    <VBox alignment="CENTER" spacing="10.0" prefHeight="400.0" prefWidth="600.0">
-        <Label text="Report Details" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
-        <Label fx:id="reportTypeLabel" style="-fx-font-size: 14;"/>
-        <Label fx:id="nameLabel" style="-fx-font-size: 14;"/>
-        <Label fx:id="contactNumberLabel" style="-fx-font-size: 14;"/>
-        <Label fx:id="emailLabel" style="-fx-font-size: 14;"/>
-        <Label fx:id="reasonLabel" style="-fx-font-size: 14;"/>
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="reports.ReportDetailsController">
+    <VBox fx:id="reportDetailsVBox" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="500.0" prefWidth="600.0" spacing="10.0">
+      <HBox alignment="CENTER" fillHeight="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="107.0" prefWidth="600.0" VBox.vgrow="NEVER">
+         <children>
+            <HBox alignment="CENTER" prefHeight="84.0" prefWidth="107.0">
+               <children>
+                  <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/logo.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <VBox alignment="TOP_CENTER" prefHeight="84.0">
+               <children>
+                  <Label text="Municipality of San Fernando">
+                     <font>
+                        <Font name="Poppins Regular" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="105.0" layoutY="10.0" text="BARANGAY REPORTS">
+                     <font>
+                        <Font name="Poppins SemiBold" size="22.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="105.0" layoutY="10.0" text="Barangay Bonifacio">
+                     <font>
+                        <Font name="Poppins Regular" size="13.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <HBox alignment="CENTER" prefHeight="84.0" prefWidth="107.0">
+               <children>
+                  <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/sanFernandoLogo.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="600.0" VBox.vgrow="NEVER">
+         <children>
+            <Pane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="1.0" prefWidth="200.0" style="-fx-background-color: black; -fx-background-radius: 10px;" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Pane>
+              <Label style="-fx-font-size: 18; -fx-font-weight: bold;" text="Report Details">
+               <padding>
+                  <Insets left="10.0" right="10.0" />
+               </padding>
+               <font>
+                  <Font name="Poppins Regular" size="12.0" />
+               </font>
+            </Label>
+            <Pane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="1.0" prefWidth="230.0" style="-fx-background-color: black; -fx-background-radius: 10px;" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </Pane>
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+      </HBox>
+      <GridPane prefHeight="329.0" prefWidth="600.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="62.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="64.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="63.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="58.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="85.0" minHeight="0.0" prefHeight="46.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="85.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="85.0" minHeight="0.0" prefHeight="64.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="104.0" minHeight="5.0" prefHeight="14.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="104.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="84.0" minHeight="4.0" prefHeight="14.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <HBox prefHeight="15.0" prefWidth="415.0">
+               <children>
+                  <Label prefHeight="20.0" prefWidth="77.0" style="-fx-font-size: 14; -fx-font-weight: bold;" text="Report ID:">
+                     <font>
+                        <Font name="Poppins Regular" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="15.0" prefWidth="415.0" GridPane.columnIndex="1">
+               <children>
+                  <Label style="-fx-font-weight: bold;" text="Report Type:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="15.0" prefWidth="415.0" GridPane.rowIndex="1">
+               <children>
+                  <TextField fx:id="reportIdLabel" disable="true" editable="false" prefHeight="25.0" prefWidth="260.0">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="15.0" prefWidth="415.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <TextField fx:id="reportTypeLabel" editable="false" prefHeight="25.0" prefWidth="275.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="15.0" prefWidth="415.0" GridPane.rowIndex="3">
+               <children>
+                  <TextField fx:id="nameLabel" editable="false" prefHeight="25.0" prefWidth="260.0">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="15.0" prefWidth="415.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <children>
+                  <TextField fx:id="contactNumberLabel" editable="false" prefHeight="25.0" prefWidth="275.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="9">
+               <children>
+                  <Button fx:id="PrintButton" contentDisplay="RIGHT" graphicTextGap="5.0" mnemonicParsing="false" onAction="#printReport" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #3A53A5; -fx-background-radius: 10;" text="Print" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets right="30.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Poppins Bold" size="14.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIcon fill="WHITE" glyphName="DOWNLOAD" />
+                     </graphic>
+                  </Button>
+                  <Button fx:id="UpdateButton" contentDisplay="RIGHT" graphicTextGap="5.0" mnemonicParsing="false" onAction="#updateReport" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #3A53A5; -fx-background-radius: 10;" text="Update" textFill="WHITE">
+                    <HBox.margin>
+                        <Insets left="10.0" right="5.0" />
+                    </HBox.margin>
+                    <font>
+                        <Font name="Poppins Bold" size="14.0" />
+                    </font>
+                    <graphic>
+                        <FontAwesomeIcon fill="WHITE" glyphName="EDIT" />
+                    </graphic>
+                </Button>
+               </children>
+               <GridPane.margin>
+                  <Insets right="20.0" />
+               </GridPane.margin>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
+               <children>
+                  <Label style="-fx-font-weight: bold;" text="Name: ">
+                     <font>
+                        <Font name="Poppins Regular" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <children>
+                  <Label style="-fx-font-weight: bold;" text="Contact Number:">
+                     <font>
+                        <Font name="Poppins Regular" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="4">
+               <children>
+                  <Label style="-fx-font-weight: bold;" text="Email:">
+                     <font>
+                        <Font name="Poppins Regular" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <children>
+                  <Label style="-fx-font-weight: bold;" text="Date Recorded:">
+                     <font>
+                        <Font name="Poppins Regular" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="5">
+               <children>
+                  <TextField fx:id="emailLabel" editable="false" prefHeight="25.0" prefWidth="260.0">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <children>
+                  <TextField fx:id="dateLabel" editable="false" prefHeight="25.0" prefWidth="275.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+               <children>
+                  <RadioButton fx:id="solvedRadioButton" mnemonicParsing="false" prefHeight="20.0" prefWidth="91.0" text="Solved">
+                     <font>
+                        <Font name="Poppins Regular" size="14.0" />
+                     </font>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="statusToggleGroup" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="pendingRadioButton" mnemonicParsing="false" prefHeight="20.0" prefWidth="124.0" text="Pending" toggleGroup="$statusToggleGroup">
+                     <font>
+                        <Font name="Poppins Regular" size="14.0" />
+                     </font>
+                  </RadioButton>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="41.0" prefWidth="108.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+               <children>
+                  <Label prefHeight="20.0" prefWidth="110.0" text="Set Status:">
+                     <font>
+                        <Font name="Poppins Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="6">
+               <children>
+                  <Label text="Reason:">
+                     <font>
+                        <Font name="Poppins Bold" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="7">
+               <children>
+                  <TextArea fx:id="reasonLabel" editable="false" prefHeight="38.0" prefWidth="260.0" wrapText="true">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </TextArea>
+               </children>
+            </HBox>
+         </children>
+      </GridPane>
     </VBox>
 </AnchorPane>
