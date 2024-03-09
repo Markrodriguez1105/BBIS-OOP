@@ -4,6 +4,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -19,23 +20,51 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" fx:id="recordView" prefHeight="720.0" prefWidth="1400.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="businessrecord.businessRecordController">
+<AnchorPane id="AnchorPane" fx:id="recordView" prefHeight="755.0" prefWidth="1562.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="businessRecord.businessRecordController">
 
     <children>
-        <ButtonBar layoutX="251.0" layoutY="90.0" prefHeight="38.0" prefWidth="70.0" />
-        <TableView fx:id="recordsTable" editable="true" layoutX="427.0" layoutY="138.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="520.0" prefWidth="836.0">
+        <ButtonBar layoutX="1004.0" layoutY="702.0" prefHeight="38.0" prefWidth="476.0">
+            <buttons>
+                <HBox prefHeight="38.0" prefWidth="497.0" spacing="30.0">
+                    <children>
+                        <Button minWidth="58.0" mnemonicParsing="false" onMouseClicked="#getAddView" prefHeight="40.0" prefWidth="80.0" style="-fx-background-radius: 10; -fx-background-color: #3A53A5;" text="ADD" textFill="WHITE" />
+                        <Button minWidth="58.0" mnemonicParsing="false" onAction="#update" prefHeight="40.0" prefWidth="80.0" style="-fx-background-radius: 10; -fx-background-color: #3A53A5;" text="UPDATE" textFill="WHITE" />
+                        <Button minWidth="58.0" mnemonicParsing="false" onAction="#delete" prefHeight="40.0" prefWidth="80.0" style="-fx-background-radius: 10; -fx-background-color: #3A53A5;" text="DELETE" textFill="WHITE" />
+                        <Button minWidth="58.0" mnemonicParsing="false" onAction="#view" prefHeight="40.0" prefWidth="80.0" style="-fx-background-radius: 10; -fx-background-color: #3A53A5;" text="VIEW" textFill="WHITE" />
+                    </children>
+                </HBox>
+            </buttons>
+        </ButtonBar>
+        <TableView fx:id="recordsTable" editable="true" layoutX="234.0" layoutY="137.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="553.0" prefWidth="1270.0">
             <columns>
-                <TableColumn fx:id="idCol" prefWidth="73.0" text="ID" />
-                <TableColumn fx:id="nameCol" prefWidth="140.0" text="Business Name" />
-                <TableColumn fx:id="addressCol" prefWidth="170.0" text="Business Address" />
-                <TableColumn fx:id="typeCol" prefWidth="140.0" text="Business Type" />
-                <TableColumn fx:id="incomeCol" prefWidth="140.0" text="Monthly Income" />
-                <TableColumn fx:id="costCol" prefWidth="170.0" text="Monthly Cost" />
+                <TableColumn fx:id="busidCol" prefWidth="95.19999694824219" text="Business ID" />
+                <TableColumn fx:id="baridCol" prefWidth="98.39996337890625" text="Barangay ID" />
+                <TableColumn fx:id="bNameCol" prefWidth="277.5999450683594" text="Business Name" />
+                <TableColumn fx:id="bTypeCol" prefWidth="211.199951171875" text="Business Type" />
+                <TableColumn fx:id="monthCol" prefWidth="214.39996337890625" text="Monthly Income" />
+            <TableColumn fx:id="vatCol" prefWidth="183.9998779296875" text="Vat Status" />
+            <TableColumn fx:id="statCol" prefWidth="159.2000732421875" text="Status" />
+                <TableColumn minWidth="1.60009765625" prefWidth="26.39990234375">
+                    <graphic>
+                        <Button minWidth="27.0" mnemonicParsing="false" onAction="#refreshTable" prefHeight="8.0" prefWidth="13.0" textFill="WHITE">
+                            <graphic>
+                                <ImageView fitHeight="10.0" fitWidth="15.0">
+                                    <image>
+                                        <Image url="@../images/RefreshIcon.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                    </graphic>
+                </TableColumn>
             </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
         </TableView>
-        <TextField fx:id="Search" layoutX="1041.0" layoutY="96.0" onAction="#Search" prefHeight="26.0" prefWidth="206.0" />
+        <TextField fx:id="Search" layoutX="1168.0" layoutY="95.0" onAction="#Search" prefHeight="26.0" prefWidth="311.0" promptText=" Search Business Name" />
         <VBox layoutX="150.0" layoutY="100.0" prefHeight="600.0" prefWidth="211.0" style="-fx-background-color: #3A53A5;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <children>
+            <children>      
                 <GridPane alignment="CENTER_LEFT" prefHeight="484.0" prefWidth="171.0" vgap="10.0" VBox.vgrow="ALWAYS">
                     <columnConstraints>
                         <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="41.222251892089844" />
@@ -202,9 +231,18 @@
                 </HBox>
             </children>
         </VBox>
-    <Button layoutX="448.0" layoutY="94.0" minWidth="58.0" mnemonicParsing="false" onMouseClicked="#getAddView" prefHeight="19.0" text="ADD" />
-      <Button layoutX="534.0" layoutY="94.0" minWidth="58.0" mnemonicParsing="false" onAction="#delete" prefHeight="19.0" text="DELETE" />
-      <Button layoutX="619.0" layoutY="94.0" minWidth="58.0" mnemonicParsing="false" onAction="#update" prefHeight="19.0" text="UPDATE" />
-      <Button layoutX="705.0" layoutY="94.0" minWidth="58.0" mnemonicParsing="false" onAction="#refreshTable" prefHeight="19.0" text="REFRESH" />
+        <ComboBox fx:id="vatFilterCombo" layoutX="410.0" layoutY="95.0" onAction="#filterByVATStatus" prefWidth="150.0" promptText="Filter by VAT Status">
+</ComboBox>
+      <ComboBox fx:id="statFilterCombo" layoutX="234.0" layoutY="95.0" onAction="#filterByStatus" prefHeight="26.0" prefWidth="157.0" promptText="Filter by Active Status" />
+
+
+
+
+
+
+
+
+
+      
     </children>
 </AnchorPane>

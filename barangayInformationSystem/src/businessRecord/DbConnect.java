@@ -19,14 +19,14 @@ public class DbConnect {
 
     private static String HOST = "localhost";
     private static int PORT = 3306;
-    private static String DB_NAME = "record";
+    private static String DB_NAME = "bbis";
     private static String USERNAME = "root";
     private static String PASSWORD = "";
     private static Connection connection;
 
     public static Connection getConnection() {
         try {
-            connection = DriverManager.getConnection(String.format("jdbc:mysql://localhost:3306/businessrecord", HOST, PORT, DB_NAME), USERNAME, PASSWORD);
+            connection = DriverManager.getConnection(String.format("jdbc:mysql://localhost:3306/bbis", HOST, PORT, DB_NAME), USERNAME, PASSWORD);
         } catch (SQLException ex) {
             Logger.getLogger(DbConnect.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -15,3 +15,4 @@ INSERT INTO record (Name, Address, Type, Income, Cost) VALUES
 ('Bob Johnson', '789 Pine St', 'Manufacturing', 75000, 30000);
 
 );
+    
