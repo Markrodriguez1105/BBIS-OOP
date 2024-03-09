@@ -5,17 +5,18 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="651.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="treasury.CedulaForm">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="724.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="treasury.CedulaForm">
    <children>
-      <VBox layoutX="6.0" layoutY="6.0" prefHeight="645.0" prefWidth="889.0">
+      <VBox layoutX="6.0" layoutY="5.0" prefHeight="728.0" prefWidth="895.0" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="74.0" prefWidth="889.0">
+            <HBox alignment="CENTER" prefHeight="42.0" prefWidth="889.0">
                <children>
                   <Label alignment="CENTER" prefHeight="63.0" prefWidth="169.0" text="Cedula Form" HBox.hgrow="ALWAYS">
                      <font>
@@ -24,17 +25,35 @@
                   </Label>
                </children>
                <VBox.margin>
-                  <Insets top="1.0" />
+                  <Insets top="5.0" />
                </VBox.margin>
             </HBox>
             <HBox layoutX="10.0" layoutY="278.0" prefHeight="20.0" prefWidth="889.0">
                <children>
-                  <HBox prefHeight="19.0" prefWidth="219.0" />
-                  <HBox layoutX="10.0" layoutY="10.0" prefHeight="27.0" prefWidth="398.0" />
+                  <HBox prefHeight="19.0" prefWidth="168.0">
+                     <children>
+                        <RadioButton fx:id="radiobutton_resident" mnemonicParsing="false" text="Resident" />
+                     </children>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="10.0" prefHeight="27.0" prefWidth="429.0">
+                     <children>
+                        <HBox prefHeight="19.0" prefWidth="168.0">
+                           <children>
+                              <RadioButton fx:id="radiobutton_nonres" mnemonicParsing="false" text="Non-Resident" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
                   <ComboBox fx:id="getSearchCedula" editable="true" onMouseClicked="#selectResident" prefHeight="25.0" prefWidth="252.0" promptText="Search" style="-fx-background-color: white; -fx-border-color: grey;" />
                </children>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
             </HBox>
-            <HBox prefHeight="19.0" prefWidth="889.0">
+            <HBox prefHeight="0.0" prefWidth="889.0">
                <children>
                   <HBox prefHeight="26.0" prefWidth="246.0">
                      <children>
@@ -62,10 +81,10 @@
                   </HBox>
                </children>
                <VBox.margin>
-                  <Insets top="2.0" />
+                  <Insets top="5.0" />
                </VBox.margin>
             </HBox>
-            <HBox prefHeight="34.0" prefWidth="889.0">
+            <HBox prefHeight="12.0" prefWidth="889.0">
                <children>
                   <TextField fx:id="getFirstname" prefHeight="35.0" prefWidth="205.0" promptText="Firstname" style="-fx-background-color: WHITE; -fx-border-color: GREY;">
                      <font>
@@ -91,6 +110,9 @@
                      </HBox.margin>
                   </ComboBox>
                </children>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
             </HBox>
             <HBox layoutX="10.0" layoutY="84.0" prefHeight="19.0" prefWidth="889.0">
                <children>
@@ -118,10 +140,10 @@
                   </HBox>
                </children>
                <VBox.margin>
-                  <Insets top="2.0" />
+                  <Insets top="5.0" />
                </VBox.margin>
             </HBox>
-            <HBox prefHeight="35.0" prefWidth="889.0">
+            <HBox prefHeight="0.0" prefWidth="889.0">
                <children>
                   <TextField fx:id="getAddress" prefHeight="34.0" prefWidth="336.0" promptText="Address" style="-fx-background-color: WHITE; -fx-border-color: GREY;">
                      <HBox.margin>
@@ -139,8 +161,11 @@
                      </HBox.margin>
                   </TextField>
                </children>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
             </HBox>
-            <HBox layoutX="10.0" layoutY="139.0" prefHeight="9.0" prefWidth="889.0">
+            <HBox layoutX="10.0" layoutY="139.0" prefHeight="0.0" prefWidth="889.0">
                <children>
                   <HBox prefHeight="19.0" prefWidth="312.0">
                      <children>
@@ -158,7 +183,12 @@
                   </HBox>
                   <HBox layoutX="210.0" layoutY="10.0" prefHeight="26.0" prefWidth="226.0">
                      <children>
-                        <Label prefHeight="17.0" prefWidth="107.0" text="Occupation" />
+                        <Label prefHeight="17.0" prefWidth="107.0" text="Height" />
+                        <Label layoutX="10.0" layoutY="10.0" prefHeight="17.0" prefWidth="107.0" text="Weight">
+                           <HBox.margin>
+                              <Insets left="55.0" />
+                           </HBox.margin>
+                        </Label>
                      </children>
                      <HBox.margin>
                         <Insets />
@@ -166,10 +196,10 @@
                   </HBox>
                </children>
                <VBox.margin>
-                  <Insets top="2.0" />
+                  <Insets top="5.0" />
                </VBox.margin>
             </HBox>
-            <HBox layoutX="10.0" layoutY="49.0" prefHeight="35.0" prefWidth="889.0">
+            <HBox layoutX="10.0" layoutY="49.0" prefHeight="0.0" prefWidth="889.0">
                <children>
                   <ComboBox fx:id="myCitizenship" editable="true" onAction="#Select" prefHeight="35.0" prefWidth="270.0" promptText="Citizenship" style="-fx-background-color: GREY;">
                      <HBox.margin>
@@ -181,21 +211,26 @@
                         <Insets left="20.0" />
                      </HBox.margin>
                   </ComboBox>
-                  <TextField fx:id="getProfession" prefHeight="35.0" prefWidth="270.0" promptText="Profession/Occupation/Business" style="-fx-background-color: WHITE; -fx-border-color: GREY;">
+                  <TextField fx:id="getHeight" prefHeight="34.0" prefWidth="117.0" promptText="Height cm" style="-fx-background-color: #ffffff; -fx-border-color: GREY;">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <TextField fx:id="getWeight" layoutX="610.0" layoutY="10.0" prefHeight="34.0" prefWidth="117.0" promptText="Weight kg" style="-fx-background-color: #ffffff; -fx-border-color: GREY;">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
                   </TextField>
                </children>
                <VBox.margin>
-                  <Insets bottom="3.0" />
+                  <Insets top="5.0" />
                </VBox.margin>
             </HBox>
-            <HBox layoutX="10.0" layoutY="193.0" prefHeight="19.0" prefWidth="843.0">
+            <HBox layoutX="10.0" layoutY="193.0" prefHeight="0.0" prefWidth="843.0">
                <children>
                   <HBox prefHeight="19.0" prefWidth="312.0">
                      <children>
-                        <Label text="Tin No.">
+                        <Label text="Occupation">
                            <HBox.margin>
                               <Insets left="20.0" />
                            </HBox.margin>
@@ -204,29 +239,42 @@
                   </HBox>
                   <HBox layoutX="10.0" layoutY="10.0" prefHeight="19.0" prefWidth="289.0">
                      <children>
-                        <Label text="Barangay Address" />
+                        <Label text="Tin No." />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="322.0" layoutY="10.0" prefHeight="19.0" prefWidth="289.0">
+                     <children>
+                        <Label text="Place of Issue (City/Mun./Prov))" />
                      </children>
                   </HBox>
                </children>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
             </HBox>
-            <HBox layoutX="10.0" layoutY="88.0" prefHeight="36.0" prefWidth="889.0">
+            <HBox layoutX="10.0" layoutY="88.0" prefHeight="0.0" prefWidth="889.0">
                <children>
+                  <TextField fx:id="getProfession" prefHeight="35.0" prefWidth="270.0" promptText="Profession/Occupation/Business" style="-fx-background-color: WHITE; -fx-border-color: GREY;">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </TextField>
                   <ComboBox fx:id="myTinNum" editable="true" onAction="#Select" prefHeight="35.0" prefWidth="270.0" promptText=" Tin No. (If Any)" style="-fx-background-color: GREY;">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
                   </ComboBox>
-                  <TextField fx:id="getPlaceOfIssue" editable="false" prefHeight="34.0" prefWidth="560.0" promptText="Place of Issue" style="-fx-background-color: WHITE; -fx-border-color: GREY;" text="Bonifacio, San Fernando, Camarines Sur">
+                  <TextField fx:id="getPlaceOfIssue" editable="false" prefHeight="34.0" prefWidth="269.0" promptText="Place of Issue" style="-fx-background-color: WHITE; -fx-border-color: GREY;" text="Bonifacio, San Fernando, Camarines Sur">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
                   </TextField>
                </children>
                <VBox.margin>
-                  <Insets />
+                  <Insets top="5.0" />
                </VBox.margin>
             </HBox>
-            <HBox layoutX="10.0" layoutY="193.0" prefHeight="18.0" prefWidth="889.0">
+            <HBox layoutX="10.0" layoutY="193.0" prefHeight="0.0" prefWidth="889.0">
                <children>
                   <HBox prefHeight="19.0" prefWidth="219.0">
                      <children>
@@ -237,7 +285,7 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox layoutX="10.0" layoutY="10.0" prefHeight="10.0" prefWidth="289.0">
+                  <HBox layoutX="10.0" layoutY="10.0" prefHeight="3.0" prefWidth="289.0">
                      <children>
                         <Label text="Date Issued" />
                      </children>
@@ -247,10 +295,10 @@
                   </HBox>
                </children>
                <VBox.margin>
-                  <Insets top="2.0" />
+                  <Insets top="5.0" />
                </VBox.margin>
             </HBox>
-            <HBox layoutX="10.0" layoutY="197.0" prefHeight="25.0" prefWidth="889.0">
+            <HBox layoutX="10.0" layoutY="197.0" prefHeight="0.0" prefWidth="889.0">
                <children>
                   <TextField fx:id="getPurpose" prefHeight="34.0" prefWidth="175.0" promptText="Purpose" style="-fx-background-color: WHITE; -fx-border-color: GREY;">
                      <font>
@@ -260,12 +308,12 @@
                         <Insets left="20.0" />
                      </HBox.margin>
                   </TextField>
-                  <TextField fx:id="getCurrentDate" prefHeight="34.0" prefWidth="175.0" promptText="Date Issued" style="-fx-background-color: WHITE; -fx-border-color: GREY;">
+                  <TextField fx:id="getCurrentDate" editable="false" prefHeight="34.0" prefWidth="175.0" promptText="Date Issued" style="-fx-background-color: WHITE; -fx-border-color: GREY;">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
                   </TextField>
-                  <HBox prefHeight="39.0" prefWidth="106.0" />
+                  <HBox prefHeight="27.0" prefWidth="101.0" />
                   <Label prefHeight="16.0" prefWidth="90.0" text="Taxable Amount">
                      <font>
                         <Font size="11.0" />
@@ -279,97 +327,335 @@
                         <Font size="11.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="70.0" top="5.0" />
+                        <Insets left="73.0" top="5.0" />
                      </HBox.margin>
                   </Label>
                </children>
                <VBox.margin>
-                  <Insets />
+                  <Insets top="5.0" />
                </VBox.margin>
             </HBox>
-            <HBox layoutX="10.0" layoutY="275.0" prefHeight="24.0" prefWidth="889.0">
+            <HBox layoutX="10.0" layoutY="275.0" prefHeight="40.0" prefWidth="889.0">
                <children>
                   <HBox prefHeight="25.0" prefWidth="509.0">
                      <HBox.margin>
                         <Insets top="5.0" />
                      </HBox.margin>
+                     <children>
+                        <VBox prefHeight="18.0" prefWidth="375.0">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                           <children>
+                              <Label text="A. BASIC COMMUNITY TAX (₱5.00) Voluntary or Exempted (₱1.00)">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
                   </HBox>
-                  <TextField alignment="BASELINE_LEFT" disable="true" prefHeight="25.0" prefWidth="113.0" style="-fx-background-color: grey; -fx-background-radius: 10px;">
+                  <TextField alignment="BASELINE_LEFT" disable="true" prefHeight="29.0" prefWidth="133.0" style="-fx-background-color: grey; -fx-background-radius: 10px;">
                      <HBox.margin>
-                        <Insets left="60.0" />
+                        <Insets left="40.0" />
                      </HBox.margin>
                   </TextField>
-                  <TextField fx:id="getAmount1" alignment="CENTER" editable="false" prefHeight="25.0" prefWidth="113.0" style="-fx-background-radius: 10;">
+                  <TextField fx:id="getAmount1" alignment="CENTER" editable="false" prefHeight="29.0" prefWidth="133.0" style="-fx-background-radius: 10;">
                      <HBox.margin>
-                        <Insets left="60.0" />
-                     </HBox.margin>
-                  </TextField>
-               </children>
-               <padding>
-                  <Insets bottom="4.0" />
-               </padding>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="244.0" prefHeight="28.0" prefWidth="889.0">
-               <children>
-                  <HBox prefHeight="13.0" prefWidth="509.0" />
-                  <TextField disable="true" prefHeight="40.0" prefWidth="113.0" style="-fx-background-color: grey; -fx-background-radius: 10px;">
-                     <HBox.margin>
-                        <Insets left="60.0" />
-                     </HBox.margin>
-                  </TextField>
-                  <TextField disable="true" layoutX="501.0" layoutY="10.0" prefHeight="40.0" prefWidth="113.0" style="-fx-background-color: grey; -fx-background-radius: 10px;">
-                     <HBox.margin>
-                        <Insets left="60.0" />
+                        <Insets left="40.0" />
                      </HBox.margin>
                   </TextField>
                </children>
-               <padding>
-                  <Insets bottom="4.0" />
-               </padding>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
             </HBox>
-            <HBox layoutX="10.0" layoutY="283.0" prefHeight="28.0" prefWidth="889.0">
+            <HBox layoutX="10.0" layoutY="244.0" prefHeight="40.0" prefWidth="889.0">
                <children>
-                  <VBox prefHeight="31.0" prefWidth="509.0" />
-                  <TextField fx:id="getTax" alignment="CENTER" prefHeight="40.0" prefWidth="113.0" style="-fx-background-radius: 10;">
+                  <HBox prefHeight="13.0" prefWidth="509.0">
+                     <children>
+                        <VBox prefHeight="34.0" prefWidth="376.0">
+                           <children>
+                              <Label text="B. ADDITIONAL COMMUNITY TAX (tax not to exceed ₱5,000.00)">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <TextField disable="true" editable="false" prefHeight="29.0" prefWidth="133.0" style="-fx-background-color: grey; -fx-background-radius: 10px;">
                      <HBox.margin>
-                        <Insets left="60.0" />
+                        <Insets left="40.0" />
                      </HBox.margin>
                   </TextField>
-                  <TextField fx:id="getAmount2" alignment="CENTER" prefHeight="40.0" prefWidth="113.0" style="-fx-background-radius: 10;">
+                  <TextField disable="true" editable="false" layoutX="501.0" layoutY="10.0" prefHeight="29.0" prefWidth="133.0" style="-fx-background-color: grey; -fx-background-radius: 10px;">
                      <HBox.margin>
-                        <Insets left="60.0" />
+                        <Insets left="40.0" />
                      </HBox.margin>
                   </TextField>
                </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
             </HBox>
-            <HBox layoutX="10.0" layoutY="387.0" prefHeight="24.0" prefWidth="889.0">
+            <HBox layoutX="10.0" layoutY="283.0" prefHeight="40.0" prefWidth="889.0">
                <children>
-                  <VBox prefHeight="35.0" prefWidth="509.0" />
-                  <TextField alignment="TOP_RIGHT" editable="false" prefHeight="40.0" prefWidth="113.0" style="-fx-background-radius: 10;" text="TOTAL">
+                  <VBox prefHeight="31.0" prefWidth="509.0">
+                     <children>
+                        <Label prefHeight="14.0" prefWidth="447.0" text="1. GROSS RECEIPTS OR EARNINGS DERIVED FROM BUSINESS DURING ">
+                           <font>
+                              <Font name="Arial" size="11.5" />
+                           </font>
+                           <padding>
+                              <Insets left="20.0" top="5.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
+                        <Label prefHeight="18.0" prefWidth="372.0" text="THE PRECEEDING YEAR (₱1.00 for every ₱1,000.00)   ">
+                           <font>
+                              <Font name="Arial" size="11.5" />
+                           </font>
+                           <padding>
+                              <Insets left="20.0" top="5.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets left="14.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children></VBox>
+                  <TextField fx:id="getTax" alignment="CENTER" prefHeight="29.0" prefWidth="133.0" style="-fx-background-radius: 10;">
                      <HBox.margin>
-                        <Insets left="60.0" top="5.0" />
+                        <Insets left="40.0" />
                      </HBox.margin>
                   </TextField>
-                  <TextField fx:id="getTotal" alignment="CENTER" editable="false" prefHeight="40.0" prefWidth="113.0" style="-fx-background-radius: 10;">
+                  <TextField fx:id="getAmount2" alignment="CENTER" editable="false" prefHeight="29.0" prefWidth="133.0" style="-fx-background-radius: 10;">
                      <HBox.margin>
-                        <Insets left="60.0" top="5.0" />
+                        <Insets left="40.0" />
                      </HBox.margin>
                   </TextField>
                </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
             </HBox>
-            <HBox prefHeight="46.0" prefWidth="889.0">
+            <HBox layoutX="10.0" layoutY="395.0" prefHeight="40.0" prefWidth="889.0">
                <children>
-                  <VBox prefHeight="53.0" prefWidth="572.0" />
-                  <Button fx:id="getReset" layoutX="526.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleReset" prefHeight="30.0" prefWidth="110.0" style="-fx-background-color: #3a53a5; -fx-background-radius: 10;" text="Reset" textFill="WHITE">
+                  <VBox prefHeight="35.0" prefWidth="509.0">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <VBox prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Label prefHeight="15.0" prefWidth="490.0" text="2. SALARIES OR GROSS RECEIPT OR EARNINGS DERIVED FROM EXERCISE OF">
+                                       <font>
+                                          <Font name="Arial" size="11.5" />
+                                       </font>
+                                       <padding>
+                                          <Insets left="20.0" top="5.0" />
+                                       </padding>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Label prefHeight="18.0" prefWidth="488.0" text="PROFESSION OR PURSUIT OF ANY OCCUPATION (₱1.00 for every ₱1,000)   ">
+                                       <font>
+                                          <Font name="Arial" size="11.5" />
+                                       </font>
+                                       <padding>
+                                          <Insets left="20.0" top="5.0" />
+                                       </padding>
+                                       <VBox.margin>
+                                          <Insets left="14.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+                  <TextField fx:id="getTax2" alignment="CENTER" prefHeight="29.0" prefWidth="133.0" style="-fx-background-radius: 10;">
                      <HBox.margin>
-                        <Insets right="63.0" top="10.0" />
+                        <Insets left="40.0" />
                      </HBox.margin>
+                  </TextField>
+                  <TextField fx:id="getAmount3" alignment="CENTER" editable="false" prefHeight="29.0" prefWidth="133.0" style="-fx-background-radius: 10;">
+                     <HBox.margin>
+                        <Insets left="40.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="387.0" prefHeight="40.0" prefWidth="889.0">
+               <children>
+                  <VBox prefHeight="35.0" prefWidth="509.0">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <VBox prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Label prefHeight="18.0" prefWidth="402.0" text="3. INCOME FROM REAL PROPERTY (₱1.00 for every ₱1,000)">
+                                       <font>
+                                          <Font name="Arial" size="11.5" />
+                                       </font>
+                                       <padding>
+                                          <Insets left="20.0" top="5.0" />
+                                       </padding>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                     </children></VBox>
+                  <TextField fx:id="getTax3" alignment="CENTER" prefHeight="29.0" prefWidth="133.0" style="-fx-background-radius: 10;">
+                     <HBox.margin>
+                        <Insets left="40.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <TextField fx:id="getAmount4" alignment="CENTER" editable="false" prefHeight="29.0" prefWidth="133.0" style="-fx-background-radius: 10;">
+                     <HBox.margin>
+                        <Insets left="40.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="395.0" prefHeight="40.0" prefWidth="889.0">
+               <children>
+                  <VBox prefHeight="35.0" prefWidth="509.0">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <VBox prefHeight="200.0" prefWidth="100.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+                  <TextField alignment="CENTER" editable="false" prefHeight="29.0" prefWidth="133.0" style="-fx-background-radius: 10;" text="TOTAL">
+                     <HBox.margin>
+                        <Insets left="40.0" />
+                     </HBox.margin>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </TextField>
+                  <TextField fx:id="getTotal" alignment="CENTER" editable="false" prefHeight="29.0" prefWidth="133.0" style="-fx-background-radius: 10;">
+                     <HBox.margin>
+                        <Insets left="40.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="451.0" prefHeight="40.0" prefWidth="889.0">
+               <children>
+                  <VBox prefHeight="35.0" prefWidth="509.0">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <VBox prefHeight="200.0" prefWidth="100.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+                  <TextField alignment="CENTER" editable="false" prefHeight="29.0" prefWidth="133.0" style="-fx-background-radius: 10;" text="INTEREST">
+                     <HBox.margin>
+                        <Insets left="40.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <TextField fx:id="getInterest" alignment="CENTER" prefHeight="29.0" prefWidth="133.0" style="-fx-background-radius: 10;">
+                     <HBox.margin>
+                        <Insets left="40.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="606.0" prefHeight="40.0" prefWidth="889.0">
+               <children>
+                  <VBox prefHeight="35.0" prefWidth="509.0">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <VBox prefHeight="200.0" prefWidth="100.0" />
+                              <Label text="Cedula Number">
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+                  <TextField alignment="CENTER" editable="false" prefHeight="29.0" prefWidth="133.0" style="-fx-background-radius: 10;" text="TOTAL AMOUNT PAID">
+                     <HBox.margin>
+                        <Insets left="40.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <TextField fx:id="getFinalTotal" alignment="CENTER" editable="false" prefHeight="29.0" prefWidth="133.0" style="-fx-background-radius: 10;">
+                     <HBox.margin>
+                        <Insets left="40.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="40.0" prefWidth="889.0">
+               <children>
+                  <VBox prefHeight="27.0" prefWidth="510.0">
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <TextField fx:id="getCedulaNum" alignment="CENTER" prefHeight="34.0" prefWidth="138.0" promptText="CCI2022 26306740" style="-fx-background-color: #ffffff; -fx-border-color: GREY;">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </TextField>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <Button fx:id="getReset" layoutX="526.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleReset" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: #3a53a5; -fx-background-radius: 10;" text="Reset" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets left="40.0" top="5.0" />
+                     </HBox.margin>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
                   </Button>
-                  <Button fx:id="getSubmit" mnemonicParsing="false" onAction="#handleSubmit" prefHeight="30.0" prefWidth="110.0" style="-fx-background-color: #3a53a5; -fx-background-radius: 10;" text="Print" textFill="WHITE">
+                  <Button fx:id="getSubmit" mnemonicParsing="false" onAction="#handleSubmit" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: #3a53a5; -fx-background-radius: 10;" text="Save" textFill="WHITE">
                      <HBox.margin>
-                        <Insets top="10.0" />
-                     </HBox.margin></Button>
+                        <Insets left="40.0" top="5.0" />
+                     </HBox.margin>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding></Button>
                </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
             </HBox>
          </children>
       </VBox>
