@@ -25,6 +25,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 
 
@@ -255,6 +257,13 @@ public class TreasuryController implements Initializable {
             System.err.println("Error executing SQL query: " + e.getMessage());
         }
         return listData;
+    }
+
+
+    @FXML
+    private void clear(MouseEvent event) {
+        searchbar.setText("");
+        userShowData();
     }
     
 }

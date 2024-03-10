@@ -24,6 +24,38 @@ import main.main;
  * @author Hello Mark
  */
 public class DashboardController implements Initializable {
+    public static String populationCount;
+    public static String householdCount;
+    public static String businessesCount;
+    public static String pendingCasesCount;
+    public static String votersCount;
+    public static void setHeaderData() throws SQLException {
+        Database database = new Database();
+        ResultSet result1 = database.executeQuery("SELECT COUNT(`resident_id`) AS COUNT FROM `existresident`;");
+        while(result1.next()){
+            DashboardController.populationCount = result1.getString(1);
+        }
+        
+        ResultSet result2 = database.executeQuery("SELECT COUNT(`household_id`) AS COUNT FROM `household`;");
+        while(result2.next()){
+            DashboardController.householdCount = result2.getString(1);
+        }
+        
+        ResultSet result3 = database.executeQuery("SELECT COUNT(`business_id`) AS COUNT FROM `business` WHERE `status` = 1;");
+        while(result3.next()){
+            DashboardController.businessesCount = result3.getString(1);
+        }
+        
+        ResultSet result4 = database.executeQuery("SELECT COUNT(`status`) AS COUNT FROM `report` WHERE `status` = 'pending';");
+        while(result4.next()){
+            DashboardController.pendingCasesCount = result4.getString(1);
+        }
+        
+        ResultSet result5 = database.executeQuery("SELECT COUNT(`voter_status`) AS COUNT FROM `existresident` WHERE `voter_status` = 1;");
+        while(result5.next()){
+            DashboardController.votersCount = result5.getString(1);
+        }
+    }
 
     @FXML
     private Label population;
@@ -37,12 +69,6 @@ public class DashboardController implements Initializable {
     private Label voters;
     @FXML
     private TableView<transaction> transactionList;
-    
-    public static String populationCount;
-    public static String householdCount;
-    public static String businessesCount;
-    public static String pendingCasesCount;
-    public static String votersCount;
     @FXML
     private Text user_lname;
     @FXML
@@ -167,32 +193,5 @@ public class DashboardController implements Initializable {
         main.changeScene("/dashboard/voterView.fxml", "Voters View");
     }
     
-    public static void setHeaderData() throws SQLException {
-        Database database = new Database();
-        ResultSet result1 = database.executeQuery("SELECT COUNT(`resident_id`) AS COUNT FROM `existresident`;");
-        while(result1.next()){
-            DashboardController.populationCount = result1.getString(1);
-        }
-        
-        ResultSet result2 = database.executeQuery("SELECT COUNT(`household_id`) AS COUNT FROM `household`;");
-        while(result2.next()){
-            DashboardController.householdCount = result2.getString(1);
-        }
-        
-        ResultSet result3 = database.executeQuery("SELECT COUNT(`business_id`) AS COUNT FROM `business` WHERE `status` = 1;");
-        while(result3.next()){
-            DashboardController.businessesCount = result3.getString(1);
-        }
-        
-        ResultSet result4 = database.executeQuery("SELECT COUNT(`status`) AS COUNT FROM `report` WHERE `status` = 'pending';");
-        while(result4.next()){
-            DashboardController.pendingCasesCount = result4.getString(1);
-        }
-        
-        ResultSet result5 = database.executeQuery("SELECT COUNT(`voter_status`) AS COUNT FROM `existresident` WHERE `voter_status` = 1;");
-        while(result5.next()){
-            DashboardController.votersCount = result5.getString(1);
-        }
-    }
     
 }

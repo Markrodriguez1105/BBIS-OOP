@@ -15,8 +15,6 @@ public class DatabaseConnector {
         try {
             // Open a connection
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/bbis", "root", "");
-
-            System.out.println("Connected to the database");
         } catch (SQLException e) {
             e.printStackTrace();
             throw e; // Rethrow the exception to let the calling code handle it

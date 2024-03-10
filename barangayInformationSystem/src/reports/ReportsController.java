@@ -33,6 +33,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import reports.AddReportController;
 import main.main;
@@ -56,6 +57,8 @@ public class ReportsController implements Initializable {
 
 
     private final DatabaseConnector dbConnector = new DatabaseConnector();
+    @FXML
+    private Button AddReportButton;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -166,30 +169,24 @@ public class ReportsController implements Initializable {
             }
 
             private boolean shouldShowEditButton(ReportsData rowData) {
-                System.out.println("Checking Edit button for report ID: " + rowData.getReportId());
                 // Implement your logic to determine if Edit button should be shown
                 // For example, you can check if certain conditions are met in the rowData
                 boolean shouldShow = true; // Modify this based on your logic
-                System.out.println("Should show Edit button: " + shouldShow);
                 return shouldShow;
             }
 
             private boolean shouldShowDeleteButton(ReportsData rowData) {
-                System.out.println("Checking Delete button for report ID: " + rowData.getReportId());
                 int reportStatus = Integer.parseInt(rowData.getRecordStatus());
                 // Implement your logic to determine if Delete button should be shown
                 // For example, you can check if certain conditions are met in the rowData
                 boolean shouldShow = reportStatus == 1; // Modify this based on your logic
-                System.out.println("Should show Delete button: " + shouldShow);
                 return shouldShow;
             }
             private boolean shouldShowRecoverButton(ReportsData rowData) {
-                System.out.println("Checking Recover button for report ID: " + rowData.getReportId());
                 int reportStatus = Integer.parseInt(rowData.getRecordStatus());
                 // Implement your logic to determine if Recover button should be shown
                 // For example, you can check if certain conditions are met in the rowData
                 boolean shouldShow = reportStatus == 0;
-                System.out.println("Should show Recover button: " + shouldShow);
                 return shouldShow;
             }
 
@@ -624,6 +621,12 @@ public class ReportsController implements Initializable {
     private void logOutClick(ActionEvent event) throws IOException {
         main main = new main();
         main.changeScene("/LogIn/LogIn.fxml", "Log In");
+    }
+
+    @FXML
+    private void clear(MouseEvent event) {
+        SearchTextField.setText("");
+        loadData();
     }
     
 }
