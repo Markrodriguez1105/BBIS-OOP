@@ -1,4 +1,4 @@
-package businessrecord;
+package businessRecord;
 
 import businessRecord.Record;
 import businessRecord.DbConnect;

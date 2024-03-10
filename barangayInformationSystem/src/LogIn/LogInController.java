@@ -7,13 +7,11 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.paint.Color;
-import java.sql.*;
+import java.sql.*;  
 import main.*;
 
 public class LogInController implements Initializable {
@@ -37,7 +35,7 @@ public class LogInController implements Initializable {
 
     @FXML
     private void userLogIn(ActionEvent event) throws IOException, SQLException {
-        Main main = new Main();
+        main main = new main();
         main.changeScene("/dashboard/dashboard.fxml", "Dashboard");
 //        main.changeScene("bbis.dashboard/dashboard.fxml");
 //        Database database = new Database();
