@@ -3,9 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Java/BBIS-OOP/barangayInformationSystem/src/householdRecord/DataModel.java</file>
             <file>file:/C:/Java/BBIS-OOP/barangayInformationSystem/src/main/main.java</file>
             <file>file:/C:/Java/BBIS-OOP/barangayInformationSystem/src/householdRecord/ViewController.java</file>
             <file>file:/C:/Java/BBIS-OOP/barangayInformationSystem/src/householdRecord/MainController.java</file>
+            <file>file:/C:/Java/BBIS-OOP/barangayInformationSystem/src/householdRecord/AddController.java</file>
+            <file>file:/C:/Java/BBIS-OOP/barangayInformationSystem/src/householdRecord/ResidentInfo.java</file>
+            <file>file:/C:/Java/BBIS-OOP/barangayInformationSystem/src/householdRecord/DatabaseConnector.java</file>
         </group>
     </open-files>
 </project-private>
