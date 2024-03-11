@@ -1,0 +1,16 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Feb 16, 2024, 2:08:28 PM
+    Author     : FRANCIA
+*/
+
+.left-aligned {
+    -fx-alignment: CENTER_LEFT;
+}
+
+.right-aligned {
+    -fx-alignment: CENTER_RIGHT;
+}
