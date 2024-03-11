@@ -4,7 +4,7 @@
  */
 package businessRecord;
 
-import businessRecord.Record;
+import java.util.regex.Pattern;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -15,7 +15,6 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Pattern;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -35,6 +34,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
+
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import main.main;
@@ -88,8 +88,10 @@ public class businessRecordController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         loadData();
-        vatFilterCombo.setItems(FXCollections.observableArrayList("Registered", "Not Registered"));
-        statFilterCombo.setItems(FXCollections.observableArrayList("Active", "Inactive"));
+        vatFilterCombo.setItems(FXCollections.observableArrayList("Show All", "Registered", "Not Registered"));
+        vatFilterCombo.setValue("Show All");
+        statFilterCombo.setItems(FXCollections.observableArrayList("Show All", "Active", "Inactive"));
+        statFilterCombo.setValue("Show All");
     }
 
     private void showAlert(String message) {
@@ -105,15 +107,94 @@ public class businessRecordController implements Initializable {
     @FXML
     private ComboBox<String> statFilterCombo; // Declare ComboBox field
 
-    @FXML
-    private void filterByStatus(ActionEvent event) {
-        String selectedStatus = statFilterCombo.getValue(); // Get the selected status from the ComboBox
-        if (selectedStatus != null) {
-            filterRecordsByStatus(selectedStatus);
+@FXML
+private void filter(ActionEvent event) {
+    ObservableList<Record> filter = FXCollections.observableArrayList();
+    filter.clear();
+    try {
+        String selectedVatFilter = vatFilterCombo.getValue();
+        String selectedStatFilter = statFilterCombo.getValue();
+        
+        if (selectedStatFilter.equalsIgnoreCase("Show All") && selectedVatFilter.equalsIgnoreCase("Show All")) {
+            // Show all records
+            filter.addAll(RecordList);
+        } else if (selectedStatFilter.equalsIgnoreCase("Show All") && selectedVatFilter.equalsIgnoreCase("Registered")) {
+            // Filter by VAT status: Registered
+            for (Record record : RecordList) {
+                if (record.getVat_status().equalsIgnoreCase("Registered")) {
+                    filter.add(record);
+                }
+            }
+        } else if (selectedStatFilter.equalsIgnoreCase("Show All") && selectedVatFilter.equalsIgnoreCase("Not Registered")) {
+            // Filter by VAT status: Not Registered
+            for (Record record : RecordList) {
+                if (record.getVat_status().equalsIgnoreCase("Not Registered")) {
+                    filter.add(record);
+                }
+            }
+        } else if (selectedStatFilter.equalsIgnoreCase("Show All") && selectedVatFilter.equalsIgnoreCase("Inactive")) {
+            // Filter by status: Inactive
+            for (Record record : RecordList) {
+                if (record.getActive_status().equalsIgnoreCase("Inactive")) {
+                    filter.add(record);
+                }
+            }
+        } else if (selectedStatFilter.equalsIgnoreCase("Active") && selectedVatFilter.equalsIgnoreCase("Show All")) {
+            // Filter by status: Active
+            for (Record record : RecordList) {
+                if (record.getActive_status().equalsIgnoreCase("Active")) {
+                    filter.add(record);
+                }
+            }
+        } else if (selectedStatFilter.equalsIgnoreCase("Active") && selectedVatFilter.equalsIgnoreCase("Registered")) {
+            // Filter by status: Active and VAT status: Registered
+            for (Record record : RecordList) {
+                if (record.getActive_status().equalsIgnoreCase("Active") && record.getVat_status().equalsIgnoreCase("Registered")) {
+                    filter.add(record);
+                }
+            }
+        } else if (selectedStatFilter.equalsIgnoreCase("Active") && selectedVatFilter.equalsIgnoreCase("Not Registered")) {
+            // Filter by status: Active and VAT status: Not Registered
+            for (Record record : RecordList) {
+                if (record.getActive_status().equalsIgnoreCase("Active") && record.getVat_status().equalsIgnoreCase("Not Registered")) {
+                    filter.add(record);
+                }
+            }
+        } else if (selectedStatFilter.equalsIgnoreCase("Active") && selectedVatFilter.equalsIgnoreCase("Inactive")) {
+            // Filter by status: Active and VAT status: Inactive
+            for (Record record : RecordList) {
+                if (record.getActive_status().equalsIgnoreCase("Active") && record.getVat_status().equalsIgnoreCase("Inactive")) {
+                    filter.add(record);
+                }
+            }
+        } else if (selectedStatFilter.equalsIgnoreCase("Inactive") && selectedVatFilter.equalsIgnoreCase("Show All")) {
+            // Filter by status: Inactive
+            for (Record record : RecordList) {
+                if (record.getActive_status().equalsIgnoreCase("Inactive")) {
+                    filter.add(record);
+                }
+            }
+        } else if (selectedStatFilter.equalsIgnoreCase("Inactive") && selectedVatFilter.equalsIgnoreCase("Registered")) {
+            // Filter by status: Inactive and VAT status: Registered
+            for (Record record : RecordList) {
+                if (record.getActive_status().equalsIgnoreCase("Inactive") && record.getVat_status().equalsIgnoreCase("Registered")) {
+                    filter.add(record);
+                }
+            }
+        } else if (selectedStatFilter.equalsIgnoreCase("Inactive") && selectedVatFilter.equalsIgnoreCase("Not Registered")) {
+            // Filter by status: Inactive and VAT status: Not Registered
+            for (Record record : RecordList) {
+                if (record.getActive_status().equalsIgnoreCase("Inactive") && record.getVat_status().equalsIgnoreCase("Not Registered")) {
+                    filter.add(record);
+                }
+            }
         }
+        
+        recordsTable.setItems(filter);
+    } catch (Exception e) {
+        System.out.println(e.getMessage());
     }
-
-    @FXML
+}
     private void filterByVATStatus(ActionEvent event) {
         String selectedFilter = vatFilterCombo.getValue(); // Get the selected filter from the ComboBox
         if (selectedFilter != null) {
@@ -125,6 +206,8 @@ public class businessRecordController implements Initializable {
                 // Filter the records for not registered VAT status
                 // Call a method in your controller to update the table view with filtered records
                 filterRecordsByVATStatus("Not Registered");
+            } else {
+                autoUpdate();
             }
         }
     }
