@@ -1,119 +1,63 @@
 package dashboard;
 
+import java.util.Date;
+
 public class transaction {
-    private String trans_name, name, address, sex, citizeship, dateIssued;
-    private int treasuryId, barangayId, tin, commTax, taxAmount, total;
+    private String trans_type, fname, mname, lname;
+    private Date date;
 
-    public transaction(String trans_name, String name, String address, String sex, String citizeship, String dateIssued, int treasuryId, int barangayId, int tin, int commTax, int taxAmount, int total) {
-        this.trans_name = trans_name;
-        this.name = name;
-        this.address = address;
-        this.sex = sex;
-        this.citizeship = citizeship;
-        this.dateIssued = dateIssued;
-        this.treasuryId = treasuryId;
-        this.barangayId = barangayId;
-        this.tin = tin;
-        this.commTax = commTax;
-        this.taxAmount = taxAmount;
-        this.total = total;
+    public transaction(String trans_type, String fname, String mname, String lname, Date date) {
+        this.trans_type = trans_type;
+        this.fname = fname;
+        this.mname = mname;
+        this.lname = lname;
+        this.date = date;
     }
 
-    public String getTrans_name() {
-        return trans_name;
+    public String getTrans_type() {
+        return trans_type;
     }
 
-    public void setTrans_name(String trans_name) {
-        this.trans_name = trans_name;
+    public void setTrans_type(String trans_type) {
+        this.trans_type = trans_type;
     }
 
-    public String getName() {
-        return name;
+    public String getFname() {
+        return fname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFname(String fname) {
+        this.fname = fname;
     }
 
-    public String getAddress() {
-        return address;
+    public String getMname() {
+        return mname;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setMname(String mname) {
+        this.mname = mname;
     }
 
-    public String getSex() {
-        return sex;
+    public String getLname() {
+        return lname;
     }
 
-    public void setSex(String sex) {
-        this.sex = sex;
+    public void setLname(String lname) {
+        this.lname = lname;
     }
 
-    public String getCitizeship() {
-        return citizeship;
+    public Date getDate() {
+        return date;
     }
 
-    public void setCitizeship(String citizeship) {
-        this.citizeship = citizeship;
+    public void setDate(Date date) {
+        this.date = date;
     }
-
-    public String getDateIssued() {
-        return dateIssued;
+    
+    public String getFullname(){
+        return lname + ", " + fname + (!mname.isEmpty() ? " " + mname.toUpperCase().charAt(0) + "." : "");
     }
-
-    public void setDateIssued(String dateIssued) {
-        this.dateIssued = dateIssued;
-    }
-
-    public int getTreasuryId() {
-        return treasuryId;
-    }
-
-    public void setTreasuryId(int treasuryId) {
-        this.treasuryId = treasuryId;
-    }
-
-    public int getBarangayId() {
-        return barangayId;
-    }
-
-    public void setBarangayId(int barangayId) {
-        this.barangayId = barangayId;
-    }
-
-    public int getTin() {
-        return tin;
-    }
-
-    public void setTin(int tin) {
-        this.tin = tin;
-    }
-
-    public int getCommTax() {
-        return commTax;
-    }
-
-    public void setCommTax(int commTax) {
-        this.commTax = commTax;
-    }
-
-    public int getTaxAmount() {
-        return taxAmount;
-    }
-
-    public void setTaxAmount(int taxAmount) {
-        this.taxAmount = taxAmount;
-    }
-
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
+    
     
     
 }

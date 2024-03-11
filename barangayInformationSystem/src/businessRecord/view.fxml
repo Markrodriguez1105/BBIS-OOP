@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<ScrollPane hbarPolicy="NEVER" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="businessRecord.ViewController">
+   <content>
+      <AnchorPane id="AnchorPane" prefHeight="728.0" prefWidth="576.0" styleClass="mainFxmlClass">
+          <stylesheets>
+              <URL value="@view.css" />
+          </stylesheets>
+         <children>
+            <VBox layoutX="73.0" layoutY="105.0" prefHeight="515.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Business ID">    
+                     <font>
+                        <Font name="System Bold Italic" size="15.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="busId" editable="false" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+                     <font>
+                        <Font name="System Bold Italic" size="15.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="firstNId" editable="false" prefHeight="26.0" prefWidth="72.0" />
+                  <TextField fx:id="middleNId" editable="false" prefHeight="26.0" prefWidth="72.0" />
+                  <TextField fx:id="lastNId" editable="false" prefHeight="26.0" prefWidth="67.0" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Address">
+                     <font>
+                        <Font name="System Bold Italic" size="15.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="addId" editable="false" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Business Name">
+                     <font>
+                        <Font name="System Bold Italic" size="15.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="busNameId" editable="false" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Monthly Income">
+                     <font>
+                        <Font name="System Bold Italic" size="15.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="incomeId" editable="false" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tin Number">
+                     <font>
+                        <Font name="System Bold Italic" size="15.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="tinId" editable="false" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Vat Status">
+                     <font>
+                        <Font name="System Bold Italic" size="15.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="vatId" editable="false" />
+               </children>
+            </VBox>
+            <VBox layoutX="302.0" layoutY="105.0" prefHeight="465.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Barangay ID">
+                     <font>
+                        <Font name="Tahoma Bold" size="15.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="barangayId" editable="false" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Contact No. ">
+                     <font>
+                        <Font name="Tahoma Bold" size="15.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="contactId" editable="false" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Business Type">
+                     <font>
+                        <Font name="Tahoma Bold" size="15.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="busTypeId" editable="false" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="No. of Employees">
+                     <font>
+                        <Font name="Tahoma Bold" size="15.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="emplooyeId" editable="false" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date Establish">
+                     <font>
+                        <Font name="Tahoma Bold" size="15.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="establishId" editable="false" />
+                  <Text layoutX="10.0" layoutY="366.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email">
+                     <font>
+                        <Font name="Tahoma Bold" size="15.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="emailId" editable="false" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date Registered">
+                     <font>
+                        <Font name="System Bold Italic" size="15.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="registerId" editable="false" />
+               </children>
+            </VBox>
+            <Button layoutX="466.0" layoutY="679.0" mnemonicParsing="false" onAction="#close" prefHeight="27.0" prefWidth="72.0" styleClass="other-form" stylesheets="@../../../UserManagement/src/usermanagement/design.css" text="Close" />
+            <HBox alignment="CENTER" fillHeight="false" layoutX="10.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="87.0" prefWidth="565.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="84.0" prefWidth="107.0">
+                     <children>
+                        <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Bonifacio.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <VBox alignment="TOP_CENTER" prefHeight="84.0">
+                     <children>
+                        <Label text="Municipality of San Fernando">
+                           <font>
+                              <Font name="Poppins Regular" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="105.0" layoutY="10.0" text="BUSINESS RECORD INFORMATION">
+                           <font>
+                              <Font name="Poppins SemiBold" size="22.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="105.0" layoutY="10.0" text="Barangay Bonifacio">
+                           <font>
+                              <Font name="Poppins Regular" size="13.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" prefHeight="84.0" prefWidth="107.0">
+                     <children>
+                        <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/BBLogo.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <Button fx:id="Update" layoutX="281.0" layoutY="679.0" mnemonicParsing="false" onAction="#openUpdateForm" prefHeight="27.0" prefWidth="72.0" styleClass="other-form" stylesheets="@../../../UserManagement/src/usermanagement/design.css" text="Update" />
+            <Button fx:id="Add" layoutX="375.0" layoutY="679.0" mnemonicParsing="false" onAction="#openAddForm" prefHeight="27.0" prefWidth="72.0" styleClass="other-form" stylesheets="@../../../UserManagement/src/usermanagement/design.css" text="Add" />
+            <Text layoutX="303.0" layoutY="587.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status">
+               <font>
+                  <Font name="System Bold Italic" size="15.0" />
+               </font>
+            </Text>
+            <TextField fx:id="statId" editable="false" layoutX="303.0" layoutY="605.0" prefHeight="26.0" prefWidth="200.0" />
+         </children>
+      </AnchorPane>
+   </content>
+</ScrollPane>

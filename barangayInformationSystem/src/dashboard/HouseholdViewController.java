@@ -74,7 +74,7 @@ public class HouseholdViewController implements Initializable {
         //Filter Year
         filterYear.getItems().addAll(setComboBox(database.executeQuery("""
                                                                         SELECT YEAR(`date_registered`) AS `year`
-                                                                        FROM `resident`
+                                                                        FROM `household`
                                                                         GROUP BY 1
                                                                         ORDER BY 1 DESC;""")));
         filterYear.setValue(filterYear.getItems().getFirst());

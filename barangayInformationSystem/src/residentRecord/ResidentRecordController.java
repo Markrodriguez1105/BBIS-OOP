@@ -30,6 +30,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import main.main;
 
@@ -64,10 +65,16 @@ public class ResidentRecordController implements Initializable {
     private Alert alert;
     private ResidentFormController residentForm;
     private ResidentUpdateFormController updateForm;
+    @FXML
+    private Text user_lname;
+    @FXML
+    private Text user_fname;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         userShowData();
+        user_fname.setText(LogIn.LogInController.user_fname);
+        user_lname.setText(LogIn.LogInController.user_lname);
     }
 
     //Left-Nav Controller for buttons
@@ -109,20 +116,47 @@ public class ResidentRecordController implements Initializable {
 
     @FXML
     private void requestedDocsClick(ActionEvent event) throws IOException {
-        main main = new main();
-        main.changeScene("/requestedDocuments/requestedDocuments.fxml", "Requested Documents");
+        if (LogIn.LogInController.position.equals("Punong Barangay")
+                || LogIn.LogInController.position.equals("Barangay Secretary")) {
+            main main = new main();
+            main.changeScene("/requestedDocuments/requestedDocuments.fxml", "Requested Documents");
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("System Message");
+            alert.setHeaderText("");
+            alert.setContentText("No Access");
+            alert.showAndWait();
+        }
     }
 
     @FXML
     private void treasuryClick(ActionEvent event) throws IOException {
-        main main = new main();
-        main.changeScene("/treasury/treasury.fxml", "Treasury");
+        if (LogIn.LogInController.position.equals("Punong Barangay")
+                || LogIn.LogInController.position.equals("Barangay Treasurer")) {
+            main main = new main();
+            main.changeScene("/treasury/treasury.fxml", "Treasury");
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("System Message");
+            alert.setHeaderText("");
+            alert.setContentText("No Access");
+            alert.showAndWait();
+        }
     }
 
     @FXML
     private void reportsClick(ActionEvent event) throws IOException {
-        main main = new main();
-        main.changeScene("/reports/reports.fxml", "Reports");
+        if (LogIn.LogInController.position.equals("Punong Barangay")
+                || LogIn.LogInController.position.equals("Barangay Secretary")) {
+            main main = new main();
+            main.changeScene("/reports/reports.fxml", "Reports");
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("System Message");
+            alert.setHeaderText("");
+            alert.setContentText("No Access");
+            alert.showAndWait();
+        }
     }
 
     @FXML
@@ -180,8 +214,7 @@ public class ResidentRecordController implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-        else {
+        } else {
             errorMessage("Select a resident first before updating resident information");
         }
     }
@@ -215,8 +248,7 @@ public class ResidentRecordController implements Initializable {
                 updateTableView();
 
                 successMessage("Successfully deleted the resident");
-            }
-            else {
+            } else {
                 errorMessage("Cancelled");
             }
 
@@ -367,11 +399,11 @@ public class ResidentRecordController implements Initializable {
         String key = selected.getfName() + selected.getmName() + selected.getlName();
         ResultSet result = database.executeQuery("SELECT `resident_id`\n"
                 + "FROM `resident`\n"
-                + "WHERE CONCAT(`first_name`, `middle_name`, `last_name`) = '"+ key +"';");
+                + "WHERE CONCAT(`first_name`, `middle_name`, `last_name`) = '" + key + "';");
         while (result.next()) {
             database.executeQuery("UPDATE `resident`\n"
                     + "SET `inOutBarangay` = false\n"
-                    + "WHERE `resident_id` = "+ result.getString(1)+";");
+                    + "WHERE `resident_id` = " + result.getString(1) + ";");
             System.out.println(result.getString(1));
         }
     }

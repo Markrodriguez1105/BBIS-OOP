@@ -284,17 +284,16 @@
                <children>
                   <VBox id="transaction" stylesheets="@../css/left-nav.css" HBox.hgrow="ALWAYS">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="List of Transaction">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Latest Request">
                            <font>
                               <Font name="Poppins SemiBold" size="18.0" />
                            </font>
                         </Text>
                         <TableView fx:id="transactionList" prefHeight="400.0" prefWidth="750.0" VBox.vgrow="ALWAYS">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="Transaction Name" />
-                            <TableColumn prefWidth="75.0" text="Date Requested" />
-                              <TableColumn prefWidth="75.0" text="Amount" />
-                              <TableColumn prefWidth="75.0" text="Status" />
+                            <TableColumn fx:id="transType" prefWidth="75.0" text="Transaction Type" />
+                              <TableColumn fx:id="name" prefWidth="75.0" text="Name" />
+                            <TableColumn fx:id="dateReq" prefWidth="75.0" text="Date Requested" />
                           </columns>
                            <VBox.margin>
                               <Insets />

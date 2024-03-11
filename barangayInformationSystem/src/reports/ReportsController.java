@@ -35,46 +35,67 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import reports.AddReportController;
 import main.main;
 
 public class ReportsController implements Initializable {
 
-    @FXML private Label CategoryLabel;
-    @FXML private ComboBox<String> CategoryComboBox;
-    @FXML private ComboBox<String> RecordsComboBox;
-    @FXML private TextField SearchTextField;
-    @FXML private TableView<ReportsData> ReportTableView;
-    @FXML private TableColumn<ReportsData, String> NumberTableColumn;
-    @FXML private TableColumn<ReportsData, String> ReportTypeTableColumn;
-    @FXML private TableColumn<ReportsData, String> NameTableColumn;
-    @FXML private TableColumn<ReportsData, String> ContactNumberTableColumn;
-    @FXML private TableColumn<ReportsData, String> DateTableColumn;
-    @FXML private TableColumn<ReportsData, String> ReasonTableColumn;
-    @FXML private TableColumn<ReportsData, String> StatusTableColumn;
-    @FXML private TableColumn<ReportsData, String> RecordStatusTableColumn;
-    @FXML private TableColumn<ReportsData, String> ActionTableColumn;
-
+    @FXML
+    private Label CategoryLabel;
+    @FXML
+    private ComboBox<String> CategoryComboBox;
+    @FXML
+    private ComboBox<String> RecordsComboBox;
+    @FXML
+    private TextField SearchTextField;
+    @FXML
+    private TableView<ReportsData> ReportTableView;
+    @FXML
+    private TableColumn<ReportsData, String> NumberTableColumn;
+    @FXML
+    private TableColumn<ReportsData, String> ReportTypeTableColumn;
+    @FXML
+    private TableColumn<ReportsData, String> NameTableColumn;
+    @FXML
+    private TableColumn<ReportsData, String> ContactNumberTableColumn;
+    @FXML
+    private TableColumn<ReportsData, String> DateTableColumn;
+    @FXML
+    private TableColumn<ReportsData, String> ReasonTableColumn;
+    @FXML
+    private TableColumn<ReportsData, String> StatusTableColumn;
+    @FXML
+    private TableColumn<ReportsData, String> RecordStatusTableColumn;
+    @FXML
+    private TableColumn<ReportsData, String> ActionTableColumn;
 
     private final DatabaseConnector dbConnector = new DatabaseConnector();
     @FXML
     private Button AddReportButton;
+    @FXML
+    private Text user_lname;
+    @FXML
+    private Text user_fname;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Initialize the TableView columns
+        user_fname.setText(LogIn.LogInController.user_fname);
+        user_lname.setText(LogIn.LogInController.user_lname);
+
         loadTableView();
 
         // Load data from the database and populate the TableView
         loadData();
-        
+
         // Set up the ComboBox items and add a listener for item changes
         initComboBox();
-        
-         // Set the initial value for ComboBox
+
+        // Set the initial value for ComboBox
         CategoryComboBox.setValue("All Reports");
         RecordsComboBox.setValue("All Records");
-        
+
         // Add listener to SearchTextField for text changes
         SearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.isEmpty()) {
@@ -109,7 +130,7 @@ public class ReportsController implements Initializable {
             }
         });
         //ActionTableColumn.setCellValueFactory(data -> data.getValue().actionProperty());
-        
+
         // Set up the cell factory for NumberTableColumn
         NumberTableColumn.setCellFactory(column -> new TableCell<ReportsData, String>() {
             @Override
@@ -126,11 +147,10 @@ public class ReportsController implements Initializable {
 
         // Set up the cell factory for ActionTableColumn
         //ActionTableColumn.setCellValueFactory(data -> new SimpleStringProperty(""));
-
         // Set up the cell factory for ActionTableColumn
-        
         ActionTableColumn.setCellFactory(param -> new TableCell<ReportsData, String>() {
             HBox buttons = new HBox();
+
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
@@ -182,6 +202,7 @@ public class ReportsController implements Initializable {
                 boolean shouldShow = reportStatus == 1; // Modify this based on your logic
                 return shouldShow;
             }
+
             private boolean shouldShowRecoverButton(ReportsData rowData) {
                 int reportStatus = Integer.parseInt(rowData.getRecordStatus());
                 // Implement your logic to determine if Recover button should be shown
@@ -209,7 +230,7 @@ public class ReportsController implements Initializable {
                 deleteButton.setStyle("-fx-background-color: #DB4040; -fx-text-fill: white;");
                 return deleteButton;
             }
-                 
+
             private Button createRecoverButton(ReportsData rowData) {
                 Button recoverButton = new Button("Recover");
                 recoverButton.setOnAction(event -> showRecoverConfirmation(rowData));
@@ -222,41 +243,44 @@ public class ReportsController implements Initializable {
         });
 
     }
-            private void openEditDialog(ReportsData rowData) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("ReportsDetails.fxml"));
-                try {
-                    Parent root = loader.load();
-                    ReportDetailsController reportDetailsController = loader.getController();
-                    reportDetailsController.setReportDetails(rowData);
 
-                    Stage stage = new Stage();
-                    stage.setTitle("Edit Report");
-                    stage.setScene(new Scene(root));
-                    stage.initModality(Modality.APPLICATION_MODAL);
-                    stage.showAndWait();
+    private void openEditDialog(ReportsData rowData) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ReportsDetails.fxml"));
+        try {
+            Parent root = loader.load();
+            ReportDetailsController reportDetailsController = loader.getController();
+            reportDetailsController.setReportDetails(rowData);
 
-                    // Handle the result if needed after the edit dialog is closed
-                    // For example, you can refresh the TableView after editing
-                    loadData();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            private void showDeleteConfirmation(ReportsData report) {
-                if (showDeleteConfirmationDialog()) {
-                    deleteReport(report);
-                }
-             }
+            Stage stage = new Stage();
+            stage.setTitle("Edit Report");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
 
-            private boolean showDeleteConfirmationDialog() {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Delete Report");
-                alert.setHeaderText("Are you sure you want to archived this report?");
+            // Handle the result if needed after the edit dialog is closed
+            // For example, you can refresh the TableView after editing
+            loadData();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-                Optional<ButtonType> result = alert.showAndWait();
-                return result.get() == ButtonType.OK;
-            }
-            private void showRecoverConfirmation(ReportsData report) {
+    private void showDeleteConfirmation(ReportsData report) {
+        if (showDeleteConfirmationDialog()) {
+            deleteReport(report);
+        }
+    }
+
+    private boolean showDeleteConfirmationDialog() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete Report");
+        alert.setHeaderText("Are you sure you want to archived this report?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        return result.get() == ButtonType.OK;
+    }
+
+    private void showRecoverConfirmation(ReportsData report) {
         if (showRecoverConfirmationDialog()) {
             recoverReport(report);
         }
@@ -286,7 +310,7 @@ public class ReportsController implements Initializable {
         // Reload data after recovering a report
         loadData();
     }
- 
+
     private void deleteReport(ReportsData report) {
         try (Connection connection = dbConnector.connect()) {
             String query = "UPDATE `report` SET `report_status` = '0' WHERE `report_id` = ?";
@@ -368,6 +392,7 @@ public class ReportsController implements Initializable {
             e.printStackTrace();
         }
     }
+
     private void filterDataByName(String name) {
         try (Connection connection = dbConnector.connect()) {
             String query = "SELECT `report_id`, `resident_id`, `first_name`, `middle_name`, `last_name`, `suffix`, `report_type`, "
@@ -408,8 +433,6 @@ public class ReportsController implements Initializable {
         }
     }
 
-
-
     private void initComboBox() {
         ObservableList<String> reportTypes = FXCollections.observableArrayList("All Reports");
         reportTypes.addAll(getDistinctReportTypes());
@@ -438,13 +461,11 @@ public class ReportsController implements Initializable {
                 });
     }
 
-
     private ObservableList<String> getDistinctReportTypes() {
         ObservableList<String> reportTypes = FXCollections.observableArrayList();
         try (Connection connection = dbConnector.connect()) {
             String query = "SELECT DISTINCT `report_type` FROM `report`";
-            try (PreparedStatement preparedStatement = connection.prepareStatement(query);
-                 ResultSet resultSet = preparedStatement.executeQuery()) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(query); ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     reportTypes.add(resultSet.getString("report_type"));
                 }
@@ -511,7 +532,6 @@ public class ReportsController implements Initializable {
         }
     }
 
-
     private void loadDataByRecordStatus(String reportType, String recordStatus) {
         try (Connection connection = dbConnector.connect()) {
             String query;
@@ -560,8 +580,6 @@ public class ReportsController implements Initializable {
         }
     }
 
-
-    
     //Left-Nav Controller for buttons
     @FXML
     private void dashboardClick(ActionEvent event) throws IOException {
@@ -601,20 +619,47 @@ public class ReportsController implements Initializable {
 
     @FXML
     private void requestedDocsClick(ActionEvent event) throws IOException {
-        main main = new main();
-        main.changeScene("/requestedDocuments/requestedDocuments.fxml", "Requested Documents");
+        if (LogIn.LogInController.position.equals("Punong Barangay")
+                || LogIn.LogInController.position.equals("Barangay Secretary")) {
+            main main = new main();
+            main.changeScene("/requestedDocuments/requestedDocuments.fxml", "Requested Documents");
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("System Message");
+            alert.setHeaderText("");
+            alert.setContentText("No Access");
+            alert.showAndWait();
+        }
     }
 
     @FXML
     private void treasuryClick(ActionEvent event) throws IOException {
-        main main = new main();
-        main.changeScene("/treasury/treasury.fxml", "Treasury");
+        if (LogIn.LogInController.position.equals("Punong Barangay")
+                || LogIn.LogInController.position.equals("Barangay Treasurer")) {
+            main main = new main();
+            main.changeScene("/treasury/treasury.fxml", "Treasury");
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("System Message");
+            alert.setHeaderText("");
+            alert.setContentText("No Access");
+            alert.showAndWait();
+        }
     }
 
     @FXML
     private void reportsClick(ActionEvent event) throws IOException {
-        main main = new main();
-        main.changeScene("/reports/reports.fxml", "Reports");
+        if (LogIn.LogInController.position.equals("Punong Barangay")
+                || LogIn.LogInController.position.equals("Barangay Secretary")) {
+            main main = new main();
+            main.changeScene("/reports/reports.fxml", "Reports");
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("System Message");
+            alert.setHeaderText("");
+            alert.setContentText("No Access");
+            alert.showAndWait();
+        }
     }
 
     @FXML
@@ -628,5 +673,5 @@ public class ReportsController implements Initializable {
         SearchTextField.setText("");
         loadData();
     }
-    
+
 }

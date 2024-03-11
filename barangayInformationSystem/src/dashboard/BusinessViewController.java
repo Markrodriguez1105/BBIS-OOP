@@ -69,13 +69,13 @@ public class BusinessViewController implements Initializable {
         //Initialization combobox
         filterYear.getItems().addAll(setComboBox(database.executeQuery("""
                                                                         SELECT YEAR(`date_registered`) AS `year`
-                                                                        FROM `resident`
+                                                                        FROM `business`
                                                                         GROUP BY 1
                                                                         ORDER BY 1 DESC;""")));
         filterYear.setValue(filterYear.getItems().getFirst());
 
         perYear.getItems().add("Business");
-        perYear.getItems().add("Zone Business");
+//        perYear.getItems().add("Zone Business");
         perYear.setValue(perYear.getItems().getFirst());
 
         //Graph Call
@@ -205,7 +205,7 @@ public class BusinessViewController implements Initializable {
             businessesTally.getData().clear();
 
             for (XYChart.Series<String, Number> bar : graph.barGraphGenerator(database.executeQuery(String.format("""
-                                                                                                   SELECT %s AS label, CASE WHEN `status` = 0 THEN 'Inactive' ELSE 'Active'
+                                                                                                   SELECT %s AS label, CASE WHEN `active_status` = 'Active' THEN 'Active' ELSE 'Inactive'
                                                                                                    END AS status, COUNT(*)
                                                                                                    FROM `business`
                                                                                                    WHERE YEAR(`date_registered`) <= %s

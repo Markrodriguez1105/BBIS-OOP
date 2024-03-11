@@ -49,12 +49,12 @@
                         </ImageView>
                         <VBox alignment="CENTER_LEFT" prefHeight="58.0" prefWidth="101.0">
                            <children>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Lastname">
+                              <Text fx:id="user_lname" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Lastname">
                                  <font>
                                     <Font name="Poppins Regular" size="15.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Firstname">
+                              <Text fx:id="user_fname" fill="WHITE" layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Firstname">
                                  <font>
                                     <Font size="13.0" />
                                  </font>

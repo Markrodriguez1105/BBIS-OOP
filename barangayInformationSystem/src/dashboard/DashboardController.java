@@ -10,11 +10,16 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import main.main;
 
@@ -24,35 +29,37 @@ import main.main;
  * @author Hello Mark
  */
 public class DashboardController implements Initializable {
+
     public static String populationCount;
     public static String householdCount;
     public static String businessesCount;
     public static String pendingCasesCount;
     public static String votersCount;
+
     public static void setHeaderData() throws SQLException {
         Database database = new Database();
         ResultSet result1 = database.executeQuery("SELECT COUNT(`resident_id`) AS COUNT FROM `existresident`;");
-        while(result1.next()){
+        while (result1.next()) {
             DashboardController.populationCount = result1.getString(1);
         }
-        
+
         ResultSet result2 = database.executeQuery("SELECT COUNT(`household_id`) AS COUNT FROM `household`;");
-        while(result2.next()){
+        while (result2.next()) {
             DashboardController.householdCount = result2.getString(1);
         }
-        
-        ResultSet result3 = database.executeQuery("SELECT COUNT(`business_id`) AS COUNT FROM `business` WHERE `status` = 1;");
-        while(result3.next()){
+
+        ResultSet result3 = database.executeQuery("SELECT COUNT(`business_id`) AS COUNT FROM `business` WHERE `active_status` = 'Active';");
+        while (result3.next()) {
             DashboardController.businessesCount = result3.getString(1);
         }
-        
+
         ResultSet result4 = database.executeQuery("SELECT COUNT(`status`) AS COUNT FROM `report` WHERE `status` = 'pending';");
-        while(result4.next()){
+        while (result4.next()) {
             DashboardController.pendingCasesCount = result4.getString(1);
         }
-        
+
         ResultSet result5 = database.executeQuery("SELECT COUNT(`voter_status`) AS COUNT FROM `existresident` WHERE `voter_status` = 1;");
-        while(result5.next()){
+        while (result5.next()) {
             DashboardController.votersCount = result5.getString(1);
         }
     }
@@ -68,15 +75,21 @@ public class DashboardController implements Initializable {
     @FXML
     private Label voters;
     @FXML
-    private TableView<transaction> transactionList;
+    private TableView<transaction> transactionList = new TableView<>();
     @FXML
     private Text user_lname;
     @FXML
     private Text user_fname;
-
+    @FXML
+    private TableColumn<transaction, String> transType;
+    @FXML
+    private TableColumn<transaction, String> name;
+    @FXML
+    private TableColumn<transaction, String> dateReq;
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
@@ -84,22 +97,29 @@ public class DashboardController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         user_fname.setText(LogIn.LogInController.user_fname);
         user_lname.setText(LogIn.LogInController.user_lname);
-        
+
         try {
             // TODO
             setHeaderData();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-        
+
         //Dashboard summary
         population.setText(DashboardController.populationCount);
         household.setText(DashboardController.householdCount);
         businesses.setText(DashboardController.businessesCount);
         pendingCases.setText(DashboardController.pendingCasesCount);
         voters.setText(DashboardController.votersCount);
+        
+        transType.setCellValueFactory(new PropertyValueFactory<>("trans_type"));
+        name.setCellValueFactory(new PropertyValueFactory<>("fullname"));
+        dateReq.setCellValueFactory(new PropertyValueFactory<>("date"));
+        
+        transactionList.setItems(setTable());
+
     }
-    
+
     //Left-Nav Controller for buttons
     @FXML
     private void dashboardClick(ActionEvent event) throws IOException {
@@ -139,20 +159,47 @@ public class DashboardController implements Initializable {
 
     @FXML
     private void requestedDocsClick(ActionEvent event) throws IOException {
-        main main = new main();
-        main.changeScene("/requestedDocuments/requestedDocuments.fxml", "Requested Documents");
+        if (LogIn.LogInController.position.equals("Punong Barangay")
+                || LogIn.LogInController.position.equals("Barangay Secretary")) {
+            main main = new main();
+            main.changeScene("/requestedDocuments/requestedDocuments.fxml", "Requested Documents");
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("System Message");
+            alert.setHeaderText("");
+            alert.setContentText("No Access");
+            alert.showAndWait();
+        }
     }
 
     @FXML
     private void treasuryClick(ActionEvent event) throws IOException {
-        main main = new main();
-        main.changeScene("/treasury/treasury.fxml", "Treasury");
+        if (LogIn.LogInController.position.equals("Punong Barangay")
+                || LogIn.LogInController.position.equals("Barangay Treasurer")) {
+            main main = new main();
+            main.changeScene("/treasury/treasury.fxml", "Treasury");
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("System Message");
+            alert.setHeaderText("");
+            alert.setContentText("No Access");
+            alert.showAndWait();
+        }
     }
 
     @FXML
     private void reportsClick(ActionEvent event) throws IOException {
-        main main = new main();
-        main.changeScene("/reports/reports.fxml", "Reports");
+        if (LogIn.LogInController.position.equals("Punong Barangay")
+                || LogIn.LogInController.position.equals("Barangay Secretary")) {
+            main main = new main();
+            main.changeScene("/reports/reports.fxml", "Reports");
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("System Message");
+            alert.setHeaderText("");
+            alert.setContentText("No Access");
+            alert.showAndWait();
+        }
     }
 
     @FXML
@@ -160,9 +207,8 @@ public class DashboardController implements Initializable {
         main main = new main();
         main.changeScene("/LogIn/LogIn.fxml", "Log In");
     }
-    
-    //Graph start here
 
+    //Graph start here
     @FXML
     private void populationClick(ActionEvent event) throws IOException {
         main main = new main();
@@ -192,6 +238,30 @@ public class DashboardController implements Initializable {
         main main = new main();
         main.changeScene("/dashboard/voterView.fxml", "Voters View");
     }
-    
-    
+
+    ObservableList<transaction> setTable() {
+        ObservableList<transaction> list = FXCollections.observableArrayList();
+        Database database = new Database();
+        ResultSet result = database.executeQuery("""
+                              SELECT rd.document_type AS transaction_name, rd.firstName, rd.middleName, rd.lastName, rd.date_requested
+                              FROM requesteddocs AS rd
+                              
+                              UNION ALL
+                              
+                              SELECT r.report_type, r.first_name, r.middle_name, r.last_name, r.date_recorded
+                              FROM report AS r
+                              WHERE r.status = 'pending'
+                              
+                              ORDER BY 5 DESC
+                              LIMIT 10;""");
+        try {
+            while (result.next()) {
+                list.add(new transaction(result.getString(1), result.getString(2), result.getString(3), result.getString(4), result.getDate(5)));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return list;
+    }
+
 }

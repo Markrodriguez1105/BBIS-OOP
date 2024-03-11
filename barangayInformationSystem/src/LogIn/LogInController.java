@@ -14,7 +14,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import main.*;
 
 public class LogInController implements Initializable {
@@ -23,6 +22,7 @@ public class LogInController implements Initializable {
     public static String user_fname;
     public static String user_mname;
     public static String user_lname;
+    public static String position;
 
     @FXML
     private Label indicator;
@@ -58,13 +58,13 @@ public class LogInController implements Initializable {
         Database database = new Database();
         try {
             if (!userName.getText().isBlank() && !password.getText().isBlank()) {
-                ResultSet result = database.executeQuery(String.format("SELECT * FROM `account` WHERE BINARY `admin_id` = '%s' && BINARY `password` = '%s';", userName.getText(), password.getText()));
-                ResultSet result2 = database.executeQuery(String.format("SELECT first_name, middle_name, last_name FROM `resident` WHERE `resident_id` = %s", userName.getText()));
-                if (result.next() && result2.next()) {
+                ResultSet result = database.executeQuery(String.format("SELECT a.admin_id, a.password, o.first_name, o.middle_name, o.last_name , o.position FROM `admin_user` AS a LEFT JOIN official AS o ON a.admin_id = o.official_id WHERE BINARY `username` = '%s' && BINARY `password` = '%s';", userName.getText(), password.getText()));
+                if (result.next()) {
                     resident_id = result.getInt(1);
-                    user_fname = result2.getString(1);
-                    user_mname = result2.getString(2);
-                    user_lname = result2.getString(3);
+                    user_fname = result.getString(6);
+                    user_mname = result.getString(4);
+                    user_lname = result.getString(5) + ", " + result.getString(3);
+                    position = result.getString(6);
                     main.changeScene("/dashboard/dashboard.fxml", "Dashboard");
                 } else {
                     indicator.setText("Wrong Username and Password");

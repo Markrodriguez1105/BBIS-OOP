@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="637.0" styleClass="white-form" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="businessRecord.AddFormController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="637.0" styleClass="white-form" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="businessRecord.UpdateFormController">
     <children>
       <HBox alignment="CENTER" fillHeight="false" layoutX="10.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="133.0" prefWidth="822.0" AnchorPane.bottomAnchor="457.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="10.0">
          <children>
@@ -61,14 +61,14 @@
             </HBox>
          </children>
       </HBox>
-      <HBox alignment="CENTER" layoutX="10.0" layoutY="118.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="844.0" AnchorPane.bottomAnchor="432.4" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="-10.0" AnchorPane.topAnchor="118.0">
+      <HBox alignment="CENTER" layoutY="118.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="844.0" AnchorPane.bottomAnchor="432.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="118.0">
          <children>
             <Pane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="1.0" prefWidth="200.0" style="-fx-background-color: black; -fx-background-radius: 10px;" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets left="10.0" />
                </HBox.margin>
             </Pane>
-            <Label prefHeight="27.0" prefWidth="218.0" style="-fx-font-size: 18; -fx-font-weight: bold;" text="Business Record Form">
+            <Label prefHeight="27.0" prefWidth="231.0" style="-fx-font-size: 18; -fx-font-weight: bold;" text="Business Update Form">
                <padding>
                   <Insets left="10.0" right="10.0" />
                </padding>
@@ -142,9 +142,18 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.rowIndex="2">
                <children>
-                  <TextField fx:id="firstNameFid" prefHeight="27.0" prefWidth="260.0" promptText="First Name" HBox.hgrow="ALWAYS" />
-                  <TextField fx:id="middleNameFid" layoutX="10.0" layoutY="10.0" prefHeight="27.0" prefWidth="260.0" promptText="Middle Name" HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="firstNameFid" prefHeight="27.0" prefWidth="260.0" promptText="First Name" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin></TextField>
+                  <TextField fx:id="middleNameFid" layoutX="10.0" layoutY="10.0" prefHeight="27.0" prefWidth="260.0" promptText="Middle Name" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin></TextField>
                   <TextField fx:id="lastNameFid" layoutX="160.0" layoutY="10.0" prefHeight="27.0" prefWidth="260.0" promptText="Last Name" HBox.hgrow="ALWAYS">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -156,14 +165,15 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <HBox prefHeight="26.0" prefWidth="362.0">
+                  <HBox prefHeight="26.0" prefWidth="581.0">
                      <children>
-                        <TextField fx:id="cpNumFid" prefHeight="26.0" prefWidth="404.0" promptText="Contact" />
+                        <TextField fx:id="cpNumFid" prefHeight="26.0" prefWidth="348.0" promptText="Contact" />
                      </children>
                      <padding>
                         <Insets right="20.0" />
                      </padding>
                   </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
@@ -192,7 +202,7 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="4">
                <children>
-                  <TextField fx:id="emailFid" prefHeight="27.0" prefWidth="260.0" promptText="Email" HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="emailFid" prefHeight="26.0" prefWidth="258.0" promptText="Email" HBox.hgrow="ALWAYS" />
                </children>
                <GridPane.margin>
                   <Insets left="20.0" />
@@ -348,12 +358,12 @@
                         <Insets right="20.0" />
                      </padding>
                      <children>
-                        <TextField fx:id="empFid" prefHeight="27.0" prefWidth="140.0" promptText="Employees" />
+                        <TextField fx:id="empFid" prefHeight="26.0" prefWidth="262.0" promptText="Employees" />
                      </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <ComboBox fx:id="vatFid" prefHeight="27.0" prefWidth="140.0" />
+                        <ComboBox fx:id="vatFid" editable="true" prefHeight="27.0" prefWidth="140.0" />
                      </children>
                   </HBox>
                </children>
@@ -392,12 +402,12 @@
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="12">
-               <children>
-                  <TextField fx:id="tinFid" prefHeight="27.0" prefWidth="260.0" promptText="Tin Number" HBox.hgrow="ALWAYS" />
-               </children>
                <GridPane.margin>
                   <Insets left="20.0" />
                </GridPane.margin>
+               <children>
+                  <TextField fx:id="tinFid" prefHeight="26.0" prefWidth="258.0" promptText="Tin" HBox.hgrow="ALWAYS" />
+               </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="12">
                <children>
@@ -406,7 +416,7 @@
                         <Insets right="20.0" />
                      </padding>
                      <children>
-                        <ComboBox fx:id="statFid" prefWidth="150.0" />
+                        <ComboBox fx:id="statFid" editable="true" prefHeight="27.0" prefWidth="140.0" />
                      </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0" />
@@ -414,6 +424,17 @@
             </HBox>
             <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" prefHeight="55.0" prefWidth="402.0" GridPane.columnIndex="1" GridPane.rowIndex="14">
                <children>
+                           <Button fx:id="Add" contentDisplay="RIGHT" onAction="#openAddForm" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #3A53A5; -fx-background-radius: 15;" styleClass="other-form" text="Add" textFill="WHITE">
+                     <graphic>
+                        <FontAwesomeIcon fill="WHITE" glyphName="SAVE" wrappingWidth="13.285714149475098" />
+                     </graphic>
+                     <font>
+                        <Font name="Poppins Bold" size="12.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="30.0" />
+                     </HBox.margin>
+                  </Button>
                   <Button fx:id="submit" contentDisplay="RIGHT" layoutX="188.0" layoutY="18.0" onAction="#submit" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #3A53A5; -fx-background-radius: 15;" styleClass="other-form" text="Submit" textFill="WHITE">
                      <graphic>
                         <FontAwesomeIcon fill="WHITE" glyphName="SAVE" wrappingWidth="13.285714149475098" />

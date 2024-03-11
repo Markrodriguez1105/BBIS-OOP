@@ -204,20 +204,47 @@ public class RequestedDocumentController implements Initializable {
 
     @FXML
     private void requestedDocsClick(ActionEvent event) throws IOException {
-        main main = new main();
-        main.changeScene("/requestedDocuments/requestedDocuments.fxml", "Requested Documents");
+        if (LogIn.LogInController.position.equals("Punong Barangay")
+                || LogIn.LogInController.position.equals("Barangay Secretary")) {
+            main main = new main();
+            main.changeScene("/requestedDocuments/requestedDocuments.fxml", "Requested Documents");
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("System Message");
+            alert.setHeaderText("");
+            alert.setContentText("No Access");
+            alert.showAndWait();
+        }
     }
 
     @FXML
     private void treasuryClick(ActionEvent event) throws IOException {
-        main main = new main();
-        main.changeScene("/treasury/treasury.fxml", "Treasury");
+        if (LogIn.LogInController.position.equals("Punong Barangay")
+                || LogIn.LogInController.position.equals("Barangay Treasurer")) {
+            main main = new main();
+            main.changeScene("/treasury/treasury.fxml", "Treasury");
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("System Message");
+            alert.setHeaderText("");
+            alert.setContentText("No Access");
+            alert.showAndWait();
+        }
     }
 
     @FXML
     private void reportsClick(ActionEvent event) throws IOException {
-        main main = new main();
-        main.changeScene("/reports/reports.fxml", "Reports");
+        if (LogIn.LogInController.position.equals("Punong Barangay")
+                || LogIn.LogInController.position.equals("Barangay Secretary")) {
+            main main = new main();
+            main.changeScene("/reports/reports.fxml", "Reports");
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("System Message");
+            alert.setHeaderText("");
+            alert.setContentText("No Access");
+            alert.showAndWait();
+        }
     }
 
     @FXML
