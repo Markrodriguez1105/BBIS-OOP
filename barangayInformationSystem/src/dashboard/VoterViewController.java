@@ -171,7 +171,7 @@ public class VoterViewController implements Initializable {
             for (XYChart.Series<String, Number> bar : graph.barGraphGenerator(database.executeQuery("""
                                                                                                     SELECT 'Zone Voters' AS label, CONCAT('Zone ',`zone`) AS zone, COUNT(*)
                                                                                                     FROM `existresident`
-                                                                                                    WHERE `voter_status` = 1
+                                                                                                    WHERE `voter_status` = 'Registered'
                                                                                                     GROUP BY `zone`
                                                                                                     ORDER BY `zone`;""")).values()) {
                 zoneVoterGraph.getData().add(bar);
@@ -179,9 +179,7 @@ public class VoterViewController implements Initializable {
 
             for (XYChart.Series<String, Number> bar : graph.barGraphGenerator(database.executeQuery("""
                                                                                                     SELECT 'Status' AS label,
-                                                                                                    CASE
-                                                                                                    WHEN `voter_status` = 1 THEN 'Registered'
-                                                                                                    ELSE 'Not-Registered' END AS status, COUNT(*)
+                                                                                                    `voter_status`, COUNT(*)
                                                                                                     FROM `existresident`
                                                                                                     GROUP BY `voter_status`
                                                                                                     ORDER BY `voter_status` DESC;""")).values()) {
@@ -201,7 +199,7 @@ public class VoterViewController implements Initializable {
                                                                                                    SELECT "Voters" AS label, YEAR(`date_registered`),
                                                                                                    SUM(COUNT(*)) OVER (ORDER BY YEAR(`date_registered`)) AS count
                                                                                                    FROM `existresident`
-                                                                                                   WHERE `voter_status` = 1
+                                                                                                   WHERE `voter_status` = 'Registered'
                                                                                                    GROUP BY 2
                                                                                                    ORDER BY 2;""")).values()) {
                 yearlyChanges.getData().add(line);

@@ -19,8 +19,6 @@ import dashboard.*;
 import java.util.HashMap;
 import java.sql.*;
 import java.util.Set;
-import javafx.scene.control.TextArea;
-import javafx.scene.layout.VBox;
 
 /**
  * FXML Controller class
@@ -30,6 +28,8 @@ import javafx.scene.layout.VBox;
 public class AddFormController implements Initializable {
 
     @FXML
+    private TextField resident_id;
+    @FXML
     private TextField fname;
     @FXML
     private TextField mname;
@@ -37,32 +37,6 @@ public class AddFormController implements Initializable {
     private TextField lname;
     @FXML
     private TextField suffix;
-    @FXML
-    private ComboBox<String> civilStatus;
-    @FXML
-    private TextField email;
-    @FXML
-    private TextField phoneNum;
-    @FXML
-    private ComboBox<String> voterStatus;
-    @FXML
-    private ComboBox<String> bloodType;
-    @FXML
-    private TextField zone;
-    @FXML
-    private ComboBox<String> withDisability;
-    @FXML
-    private ComboBox<String> educationAtt;
-    @FXML
-    private ComboBox<String> educationStats;
-    @FXML
-    private ComboBox<String> inOutBarangay;
-
-    Database database = new Database();
-    HashMap<Integer, String> householdListHash = new HashMap<>();
-    ObservableList<String> householdListObs = FXCollections.observableArrayList();
-    @FXML
-    private TextField resident_id;
     @FXML
     private DatePicker bdate;
     @FXML
@@ -72,11 +46,23 @@ public class AddFormController implements Initializable {
     @FXML
     private TextField nationality;
     @FXML
+    private ComboBox<String> civilStatus;
+    @FXML
     private TextField birthPlace;
+    @FXML
+    private TextField email;
+    @FXML
+    private TextField phoneNum;
+    @FXML
+    private ComboBox<String> voterStatus;
     @FXML
     private TextField religion;
     @FXML
     private TextField household;
+    @FXML
+    private ComboBox<String> bloodType;
+    @FXML
+    private TextField zone;
     @FXML
     private TextField address;
     @FXML
@@ -92,6 +78,12 @@ public class AddFormController implements Initializable {
     @FXML
     private TextField height;
     @FXML
+    private ComboBox<String> withDisability;
+    @FXML
+    private ComboBox<String> educationAtt;
+    @FXML
+    private ComboBox<String> educationStats;
+    @FXML
     private TextField motherName;
     @FXML
     private TextField motherNum;
@@ -99,6 +91,12 @@ public class AddFormController implements Initializable {
     private TextField fatherName;
     @FXML
     private TextField fatherNum;
+    @FXML
+    private ComboBox<String> inOutBarangay;
+
+    Database database = new Database();
+    HashMap<Integer, String> householdListHash = new HashMap<>();
+    ObservableList<String> householdListObs = FXCollections.observableArrayList();
 
     /**
      * Initializes the controller class.
@@ -170,6 +168,9 @@ public class AddFormController implements Initializable {
     private void cancel(ActionEvent event) {
     }
 
+    @FXML
+    private void submit(ActionEvent event) {
+    }
 
     @FXML
     private void selected(ActionEvent event) {
@@ -179,10 +180,6 @@ public class AddFormController implements Initializable {
                 System.out.println(value);
             }
         }
-    }
-
-    @FXML
-    private void submit(ActionEvent event) {
     }
 
 }

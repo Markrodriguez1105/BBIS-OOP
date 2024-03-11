@@ -68,6 +68,7 @@ public class DocumentPaymentController implements Initializable {
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
@@ -96,9 +97,9 @@ public class DocumentPaymentController implements Initializable {
     @FXML
     private void next(ActionEvent event) {
         Database database = new Database();
-        if (Float.parseFloat(change.getText()) >= 0) {
-            if (selected.getCat().equals("Barangay Permit")) {
-                try {
+        try {
+            if (Float.parseFloat(change.getText()) >= 0) {
+                if (selected.getCat().equals("Barangay Permit")) {
                     PreparedStatement p = database.insertQuery("INSERT INTO `permittreasury`(`id`, `document_id`, `stamp_fee`, `document_cost`, `amount_pay`, `date_issued`, `ctc_issued_date`, `ctc_fee`, `ctc_num`, `ctc_address_issued`) VALUES (?,?,?,?,?,?,?,?,?,?)");
                     p.setString(1, ranNum("TRPT"));
                     p.setString(2, selected.getId());
@@ -119,7 +120,7 @@ public class DocumentPaymentController implements Initializable {
                         alert.setTitle("System Message");
                         alert.setHeaderText(null);
                         alert.setContentText("Would you want to print the document?");
-                        
+
                         ButtonType buttonTypeYes = new ButtonType("Print");
                         ButtonType buttonTypeNo = new ButtonType("No");
 
@@ -136,11 +137,7 @@ public class DocumentPaymentController implements Initializable {
                     } else {
                         System.out.println("Insertion failed.");
                     }
-                } catch (SQLException e) {
-                    System.out.println(e.getMessage());
-                }
-            } else {
-                try {
+                } else {
                     PreparedStatement p = database.insertQuery("INSERT INTO `certificationtreasury` (`id`, `document_id`, `stamp_fee`, `document_cost`, `amount_pay`, `date_issued`, `ctc_issued_date`, `ctc_fee`, `ctc_num`, `ctc_address_issued`) VALUES (?,?,?,?,?,?,?,?,?,?)");
                     p.setString(1, ranNum("TRPT"));
                     p.setString(2, selected.getId());
@@ -161,7 +158,7 @@ public class DocumentPaymentController implements Initializable {
                         alert.setTitle("System Message");
                         alert.setHeaderText(null);
                         alert.setContentText("Would you want to print the document?");
-                        
+
                         ButtonType buttonTypeYes = new ButtonType("Print");
                         ButtonType buttonTypeNo = new ButtonType("No");
 
@@ -179,16 +176,20 @@ public class DocumentPaymentController implements Initializable {
                     } else {
                         System.out.println("Insertion failed.");
                     }
-                } catch (SQLException e) {
-                    System.out.println(e.getMessage());
                 }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("System Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Insuffient Amount Pay.");
+                alert.showAndWait();
             }
-        } else {
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("System Message");
-            alert.setHeaderText(null);
-            alert.setContentText("Insuffient Amount Pay.");
-            alert.showAndWait();
+                alert.setTitle("System Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Please correct your inputs.");
+                alert.showAndWait();
         }
     }
 

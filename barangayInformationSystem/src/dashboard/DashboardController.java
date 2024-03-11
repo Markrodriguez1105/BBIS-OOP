@@ -58,7 +58,7 @@ public class DashboardController implements Initializable {
             DashboardController.pendingCasesCount = result4.getString(1);
         }
 
-        ResultSet result5 = database.executeQuery("SELECT COUNT(`voter_status`) AS COUNT FROM `existresident` WHERE `voter_status` = 1;");
+        ResultSet result5 = database.executeQuery("SELECT COUNT(`voter_status`) AS COUNT FROM `existresident` WHERE `voter_status` = 'Registered';");
         while (result5.next()) {
             DashboardController.votersCount = result5.getString(1);
         }
@@ -245,6 +245,8 @@ public class DashboardController implements Initializable {
         ResultSet result = database.executeQuery("""
                               SELECT rd.document_type AS transaction_name, rd.firstName, rd.middleName, rd.lastName, rd.date_requested
                               FROM requesteddocs AS rd
+                              LEFT JOIN document_paid ON rd.id = document_paid.id
+                              WHERE document_paid.id IS NULL
                               
                               UNION ALL
                               

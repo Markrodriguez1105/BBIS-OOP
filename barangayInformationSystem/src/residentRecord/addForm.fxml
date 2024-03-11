@@ -3,6 +3,7 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -20,7 +21,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="741.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="residentRecord.AddFormController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="741.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="residentRecord.ResidentFormController">
    <children>
       <VBox alignment="CENTER" layoutX="449.0" layoutY="290.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -65,7 +66,7 @@
                   </HBox>
                </children>
             </HBox>
-            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="468.0" prefWidth="880.0" vvalue="1.0" VBox.vgrow="ALWAYS">
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="468.0" prefWidth="880.0" VBox.vgrow="ALWAYS">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="705.0">
                      <children>
@@ -83,7 +84,11 @@
                                     </Label>
                                     <HBox alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="466.0" HBox.hgrow="ALWAYS">
                                        <children>
-                                          <ComboBox fx:id="inOutBarangay" prefHeight="25.0" prefWidth="193.0" promptText="In or out of the barangay" />
+                                          <CheckBox fx:id="residencyStatusForm" mnemonicParsing="false" text="Resident">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </CheckBox>
                                        </children>
                                     </HBox>
                                  </children>
@@ -96,8 +101,8 @@
                                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="127.77783203125" minWidth="10.0" prefWidth="59.44440714518231" />
                                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="74.111083984375" minWidth="10.0" prefWidth="65.22225952148438" />
                                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.11108398437506" minWidth="10.0" prefWidth="75.55550130208331" />
-                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="87.77780151367188" minWidth="10.0" prefWidth="54.22224934895826" />
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="87.77780151367188" minWidth="10.0" prefWidth="74.19998779296873" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="94.20001220703125" minWidth="10.0" prefWidth="78.20001220703125" />
                                 </columnConstraints>
                                 <rowConstraints>
                                     <RowConstraints minHeight="40.0" prefHeight="50.0" vgrow="SOMETIMES" />
@@ -115,7 +120,7 @@
                                                 <Font name="Poppins Regular" size="12.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="resident_id" prefHeight="25.0" prefWidth="80.0" promptText="ID" />
+                                          <TextField fx:id="resident_idForm" prefHeight="25.0" prefWidth="80.0" promptText="ID" />
                                        </children>
                                     </VBox>
                                     <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.columnSpan="2147483647">
@@ -127,10 +132,10 @@
                                           </Label>
                                           <HBox spacing="10.0" VBox.vgrow="ALWAYS">
                                              <children>
-                                                <TextField fx:id="fname" prefHeight="25.0" prefWidth="143.0" promptText="First Name" HBox.hgrow="ALWAYS" />
-                                                <TextField fx:id="mname" prefHeight="25.0" prefWidth="80.0" promptText="Middle Name" HBox.hgrow="ALWAYS" />
-                                                <TextField fx:id="lname" prefHeight="25.0" prefWidth="106.0" promptText="Last Name" HBox.hgrow="ALWAYS" />
-                                                <TextField fx:id="suffix" prefHeight="25.0" prefWidth="23.0" promptText="Suffix" HBox.hgrow="ALWAYS" />
+                                                <TextField fx:id="fnameForm" prefHeight="25.0" prefWidth="143.0" promptText="First Name" HBox.hgrow="ALWAYS" />
+                                                <TextField fx:id="mnameForm" prefHeight="25.0" prefWidth="80.0" promptText="Middle Name" HBox.hgrow="ALWAYS" />
+                                                <TextField fx:id="lnameForm" prefHeight="25.0" prefWidth="106.0" promptText="Last Name" HBox.hgrow="ALWAYS" />
+                                                <TextField fx:id="suffixForm" prefHeight="25.0" prefWidth="23.0" promptText="Suffix" HBox.hgrow="ALWAYS" />
                                              </children>
                                           </HBox>
                                        </children>
@@ -144,7 +149,7 @@
                                                       <Font name="Poppins Regular" size="12.0" />
                                                    </font>
                                                 </Label>
-                                                <DatePicker fx:id="bdate" prefHeight="25.0" prefWidth="254.0" promptText="mm/dd/yyyy" />
+                                                <DatePicker fx:id="bdateForm" prefHeight="25.0" prefWidth="254.0" promptText="mm/dd/yyyy" />
                                              </children>
                                           </VBox>
                                           <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
@@ -153,7 +158,7 @@
                                                    <font>
                                                       <Font name="Poppins Regular" size="12.0" />
                                                    </font></Label>
-                                                <TextField fx:id="age" prefWidth="36.0" promptText="Age" />
+                                                <TextField fx:id="ageForm" prefWidth="36.0" promptText="Age" />
                                              </children>
                                           </VBox>
                                        </children>
@@ -168,10 +173,10 @@
                                              <children>
                                                 <RadioButton mnemonicParsing="false" text="Male" HBox.hgrow="ALWAYS">
                                                    <toggleGroup>
-                                                      <ToggleGroup fx:id="gender" />
+                                                      <ToggleGroup fx:id="genderForm" />
                                                    </toggleGroup>
                                                 </RadioButton>
-                                                <RadioButton mnemonicParsing="false" text="Female" toggleGroup="$gender" HBox.hgrow="ALWAYS" />
+                                                <RadioButton mnemonicParsing="false" text="Female" toggleGroup="$genderForm" HBox.hgrow="ALWAYS" />
                                              </children>
                                           </HBox>
                                        </children>
@@ -182,7 +187,7 @@
                                              <font>
                                                 <Font name="Poppins Regular" size="12.0" />
                                              </font></Label>
-                                          <TextField fx:id="nationality" promptText="Input here" />
+                                          <TextField fx:id="nationalityForm" promptText="Input here" />
                                        </children>
                                     </VBox>
                                     <VBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="267.0" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
@@ -191,17 +196,17 @@
                                              <font>
                                                 <Font name="Poppins Regular" size="12.0" />
                                              </font></Label>
-                                          <ComboBox fx:id="civilStatus" editable="true" maxWidth="1.7976931348623157E308" onAction="#selected" prefHeight="25.0" prefWidth="186.0" promptText="Select here" VBox.vgrow="ALWAYS" />
+                                          <ComboBox fx:id="civilStatusForm" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="186.0" promptText="Select here" VBox.vgrow="ALWAYS" />
                                        </children>
                                     </VBox>
-                                    <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="5">
+                                    <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="5">
                                        <children>
                                           <Label text="Birth Place :">
                                              <font>
                                                 <Font name="Poppins Regular" size="12.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="birthPlace" prefHeight="25.0" prefWidth="80.0" promptText="Complete Address" />
+                                          <TextField fx:id="birthPlaceForm" prefHeight="25.0" prefWidth="80.0" promptText="Complete Address" />
                                        </children>
                                     </VBox>
                                     <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="110.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
@@ -211,7 +216,7 @@
                                                 <Font name="Poppins Regular" size="12.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="email" prefHeight="25.0" prefWidth="80.0" promptText="Email Address" />
+                                          <TextField fx:id="emailForm" prefHeight="25.0" prefWidth="80.0" promptText="Email Address" />
                                        </children>
                                     </VBox>
                                     <VBox alignment="CENTER_LEFT" layoutX="219.0" layoutY="110.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="2">
@@ -221,7 +226,7 @@
                                                 <Font name="Poppins Regular" size="12.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="phoneNum" prefHeight="25.0" prefWidth="80.0" promptText="ex. 09123456789" />
+                                          <TextField fx:id="phoneNumForm" prefHeight="25.0" prefWidth="80.0" promptText="ex. 09123456789" />
                                        </children>
                                     </VBox>
                                     <VBox alignment="CENTER_LEFT" layoutX="374.0" layoutY="110.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
@@ -231,7 +236,7 @@
                                                 <Font name="Poppins Regular" size="12.0" />
                                              </font>
                                           </Label>
-                                          <ComboBox fx:id="voterStatus" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="207.0" promptText="Select here" VBox.vgrow="ALWAYS" />
+                                          <ComboBox fx:id="voterStatusForm" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="207.0" promptText="Select here" VBox.vgrow="ALWAYS" />
                                        </children>
                                     </VBox>
                                     <VBox alignment="CENTER_LEFT" layoutX="219.0" layoutY="110.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="1">
@@ -241,7 +246,7 @@
                                                 <Font name="Poppins Regular" size="12.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="religion" promptText="Input here" />
+                                          <TextField fx:id="religionForm" promptText="Input here" />
                                        </children>
                                     </VBox>
                                     <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="161.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="2">
@@ -251,7 +256,7 @@
                                                 <Font name="Poppins Regular" size="12.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="household" promptText="Head Name" />
+                                          <ComboBox fx:id="householdForm" editable="true" prefWidth="150.0" />
                                        </children>
                                     </VBox>
                                     <VBox alignment="CENTER_LEFT" layoutX="189.0" layoutY="161.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
@@ -261,7 +266,7 @@
                                                 <Font name="Poppins Regular" size="12.0" />
                                              </font>
                                           </Label>
-                                          <ComboBox fx:id="bloodType" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="207.0" promptText="Select here" VBox.vgrow="ALWAYS" />
+                                          <ComboBox fx:id="bloodTypeForm" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="207.0" promptText="Select here" VBox.vgrow="ALWAYS" />
                                        </children>
                                     </VBox>
                                     <HBox spacing="10.0" GridPane.columnSpan="4" GridPane.rowIndex="4">
@@ -273,7 +278,7 @@
                                                       <Font name="Poppins Regular" size="12.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField fx:id="zone" prefHeight="25.0" prefWidth="54.0" promptText="Zone Number" />
+                                                <TextField fx:id="zoneForm" prefHeight="25.0" prefWidth="54.0" promptText="Zone Number" />
                                              </children>
                                           </VBox>
                                           <VBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="311.0" HBox.hgrow="ALWAYS">
@@ -283,7 +288,7 @@
                                                       <Font name="Poppins Regular" size="12.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField fx:id="address" editable="false" prefHeight="25.0" prefWidth="80.0" promptText="Complete Address" text="BONIFACIO, SAN FERNANDO, CAMARINES SUR" />
+                                                <TextField fx:id="addressForm" editable="false" prefHeight="25.0" prefWidth="80.0" promptText="Complete Address" text="BONIFACIO, SAN FERNANDO, CAMARINES SUR" />
                                              </children>
                                           </VBox>
                                        </children>
@@ -295,17 +300,17 @@
                                                 <Font name="Poppins Regular" size="12.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="occupation" editable="false" prefHeight="25.0" prefWidth="80.0" promptText="Current Job" />
+                                          <TextField fx:id="occupationForm" prefHeight="25.0" prefWidth="80.0" promptText="Current Job" />
                                        </children>
                                     </VBox>
-                                    <VBox alignment="CENTER_LEFT" layoutX="373.0" layoutY="213.0" prefHeight="45.0" prefWidth="311.0" GridPane.columnSpan="2" GridPane.rowIndex="5">
+                                    <VBox alignment="CENTER_LEFT" layoutX="373.0" layoutY="213.0" prefHeight="45.0" prefWidth="311.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="5">
                                        <children>
                                           <Label text="Living Duration">
                                              <font>
                                                 <Font name="Poppins Regular" size="12.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="livingDuration" editable="false" prefHeight="25.0" prefWidth="80.0" promptText="Input here" />
+                                          <TextField fx:id="livingDurationForm" prefHeight="25.0" prefWidth="80.0" promptText="Input here" />
                                        </children>
                                     </VBox>
                                     <VBox alignment="CENTER_LEFT" layoutX="373.0" layoutY="107.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="2">
@@ -315,7 +320,7 @@
                                                 <Font name="Poppins Regular" size="12.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="relationshipToHead" promptText="Input here" />
+                                          <TextField fx:id="relationshipToHeadForm" promptText="Input here" />
                                        </children>
                                     </VBox>
                                     <VBox alignment="CENTER_LEFT" layoutX="189.0" layoutY="263.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="4">
@@ -325,27 +330,27 @@
                                                 <Font name="Poppins Regular" size="12.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="perIncome" prefHeight="25.0" prefWidth="80.0" promptText="₱" />
+                                          <TextField fx:id="perIncomeForm" prefHeight="25.0" prefWidth="80.0" promptText="₱" />
                                        </children>
                                     </VBox>
-                                    <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.rowIndex="5">
+                                    <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="6" GridPane.rowIndex="5">
                                        <children>
                                           <Label text="Weight :">
                                              <font>
                                                 <Font name="Poppins Regular" size="12.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="weight" prefHeight="25.0" prefWidth="80.0" promptText="kg" />
+                                          <TextField fx:id="weightForm" prefHeight="25.0" prefWidth="80.0" promptText="kg" />
                                        </children>
                                     </VBox>
-                                    <VBox alignment="CENTER_LEFT" layoutX="373.0" layoutY="263.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="5" GridPane.rowIndex="5">
+                                    <VBox alignment="CENTER_LEFT" layoutX="373.0" layoutY="263.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="7" GridPane.rowIndex="5">
                                        <children>
                                           <Label text="Height :">
                                              <font>
                                                 <Font name="Poppins Regular" size="12.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="height" prefHeight="25.0" prefWidth="80.0" promptText="cm" />
+                                          <TextField fx:id="heightForm" prefHeight="25.0" prefWidth="80.0" promptText="cm" />
                                        </children>
                                     </VBox>
                                     <VBox alignment="CENTER_LEFT" layoutX="534.0" layoutY="160.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="3">
@@ -355,7 +360,13 @@
                                                 <Font name="Poppins Regular" size="12.0" />
                                              </font>
                                           </Label>
-                                          <ComboBox fx:id="withDisability" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="207.0" promptText="Select here" VBox.vgrow="ALWAYS" />
+                                          <ComboBox fx:id="withDisabilityForm" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="207.0" promptText="Select here" VBox.vgrow="ALWAYS" />
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2" GridPane.rowIndex="5">
+                                       <children>
+                                          <Label text="Source of Income" />
+                                          <TextField fx:id="sourceIncomeForm" promptText="Input here" />
                                        </children>
                                     </VBox>
                                  </children>
@@ -384,19 +395,10 @@
                                                 <Font name="Poppins Regular" size="12.0" />
                                              </font>
                                           </Label>
-                                          <ComboBox fx:id="educationAtt" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="374.0" promptText="Select here" />
+                                          <ComboBox fx:id="educationAttForm" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="374.0" promptText="Select here" />
                                        </children>
                                     </VBox>
-                                    <VBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="311.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
-                                       <children>
-                                          <Label text="Educational Status">
-                                             <font>
-                                                <Font name="Poppins Regular" size="12.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox fx:id="educationStats" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="374.0" promptText="Select here" />
-                                       </children>
-                                    </VBox>
+                                    <VBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="311.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
                                  </children>
                               </GridPane>
                               <Label text="Parent Information">
@@ -424,7 +426,7 @@
                                                 <Font name="Poppins Regular" size="12.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="motherName" editable="false" prefHeight="25.0" prefWidth="80.0" promptText="First Name Middle Name Last Name" />
+                                          <TextField fx:id="motherNameForm" prefHeight="25.0" prefWidth="80.0" promptText="First Name Middle Name Last Name" />
                                        </children>
                                     </VBox>
                                     <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="4.0" prefHeight="45.0" prefWidth="311.0" GridPane.rowIndex="1">
@@ -434,7 +436,7 @@
                                                 <Font name="Poppins Regular" size="12.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="motherNum" editable="false" prefHeight="25.0" prefWidth="80.0" promptText="ex. 09123456789" />
+                                          <TextField fx:id="motherNumForm" prefHeight="25.0" prefWidth="80.0" promptText="ex. 09123456789" />
                                        </children>
                                     </VBox>
                                     <VBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="311.0" GridPane.columnIndex="1">
@@ -444,7 +446,7 @@
                                                 <Font name="Poppins Regular" size="12.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="fatherName" editable="false" prefHeight="25.0" prefWidth="80.0" promptText="First Name Middle Name Last Name" />
+                                          <TextField fx:id="fatherNameForm" prefHeight="25.0" prefWidth="80.0" promptText="First Name Middle Name Last Name" />
                                        </children>
                                     </VBox>
                                     <VBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="311.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -454,19 +456,19 @@
                                                 <Font name="Poppins Regular" size="12.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="fatherNum" editable="false" prefHeight="25.0" prefWidth="80.0" promptText="ex. 09123456789" />
+                                          <TextField fx:id="fatherNumForm" prefHeight="25.0" prefWidth="80.0" promptText="ex. 09123456789" />
                                        </children>
                                     </VBox>
                                  </children>
                               </GridPane>
                               <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="685.0" spacing="20.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <Button id="cancel" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#cancel" prefWidth="100.0" stylesheets="@../css/left-nav.css" text="CANCEL" textFill="WHITE" HBox.hgrow="ALWAYS">
+                                    <Button id="cancel" fx:id="cancelBtn" cancelButton="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#cancel" prefHeight="34.0" prefWidth="149.0" styleClass="btn" stylesheets="@../css/resident-report.css" text="CANCEL" textFill="WHITE" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="Poppins SemiBold" size="15.0" />
                                        </font>
                                     </Button>
-                                    <Button id="submit" alignment="CENTER" contentDisplay="RIGHT" graphicTextGap="5.0" mnemonicParsing="false" onAction="#submit" prefHeight="34.0" prefWidth="149.0" stylesheets="@../css/left-nav.css" text="SUBMIT" textFill="WHITE" HBox.hgrow="ALWAYS">
+                                    <Button id="submit" fx:id="addBtn" alignment="CENTER" contentDisplay="RIGHT" graphicTextGap="5.0" mnemonicParsing="false" onAction="#addResident" prefHeight="34.0" prefWidth="149.0" styleClass="btn" stylesheets="@../css/resident-report.css" text="SUBMIT" textFill="WHITE" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="Poppins SemiBold" size="15.0" />
                                        </font>
