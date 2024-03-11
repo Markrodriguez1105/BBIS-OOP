@@ -1,7 +1,6 @@
 package residentRecord;
 
 import java.awt.Toolkit;
-import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeParseException;
@@ -12,9 +11,6 @@ import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-import javafx.scene.input.KeyCode;
-import javafx.util.converter.NumberStringConverter;
-import org.apache.xmlbeans.impl.regex.ParseException;
 
 public class DataValidator {
     //restrict textfields to accept only numbers from user

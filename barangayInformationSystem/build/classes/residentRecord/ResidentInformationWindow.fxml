@@ -12,7 +12,7 @@
    <children>
       <AnchorPane prefHeight="712.0" prefWidth="600.0">
          <children>
-            <TableView fx:id="residentDataPreview" layoutX="53.0" layoutY="91.0" prefHeight="516.0" prefWidth="507.0">
+            <TableView fx:id="residentDataPreview" layoutX="53.0" layoutY="91.0" prefHeight="516.0" prefWidth="507.0" stylesheets="@../css/resident-report.css">
               <columns>
                 <TableColumn fx:id="basicInfoCol" prefWidth="238.39996337890625" text="Required Informations" />
                 <TableColumn fx:id="residentInfoCol" minWidth="0.0" prefWidth="269.60003662109375" text="Resident Information" />
@@ -20,10 +20,13 @@
             </TableView>
             <Label layoutX="157.0" layoutY="27.0" text="Resident Data Preview">
                <font>
-                  <Font name="Arial" size="28.0" />
+                  <Font name="Arial Bold" size="28.0" />
                </font>
             </Label>
-            <Button fx:id="updateBtn" layoutX="179.0" layoutY="624.0" mnemonicParsing="false" onAction="#updateResidentInfo" prefHeight="54.0" prefWidth="241.0" text="Update " />
+            <Button fx:id="updateBtn" layoutX="179.0" layoutY="624.0" mnemonicParsing="false" onAction="#updateResidentInfo" prefHeight="54.0" prefWidth="241.0" styleClass="btn" stylesheets="@../css/resident-report.css" text="Update ">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
          </children>
       </AnchorPane>
    </children>

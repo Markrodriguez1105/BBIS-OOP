@@ -1,13 +1,6 @@
 package residentRecord;
 
-import dashboard.*;
 import java.sql.*;
-import java.util.Comparator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.TableView;
 
 public class Database {
     
